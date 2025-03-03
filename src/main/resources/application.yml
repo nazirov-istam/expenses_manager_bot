@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: expenses-manager
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: postgresql
+  sql:
+    init:
+      mode: never
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: ${PORT}
+telegram:
+  bot:
+    token: '7582548590:AAEANHiedDffD_3A_AGhULPzdS9GMNPQ5Mw'
+    username: '@my_expenses_manager_bot'

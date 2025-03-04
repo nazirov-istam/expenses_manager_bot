@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableConfigurationProperties(BotProperties.class)
 public class ExpensesApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(ExpensesApplication.class, args);
     }

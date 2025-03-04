@@ -8,9 +8,8 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
-    database: postgresql
   sql:
     init:
       mode: never
@@ -23,3 +22,5 @@ telegram:
   bot:
     token: '7582548590:AAEANHiedDffD_3A_AGhULPzdS9GMNPQ5Mw'
     username: '@my_expenses_manager_bot'
+
+    ### spring.main.allow-circular-references

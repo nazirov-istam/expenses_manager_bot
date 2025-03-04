@@ -3,7 +3,6 @@ package com.example.expenses.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
@@ -37,8 +36,6 @@ public class User {
     private String step;
     private String language;
 
-    @CreationTimestamp
+    @Column(name = ("created_at"))
     private LocalDateTime createdAt;
-    private LocalDateTime deletedAt;
-
 }

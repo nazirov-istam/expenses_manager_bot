@@ -70,7 +70,6 @@ public class GeneralService {
         InlineKeyboardButton incomeButton = new InlineKeyboardButton();
         InlineKeyboardButton expenseButton = new InlineKeyboardButton();
         InlineKeyboardButton reportButton = new InlineKeyboardButton();
-        InlineKeyboardButton extraInfoButton = new InlineKeyboardButton();
 
         switch (language) {
             case UZBEK -> {
@@ -78,21 +77,18 @@ public class GeneralService {
                 incomeButton.setText(Messages.menuDaromadUz + " \uD83D\uDCB5");
                 expenseButton.setText(Messages.menuXarajatUz + " \uD83D\uDED2");
                 reportButton.setText(Messages.menuHisobotUz + " \uD83D\uDCC1");
-                extraInfoButton.setText(Messages.menuQoshimchaUz + " \uD83D\uDCCC");
             }
             case RUSSIAN -> {
                 profileButton.setText(Messages.menuProfilRu + " \uD83D\uDC64");
                 incomeButton.setText(Messages.menuDaromadRu + " \uD83D\uDCB5");
                 expenseButton.setText(Messages.menuXarajatRu + " \uD83D\uDED2");
                 reportButton.setText(Messages.menuHisobotRu + " \uD83D\uDCC1");
-                extraInfoButton.setText(Messages.menuQoshimchaRu + " \uD83D\uDCCC");
             }
             case ENGLISH -> {
                 profileButton.setText(Messages.menuProfilEn + " \uD83D\uDC64");
                 incomeButton.setText(Messages.menuDaromadEn + " \uD83D\uDCB5");
                 expenseButton.setText(Messages.menuXarajatEn + " \uD83D\uDED2");
                 reportButton.setText(Messages.menuHisobotEn + " \uD83D\uDCC1");
-                extraInfoButton.setText(Messages.menuQoshimchaEn + " \uD83D\uDCCC");
             }
         }
 
@@ -101,16 +97,13 @@ public class GeneralService {
         incomeButton.setCallbackData("INCOME");
         expenseButton.setCallbackData("EXPENSE");
         reportButton.setCallbackData("REPORT");
-        extraInfoButton.setCallbackData("EXTRA_INFO");
 
         // Arranging buttons into rows
         List<InlineKeyboardButton> row1 = List.of(profileButton, incomeButton);
         List<InlineKeyboardButton> row2 = List.of(expenseButton, reportButton);
-        List<InlineKeyboardButton> row3 = List.of(extraInfoButton);
 
         rows.add(row1);
         rows.add(row2);
-        rows.add(row3);
 
         inlineKeyboardMarkup.setKeyboard(rows);
         return inlineKeyboardMarkup;

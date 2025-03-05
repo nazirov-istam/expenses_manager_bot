@@ -83,29 +83,29 @@ public class MainService {
         /*else if (update.hasCallbackQuery()) {
             switch (update.getCallbackQuery().getData()) {
                 case "PROFILE" -> {
-                    sendMessage.setText("");
+                    1) Profilni kurish: firstname, lastname, username, income, outcome, createdAt
+                    2) Profil malumotlarni yangilash
                 }
                 case "EXPENSE" -> {
-
-                }
+                    1) Xarajat turini yozing;
+                    2) Xrajat miqdorini yozing(O'zbek so'mida)
+                    3) Izoh yozing(Ixtiyoriy)
+                    Hammasini qayta tashlab , tasdiqlash/rad etish buyrug'i junatiladi,
+                                }
                 case "REPORT" -> {
-
+                    1) Yillik hisobot(yillar tanlanadi)
+                    2) Oylik Hisobot(Oy tanlanadi)
+                    3) Excelda saqlangan malumotlarni junatsin.
                 }
-                case "EXTRA_INFO" -> {
-
-                }
+                case "INCOME" -> {
+                     1) Daromat manbaini kiriting.
+                     2) Daromat miqdorini kiriting.
+                     3) Izoh(Ixtiyoriy)
+                     4) Tasdiqlash.
+                     }
             }
         }
          */
         return sendMessage;
     }
 }
-
-
-/*profileButton.setCallbackData("PROFILE");
-        incomeButton.setCallbackData("INCOME");
-        expenseButton.setCallbackData("EXPENSE");
-        reportButton.setCallbackData("REPORT");
-        extraInfoButton.setCallbackData("EXTRA_INFO");
-
- */

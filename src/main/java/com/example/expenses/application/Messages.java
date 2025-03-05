@@ -184,11 +184,4 @@ public final class Messages {
     public static final String menuHisobotUz = "Hisobot";
     public static final String menuHisobotRu = "Отчёт";
     public static final String menuHisobotEn = "Report";
-
-    // Qo'shimcha ma'lumotlar
-    public static final String menuQoshimchaUz = "Qo'shimcha ma'lumotlar";
-    public static final String menuQoshimchaRu = "Дополнительная информация";
-    public static final String menuQoshimchaEn = "Additional Information";
-
-
 }

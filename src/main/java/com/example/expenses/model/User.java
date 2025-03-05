@@ -1,5 +1,7 @@
 package com.example.expenses.model;
 
+import com.example.expenses.enums.Language;
+import com.example.expenses.enums.Steps;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,21 +22,34 @@ public class User {
     @Id
     @Column(name = ("chat_id"))
     Long chatId;
+
     @Basic
     @Column(name = ("first_name"))
-    String firstName;
+    String firstname;
+
     @Basic
     @Column(name = ("last_name"))
-    String lastName;
-    @Basic
-    @Column(name = ("success"))
-    private String success;
-    @Basic
-    @Column(name = ("phone"))
-    String phone;
+    String lastname;
 
-    private String step;
-    private String language;
+    @Basic
+    @Column(name = ("username"))
+    String username;
+
+    @Basic
+    @Column(name = ("income"))
+    Double income;
+
+    @Basic
+    @Column(name = ("outcome"))
+    Double outcome;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = ("step"))
+    private Steps step;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = ("language"))
+    private Language language;
 
     @Column(name = ("created_at"))
     private LocalDateTime createdAt;

@@ -13,6 +13,10 @@ public final class Messages {
     public static final String Ru = "\uD83C\uDDF7\uD83C\uDDFA Ru";
     public static final String En = "\uD83C\uDDFA\uD83C\uDDF8 En";
 
+    public static final String welcomeMenuUz = "Siz 'Asosiy buyruqlar' qismidasiz.";
+    public static final String welcomeMenuRu = "Вы находитесь в разделе 'Основные команды'.";
+    public static final String welcomeMenuEn = "You are in the 'Main commands' section.";
+
 
     public static final String startUz = """
             👋 Salom! My Expenses Manager Bot-ga xush kelibsiz!💰
@@ -20,25 +24,34 @@ public final class Messages {
             Bu bot yordamida xarajatlaringizni kuzatishingiz, byudjetingizni nazorat qilishingiz va moliyaviy maqsadlaringizga erishishingiz mumkin.
             
             📌 Asosiy buyruqlar:
-            ✅ /add – Xarajat qo‘shish
+            ✅ /main – Asosiy buyruqlar
+            ✅ /info – Bot haqida ma'lumot olish
+            ✅ /help – Yordam
+            ✅ /langauge - Tilni o'zgartirish
             """;
 
     public static final String startRu = """
             👋 Привет! Добро пожаловать в My Expenses Manager Bot!💰
             
-            С помощью этого бота вы можете отслеживать свои расходы, контролировать бюджет и достигать своих финансовых целей.
+            С помощью этого бота вы можете отслеживать свои расходы, контролировать бюджет и достигать финансовых целей.
             
             📌 Основные команды:
-            ✅ /add – Добавить расход
+            ✅ /main – Основные команды
+            ✅ /info – Получить информацию о боте
+            ✅ /help – Помощь
+            ✅ /langauge - Изменить язык
             """;
 
     public static final String startEn = """
             👋 Hello! Welcome to My Expenses Manager Bot!💰
             
-            With this bot, you can track your expenses, control your budget, and achieve your financial goals.
+            With this bot, you can track your expenses, manage your budget, and achieve your financial goals.
             
             📌 Main commands:
-            ✅ /add – Add an expense
+            ✅ /main – Main commands
+            ✅ /info – Get information about the bot
+            ✅ /help – Help
+            ✅ /langauge - Change language
             """;
 
 
@@ -151,5 +164,31 @@ public final class Messages {
             
             📢 Take control of your finances and save more! 🚀
             """;
+
+    // Profil
+    public static final String menuProfilUz = "Profil";
+    public static final String menuProfilRu = "Профиль";
+    public static final String menuProfilEn = "Profile";
+
+    // Daromad
+    public static final String menuDaromadUz = "Daromad";
+    public static final String menuDaromadRu = "Доход";
+    public static final String menuDaromadEn = "Income";
+
+    // Xarajat
+    public static final String menuXarajatUz = "Xarajat";
+    public static final String menuXarajatRu = "Расход";
+    public static final String menuXarajatEn = "Expense";
+
+    // Hisobot
+    public static final String menuHisobotUz = "Hisobot";
+    public static final String menuHisobotRu = "Отчёт";
+    public static final String menuHisobotEn = "Report";
+
+    // Qo'shimcha ma'lumotlar
+    public static final String menuQoshimchaUz = "Qo'shimcha ma'lumotlar";
+    public static final String menuQoshimchaRu = "Дополнительная информация";
+    public static final String menuQoshimchaEn = "Additional Information";
+
 
 }

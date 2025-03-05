@@ -1,11 +1,11 @@
 package com.example.expenses.enums;
 
 public enum Steps {
-    BUDJET_TURI,
-    BUDJET_MIQDORI,
-    XARAJAT_TURI,
-    XARAJAT_MIQDORI,
-    XARAJAT_IZOHI,
+    HOME,
     LANGUAGE,
-    HOME
+    DAROMAT,
+    XARAJAT,
+    PROFILE,
+    HISOBOT,
+    QUSHIMCHA_MALUMOTLAR
 }

@@ -70,8 +70,42 @@ public class MainService {
                         case ENGLISH -> sendMessage.setText(Messages.infoEn);
                     }
                 }
+                case Commands.MAIN -> {
+                    sendMessage.setText(GeneralService.mainMenu(user.getLanguage()));
+                    sendMessage.setReplyMarkup(GeneralService.MainMenuWithCallbacks(user.getLanguage()));
+                }
+                case Commands.LANGUAGE -> { // ishlamayapti
+                    sendMessage.setText(Messages.language);
+                    sendMessage.setReplyMarkup(GeneralService.ThreeButtons(Messages.Uz, Messages.Ru, Messages.En));
+                }
             }
         }
+        /*else if (update.hasCallbackQuery()) {
+            switch (update.getCallbackQuery().getData()) {
+                case "PROFILE" -> {
+                    sendMessage.setText("");
+                }
+                case "EXPENSE" -> {
+
+                }
+                case "REPORT" -> {
+
+                }
+                case "EXTRA_INFO" -> {
+
+                }
+            }
+        }
+         */
         return sendMessage;
     }
 }
+
+
+/*profileButton.setCallbackData("PROFILE");
+        incomeButton.setCallbackData("INCOME");
+        expenseButton.setCallbackData("EXPENSE");
+        reportButton.setCallbackData("REPORT");
+        extraInfoButton.setCallbackData("EXTRA_INFO");
+
+ */

@@ -2,7 +2,7 @@ package com.example.expenses.service;
 
 import com.example.expenses.application.Commands;
 import com.example.expenses.application.Messages;
-import com.example.expenses.enums.Language;
+import com.example.expenses.enums.Steps;
 import com.example.expenses.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +15,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @RequiredArgsConstructor
 public class MainService {
     private final UserService userService;
+    private final GeneralService generalService;
 
     public SendMessage mainBot(Update update) {
         SendMessage sendMessage = new SendMessage();
@@ -24,67 +25,49 @@ public class MainService {
             String userText = update.getMessage().getText();
             sendMessage.setChatId(chatId);
             User user = userService.getCurrentUser(chatId);
-            switch (userText) {
-                case Commands.START -> {
-                    if (user == null) {
-                        userService.registerUser(update.getMessage());
-                        sendMessage.setText(Messages.language);
-                        sendMessage.setReplyMarkup(GeneralService.ThreeButtons(Messages.Uz, Messages.Ru, Messages.En));
-                    } else {
-                        switch (user.getLanguage()) {
-                            case UZBEK -> sendMessage.setText(Messages.startUzIsRegistered);
-                            case RUSSIAN -> sendMessage.setText(Messages.startRuIsRegistered);
-                            case ENGLISH -> sendMessage.setText(Messages.startEnIsRegistered);
-                            default -> sendMessage.setText("Iltimos tilni tanlang !");
-                        }
-                    }
-                }
-                case Messages.Uz, Messages.Ru, Messages.En -> {
-                    switch (userText) {
-                        case Messages.Uz:
-                            userService.saveLanguage(Language.UZBEK, chatId);
-                            sendMessage.setText(Messages.startUz);
-                            break;
-                        case Messages.Ru:
-                            userService.saveLanguage(Language.RUSSIAN, chatId);
-                            sendMessage.setText(Messages.startRu);
-                            break;
-                        case Messages.En:
-                            userService.saveLanguage(Language.ENGLISH, chatId);
-                            sendMessage.setText(Messages.startEn);
-                            break;
-                        default:
-                    }
-                }
-                case Commands.HELP -> {
-                    switch (user.getLanguage()) {
-                        case UZBEK -> sendMessage.setText(Messages.helpUz);
-                        case RUSSIAN -> sendMessage.setText(Messages.helpRu);
-                        case ENGLISH -> sendMessage.setText(Messages.helpEn);
-                    }
-                }
-                case Commands.INFO -> {
-                    switch (user.getLanguage()) {
-                        case UZBEK -> sendMessage.setText(Messages.infoUz);
-                        case RUSSIAN -> sendMessage.setText(Messages.infoRu);
-                        case ENGLISH -> sendMessage.setText(Messages.infoEn);
-                    }
-                }
-                case Commands.MAIN -> {
-                    sendMessage.setText(GeneralService.mainMenu(user.getLanguage()));
-                    sendMessage.setReplyMarkup(GeneralService.MainMenuWithCallbacks(user.getLanguage()));
-                }
-                case Commands.LANGUAGE -> { // ishlamayapti
+            if (userText.equals(Commands.START)) {
+                if (user == null) {
+                    userService.registerUser(update.getMessage());
                     sendMessage.setText(Messages.language);
-                    sendMessage.setReplyMarkup(GeneralService.ThreeButtons(Messages.Uz, Messages.Ru, Messages.En));
+                    sendMessage.setReplyMarkup(generalService.ThreeButtons(Messages.Uz, Messages.Ru, Messages.En));
+                } else {
+                    sendMessage.setText(userService.getStartMessage(user));
                 }
+            } else if (userText.equals(Messages.Uz) || userText.equals(Messages.Ru) || userText.equals(Messages.En)) {
+                user.setStep(Steps.LANGUAGE);
+                sendMessage.setText(generalService.language(userText, chatId));
+            } else if (userText.equals(Commands.HELP)) {
+                sendMessage.setText(generalService.help(user.getLanguage()));
+            } else if (userText.equals(Commands.INFO)) {
+                sendMessage.setText(generalService.info(user.getLanguage()));
+            } else if (userText.equals(Commands.MAIN)) {
+                sendMessage.setText(generalService.mainMenu(user.getLanguage()));
+            } else if (userText.equals(Messages.menuProfileUz) || userText.equals(Messages.menuProfileRu) || userText.equals(Messages.menuProfileEn)) {
+                user.setStep(Steps.PROFILE);
+                sendMessage.setReplyMarkup(generalService.TwoButtonProfile(user.getLanguage()));
+                sendMessage.setText(generalService.mainProfile(user.getLanguage()));
+            } else if (userText.equals(Messages.menuProfileViewUz) || userText.equals(Messages.menuProfileViewRu) || userText.equals(Messages.menuProfileViewEn)) {
+                user.setStep(Steps.PROFILE);
+                sendMessage.setText(userService.getInfo(chatId, user.getLanguage()));
+            } else if (userText.equals(Messages.menuProfileEditUz) || userText.equals(Messages.menuProfileEditRu) || userText.equals(Messages.menuProfileEditEn)) {
+                sendMessage.setText(generalService.editProfile(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.TwoButtonProfileEdit(user.getLanguage()));
+                user.setStep(Steps.PROFILE_EDIT);
+            } else if (userText.equals(Commands.LANGUAGE)) {
+                sendMessage.setText(Messages.language);
+                sendMessage.setReplyMarkup(generalService.ThreeButtons(Messages.Uz, Messages.Ru, Messages.En));
+            } else if ((userText.equals(Messages.backUz) || userText.equals(Messages.backRu) || userText.equals(Messages.backEn)) && user.getStep() == Steps.PROFILE_EDIT) {
+                user.setStep(Steps.PROFILE);
+                sendMessage.setReplyMarkup(generalService.TwoButtonProfile(user.getLanguage()));
+                sendMessage.setText(generalService.mainProfile(user.getLanguage()));
+            } else if ((userText.equals(Messages.backUz) || userText.equals(Messages.backRu) || userText.equals(Messages.backEn)) && user.getStep() == Steps.PROFILE) {
+                sendMessage.setText(generalService.mainMenu(user.getLanguage()));
             }
         }
-        /*else if (update.hasCallbackQuery()) {
-            switch (update.getCallbackQuery().getData()) {
+        /*
                 case "PROFILE" -> {
-                    1) Profilni kurish: firstname, lastname, username, income, outcome, createdAt
-                    2) Profil malumotlarni yangilash
+                    1) Profilni kurish: firstname, lastname, username, income, outcome, createdAt -> DONE
+                    2) Profil malumotlarni yangilash (FirstName, LastName, PhoneNumber)
                 }
                 case "EXPENSE" -> {
                     1) Xarajat turini yozing;
@@ -104,8 +87,7 @@ public class MainService {
                      4) Tasdiqlash.
                      }
             }
-        }
-         */
+        }*/
         return sendMessage;
     }
 }

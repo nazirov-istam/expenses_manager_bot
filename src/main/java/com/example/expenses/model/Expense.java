@@ -15,17 +15,17 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = ("outcome"))
-public class Outcome {
+@Table(name = ("expense"))
+public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @Basic
-    @Column(name = ("outcome_source"))
-    String outcomeSource;
+    @Column(name = ("expense_source"))
+    String expenseSource;
     @Basic
-    @Column(name = ("outcome_amount"))
-    Double outcomeAmount;
+    @Column(name = ("expense_amount"))
+    Double expenseAmount;
     @Basic
     @Column(name = ("description"))
     String description;

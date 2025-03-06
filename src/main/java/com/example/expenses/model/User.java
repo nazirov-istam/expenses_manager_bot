@@ -39,19 +39,22 @@ public class User {
     @Column(name = ("outcome"))
     Double outcome;
     @Basic
+    @Column(name = ("phone_number"))
+    String phoneNumber;
+    @Basic
     @Enumerated(EnumType.STRING)
     @Column(name = ("step"))
-    private Steps step;
+    Steps step;
     @Basic
     @Enumerated(EnumType.STRING)
     @Column(name = ("language"))
-    private Language language;
+    Language language;
     @Basic
     @Column(name = ("created_at"))
-    private LocalDateTime createdAt;
+    LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Income> incomes;
+    List<Income> incomes;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Outcome> outcomes;
+    List<Expense> outcomes;
 }

@@ -1,5 +1,6 @@
 package com.example.expenses.service;
 
+import com.example.expenses.application.Messages;
 import com.example.expenses.enums.Language;
 import com.example.expenses.enums.Steps;
 import com.example.expenses.model.User;
@@ -19,26 +20,37 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
+    public String getStartMessage(User user) {
+        if (user == null) {
+            return "Iltimos, tilni tanlang!";
+        }
+
+        return switch (user.getLanguage()) {
+            case UZBEK -> Messages.startUzIsRegistered;
+            case RUSSIAN -> Messages.startRuIsRegistered;
+            case ENGLISH -> Messages.startEnIsRegistered;
+            default -> "Iltimos, tilni tanlang!";
+        };
+    }
+
+
     public void registerUser(Message message) {
         try {
-            Optional<User> optionalUser = userRepository.findById(message.getChatId());
-            if (optionalUser.isPresent()) {
-                log.info("Foydalanuvchi avval ro'yxatdan o'tgan.");
-            }
             User user = new User();
             user.setChatId(message.getChatId());
             user.setCreatedAt(LocalDateTime.now());
             user.setIncome(0.0);
             user.setOutcome(0.0);
+            user.setPhoneNumber("Ma'lumot kiritilmagan.");
             user.setUsername(Optional.ofNullable(message.getChat())
                     .map(Chat::getUserName)
-                    .orElse("null"));
+                    .orElse("Ma'lumot kiritilmagan."));
             user.setFirstname(Optional.ofNullable(message.getChat())
                     .map(Chat::getFirstName)
-                    .orElse("null"));
+                    .orElse("Ma'lumot kiritilmagan."));
             user.setLastname(Optional.ofNullable(message.getChat())
                     .map(Chat::getLastName)
-                    .orElse("null"));
+                    .orElse("Ma'lumot kiritilmagan."));
             log.info("Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi.");
             userRepository.save(user);
         } catch (Exception e) {
@@ -73,5 +85,48 @@ public class UserService {
                 },
                 () -> log.error("Error saving user with id {}", chatId)
         );
+    }
+
+    public String getInfo(Long chatId, Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return userRepository.findById(chatId)
+                        .map(user -> String.format("""
+                                        👤 Ism: %s
+                                        🏷️ Familiya: %s
+                                        💰 Daromad miqdori: %s
+                                        💸 Xarajatlar miqdori: %s
+                                        📅 Qo'shilgan sana: %s
+                                        """, user.getFirstname(), user.getLastname(),
+                                user.getIncome().toString(), user.getOutcome().toString(), user.getCreatedAt().toString()))
+                        .orElse("Bunday foydalanuvchi mavjud emas");
+            }
+
+            case RUSSIAN -> {
+                return userRepository.findById(chatId)
+                        .map(user -> String.format("""
+                                        👤 Имя: %s
+                                        🏷️ Фамилия: %s
+                                        💰 Доход: %s
+                                        💸 Расходы: %s
+                                        📅 Дата регистрации: %s
+                                        """, user.getFirstname(), user.getLastname(),
+                                user.getIncome().toString(), user.getOutcome().toString(), user.getCreatedAt().toString()))
+                        .orElse("Такой пользователь не существует");
+            }
+            case ENGLISH -> {
+                return userRepository.findById(chatId)
+                        .map(user -> String.format("""
+                                        👤 First Name: %s
+                                        🏷️ Last Name: %s
+                                        💰 Income Amount: %s
+                                        💸 Outcome amount: %s
+                                        📅 Joined Date: %s
+                                        """, user.getFirstname(), user.getLastname(),
+                                user.getIncome().toString(), user.getOutcome().toString(), user.getCreatedAt().toString()))
+                        .orElse("Such a user does not exist");
+            }
+        }
+        return "";
     }
 }

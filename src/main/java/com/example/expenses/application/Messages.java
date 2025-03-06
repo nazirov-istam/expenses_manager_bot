@@ -13,9 +13,17 @@ public final class Messages {
     public static final String Ru = "\uD83C\uDDF7\uD83C\uDDFA Ru";
     public static final String En = "\uD83C\uDDFA\uD83C\uDDF8 En";
 
-    public static final String welcomeMenuUz = "Siz 'Asosiy buyruqlar' qismidasiz.";
+    public static final String welcomeMenuUz = "Siz 'Asosiy buyruqlar' bo'limidasiz.";
     public static final String welcomeMenuRu = "Вы находитесь в разделе 'Основные команды'.";
     public static final String welcomeMenuEn = "You are in the 'Main commands' section.";
+
+    public static final String welcomeProfileUz = "Siz 'Profil' bo'limidasiz.";
+    public static final String welcomeProfileRu = "Вы находитесь в разделе 'Профиль'.";
+    public static final String welcomeProfileEn = "You are in the 'Profile' section.";
+
+    public static final String welcomeEditProfileUz = "Siz 'Foydalanuvchi ma'lumotlarini o'zgartirish' bo'limidasiz.";
+    public static final String welcomeEditProfileRu = "Вы находитесь в разделе 'Изменение данных пользователя'.";
+    public static final String welcomeEditProfileEn = "You are in the 'Edit User Information' section.";
 
 
     public static final String startUz = """
@@ -166,22 +174,93 @@ public final class Messages {
             """;
 
     // Profil
-    public static final String menuProfilUz = "Profil";
-    public static final String menuProfilRu = "Профиль";
-    public static final String menuProfilEn = "Profile";
+    public static final String menuProfileUz = "Profil" + " \uD83D\uDC64";
+    public static final String menuProfileRu = "Профиль" + " \uD83D\uDC64";
+    public static final String menuProfileEn = "Profile" + " \uD83D\uDC64";
+
+    public static final String backUz = "Orqaga" + " ⬅️";
+    public static final String backRu = "Назад" + " ⬅️";
+    public static final String backEn = "Back" + " ⬅️";
+
+
+    public static final String menuProfileViewUz = "Foydalanuvchi ma'lumotlari" + " \uD83D\uDC64";
+    public static final String menuProfileViewRu = "Информация о пользователе" + " \uD83D\uDC64";
+    public static final String menuProfileViewEn = "User Information" + " \uD83D\uDC64";
+
+    public static final String menuProfileEditUz = "Foydalanuvchi ma'lumotlarini o'zgartirish" + " ⚙️";
+    public static final String menuProfileEditRu = "Изменить информацию о пользователе" + " ⚙️";
+    public static final String menuProfileEditEn = "Edit User Information" + " ⚙️";
+
 
     // Daromad
-    public static final String menuDaromadUz = "Daromad";
-    public static final String menuDaromadRu = "Доход";
-    public static final String menuDaromadEn = "Income";
+    public static final String menuIncomeUz = "Daromad" + " \uD83D\uDCB5";
+    public static final String menuIncomeRu = "Доход" + " \uD83D\uDCB5";
+    public static final String menuIncomeEn = "Income" + " \uD83D\uDCB5";
 
     // Xarajat
-    public static final String menuXarajatUz = "Xarajat";
-    public static final String menuXarajatRu = "Расход";
-    public static final String menuXarajatEn = "Expense";
+    public static final String menuExpenseUz = "Xarajat" + " \uD83D\uDED2";
+    public static final String menuExpenseRu = "Расход" + " \uD83D\uDED2";
+    public static final String menuExpenseEn = "Expense" + " \uD83D\uDED2";
 
     // Hisobot
-    public static final String menuHisobotUz = "Hisobot";
-    public static final String menuHisobotRu = "Отчёт";
-    public static final String menuHisobotEn = "Report";
+    public static final String menuReportUz = "Hisobot" + " \uD83D\uDCC1";
+    public static final String menuReportRu = "Отчёт" + " \uD83D\uDCC1";
+    public static final String menuReportEn = "Report" + " \uD83D\uDCC1";
+
+    // User ma'lumotlarini surash
+    public static final String askFirstNameUz = """
+            \uD83D\uDCCB Iltimos, ismingizni kiriting:
+            Namuna: Sardor
+            """;
+    public static final String askLastNameUz = """
+            \uD83D\uDCCB Iltimos, familiyangizni kiriting:
+            Namuna: Sardorov
+            """;
+    public static final String askCurrentIncomeUz = """
+            \uD83D\uDCB5 Iltimos, hozirgi daromat miqdoringizni kiriting:
+            Namuna: 10000000
+            """;
+
+    public static final String askFirstNameRu = """
+            \uD83D\uDCCB Пожалуйста, введите ваше имя:
+            Пример: Сардор
+            """;
+    public static final String askLastNameRu = """
+            \uD83D\uDCCB Пожалуйста, введите вашу фамилию:
+            Пример: Сардоров
+            """;
+    public static final String askCurrentIncomeRu = """
+            \uD83D\uDCB5 Пожалуйста, введите ваш текущий доход:
+            Пример: 10000000
+            """;
+
+    public static final String askFirstNameEn = """
+            \uD83D\uDCCB Please enter your first name:
+            Example: Sardor
+            """;
+    public static final String askLastNameEn = """
+            \uD83D\uDCCB Please enter your last name:
+            Example: Sardorov
+            """;
+    public static final String askCurrentIncomeEn = """
+            \uD83D\uDCB5 Please enter your current income amount:
+            Example: 10000000
+            """;
+
+    public static final String successSaveProfileInfoUz = "Shaxsiy ma'lumotlaringiz muvaffaqiyatli saqlandi. \nUlarni 'Profil' bo'limidan ko'rishingiz va o'zgartirishingiz mumkin.";
+    public static final String successSaveProfileInfoRu = "Ваши личные данные успешно сохранены. \nВы можете просмотреть и изменить их в разделе 'Профиль'.";
+    public static final String successSaveProfileInfoEn = "Your personal information has been successfully saved. \nYou can view and edit it in the 'Profile' section.";
+
+    public static final String editFirstNameButtonUz = "Ismni o'zgartirish ✏️";
+    public static final String editFirstNameButtonRu = "Изменить имя ✏️";
+    public static final String editFirstNameButtonEn = "Edit First Name ✏️";
+
+    public static final String editLastNameButtonUz = "Familiyani o'zgartirish ✏️";
+    public static final String editLastNameButtonRu = "Изменить фамилию ✏️";
+    public static final String editLastNameButtonEn = "Edit Last Name ✏️";
+
+    public static final String editPhoneNumberButtonUz = "Telefon raqamni o'zgartirish ✏️";
+    public static final String editPhoneNumberButtonRu = "Изменить номер телефона ✏️";
+    public static final String editPhoneNumberButtonEn = "Edit Phone Number ✏️";
+
 }

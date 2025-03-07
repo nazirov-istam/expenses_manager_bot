@@ -29,45 +29,104 @@ public class MainService {
                 if (user == null) {
                     userService.registerUser(update.getMessage());
                     sendMessage.setText(Messages.language);
-                    sendMessage.setReplyMarkup(generalService.ThreeButtons(Messages.Uz, Messages.Ru, Messages.En));
+                    sendMessage.setReplyMarkup(generalService.threeButtons(Messages.Uz, Messages.Ru, Messages.En));
                 } else {
                     sendMessage.setText(userService.getStartMessage(user));
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                 }
+                generalService.updateStep(chatId, Steps.START);
             } else if (userText.equals(Messages.Uz) || userText.equals(Messages.Ru) || userText.equals(Messages.En)) {
-                user.setStep(Steps.LANGUAGE);
+                generalService.updateStep(chatId, Steps.LANGUAGE);
                 sendMessage.setText(generalService.language(userText, chatId));
+            } else if (userText.equals(Commands.LANGUAGE)) {
+                generalService.updateStep(chatId, Steps.HOME);
+                sendMessage.setText(Messages.language);
+                sendMessage.setReplyMarkup(generalService.threeButtons(Messages.Uz, Messages.Ru, Messages.En));
             } else if (userText.equals(Commands.HELP)) {
+                generalService.updateStep(chatId, Steps.HOME);
                 sendMessage.setText(generalService.help(user.getLanguage()));
             } else if (userText.equals(Commands.INFO)) {
+                generalService.updateStep(chatId, Steps.HOME);
                 sendMessage.setText(generalService.info(user.getLanguage()));
             } else if (userText.equals(Commands.MAIN)) {
-                sendMessage.setText(generalService.mainMenu(user.getLanguage()));
+                generalService.updateStep(chatId, Steps.HOME);
+                sendMessage.setText(generalService.mainMenuWelcome(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
             } else if (userText.equals(Messages.menuProfileUz) || userText.equals(Messages.menuProfileRu) || userText.equals(Messages.menuProfileEn)) {
-                user.setStep(Steps.PROFILE);
-                sendMessage.setReplyMarkup(generalService.TwoButtonProfile(user.getLanguage()));
+                generalService.updateStep(chatId, Steps.PROFILE);
+                sendMessage.setReplyMarkup(generalService.threeButtonProfile(user.getLanguage()));
                 sendMessage.setText(generalService.mainProfile(user.getLanguage()));
             } else if (userText.equals(Messages.menuProfileViewUz) || userText.equals(Messages.menuProfileViewRu) || userText.equals(Messages.menuProfileViewEn)) {
-                user.setStep(Steps.PROFILE);
+                generalService.updateStep(chatId, Steps.PROFILE);
                 sendMessage.setText(userService.getInfo(chatId, user.getLanguage()));
-            } else if (userText.equals(Messages.menuProfileEditUz) || userText.equals(Messages.menuProfileEditRu) || userText.equals(Messages.menuProfileEditEn)) {
+            }
+
+
+            // TODO Test qilish kerak.
+            /*else if (userText.equals(Messages.menuExpenseUz) || userText.equals(Messages.menuExpenseEn) || userText.equals(Messages.menuExpenseRu)) {
+                generalService.registerExpense(chatId);
+                generalService.updateStep(chatId, Steps.EXPENSE);
+                sendMessage.setText(generalService.askExpenseSource(user.getLanguage()));
+            }else if (generalService.getStep(chatId) == Steps.EXPENSE && userText != null){
+                generalService.updateStep(chatId, Steps.ASK_EXPENSE_AMOUNT);
+                generalService.enterExpenseSource(chatId, userText);
+                sendMessage.setText(generalService.askExpenseAmount(user.getLanguage()));
+            }else if (generalService.getStep(chatId) == Steps.ASK_EXPENSE_AMOUNT && userText != null){
+                generalService.updateStep(chatId, Steps.ASK_EXPENSE_DESCRIPTION);
+                generalService.enterExpenseAmount(chatId, userText);
+                sendMessage.setText(generalService.askExpenseDescription(user.getLanguage()));
+            }else if (generalService.getStep(chatId) == Steps.ASK_EXPENSE_DESCRIPTION && userText != null){
+                generalService.updateStep(chatId, Steps.CONFIRM_EXPENSE);
+                generalService.enterExpenseDescription(chatId, userText);
+                sendMessage.setText(generalService.confirmExpense(user.getLanguage()));
+            }
+             */
+
+
+            else if (userText.equals(Messages.menuProfileEditUz) || userText.equals(Messages.menuProfileEditRu) || userText.equals(Messages.menuProfileEditEn)) {
+                generalService.updateStep(chatId, Steps.PROFILE_EDIT);
                 sendMessage.setText(generalService.editProfile(user.getLanguage()));
-                sendMessage.setReplyMarkup(generalService.TwoButtonProfileEdit(user.getLanguage()));
-                user.setStep(Steps.PROFILE_EDIT);
-            } else if (userText.equals(Commands.LANGUAGE)) {
-                sendMessage.setText(Messages.language);
-                sendMessage.setReplyMarkup(generalService.ThreeButtons(Messages.Uz, Messages.Ru, Messages.En));
-            } else if ((userText.equals(Messages.backUz) || userText.equals(Messages.backRu) || userText.equals(Messages.backEn)) && user.getStep() == Steps.PROFILE_EDIT) {
-                user.setStep(Steps.PROFILE);
-                sendMessage.setReplyMarkup(generalService.TwoButtonProfile(user.getLanguage()));
-                sendMessage.setText(generalService.mainProfile(user.getLanguage()));
-            } else if ((userText.equals(Messages.backUz) || userText.equals(Messages.backRu) || userText.equals(Messages.backEn)) && user.getStep() == Steps.PROFILE) {
-                sendMessage.setText(generalService.mainMenu(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.fourButtonProfileEdit(user.getLanguage()));
+            } else if (userText.equals(Messages.editFirstNameButtonUz) || userText.equals(Messages.editFirstNameButtonRu) || userText.equals(Messages.editFirstNameButtonEn)) {
+                generalService.updateStep(chatId, Steps.EDIT_FIRSTNAME);
+                sendMessage.setText(generalService.askNewFirstName(user.getLanguage()));
+            } else if (generalService.getStep(chatId) == Steps.EDIT_FIRSTNAME && userText != null) {
+                generalService.updateFirstName(chatId, userText);
+                sendMessage.setText(generalService.editFirstNameSuccess(user.getLanguage()));
+                generalService.updateStep(chatId, Steps.PROFILE_EDIT);
+                sendMessage.setReplyMarkup(generalService.fourButtonProfileEdit(user.getLanguage()));
+            } else if (userText.equals(Messages.editLastNameButtonUz) || userText.equals(Messages.editLastNameButtonRu) || userText.equals(Messages.editLastNameButtonEn)) {
+                generalService.updateStep(chatId, Steps.EDIT_LASTNAME);
+                sendMessage.setText(generalService.askNewLastName(user.getLanguage()));
+            } else if (generalService.getStep(chatId) == Steps.EDIT_LASTNAME && userText != null) {
+                generalService.updateLastName(chatId, userText);
+                sendMessage.setText(generalService.editLastNameSuccess(user.getLanguage()));
+                generalService.updateStep(chatId, Steps.PROFILE_EDIT);
+                sendMessage.setReplyMarkup(generalService.fourButtonProfileEdit(user.getLanguage()));
+            } else if (userText.equals(Messages.editPhoneNumberButtonUz) || userText.equals(Messages.editPhoneNumberButtonRu) || userText.equals(Messages.editPhoneNumberButtonEn)) {
+                generalService.updateStep(chatId, Steps.EDIT_PHONE_NUMBER);
+                sendMessage.setText(generalService.askNewPhoneNumber(user.getLanguage()));
+            } else if (generalService.getStep(chatId) == Steps.EDIT_PHONE_NUMBER && userText != null) {
+                generalService.updatePhoneNumber(chatId, userText);
+                sendMessage.setText(generalService.editPhoneNumberSuccess(user.getLanguage()));
+                generalService.updateStep(chatId, Steps.PROFILE_EDIT);
+                sendMessage.setReplyMarkup(generalService.fourButtonProfileEdit(user.getLanguage()));
+            } else if (userText.equals(Messages.backUz) || userText.equals(Messages.backRu) || userText.equals(Messages.backEn)) {
+                if (generalService.getStep(chatId) == Steps.PROFILE_EDIT) {
+                    generalService.updateStep(chatId, Steps.PROFILE);
+                    sendMessage.setReplyMarkup(generalService.threeButtonProfile(user.getLanguage()));
+                    sendMessage.setText(generalService.mainProfile(user.getLanguage()));
+                } else if (generalService.getStep(chatId) == Steps.PROFILE) {
+                    generalService.updateStep(chatId, Steps.HOME);
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                    sendMessage.setText(generalService.mainMenuWelcome(user.getLanguage()));
+                }
             }
         }
         /*
                 case "PROFILE" -> {
-                    1) Profilni kurish: firstname, lastname, username, income, outcome, createdAt -> DONE
-                    2) Profil malumotlarni yangilash (FirstName, LastName, PhoneNumber)
+                    1) Profilni kurish: firstname, lastname, username, income, outcome, createdAt ✅
+                    2) Profil malumotlarni yangilash (FirstName, LastName, PhoneNumber) ✅
                 }
                 case "EXPENSE" -> {
                     1) Xarajat turini yozing;

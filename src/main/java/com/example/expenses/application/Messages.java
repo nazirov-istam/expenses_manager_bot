@@ -25,6 +25,18 @@ public final class Messages {
     public static final String welcomeEditProfileRu = "Вы находитесь в разделе 'Изменение данных пользователя'.";
     public static final String welcomeEditProfileEn = "You are in the 'Edit User Information' section.";
 
+    public static final String getSuccessFirstNameEditUz = "Foydalanuvchi ismi yangilandi.";
+    public static final String getSuccessFirstNameEditRu = "Имя пользователя обновлено.";
+    public static final String getSuccessFirstNameEditEn = "User's first name has been updated.";
+
+    public static final String getSuccessLastNameEditUz = "Foydalanuvchi familiyasi yangilandi.";
+    public static final String getSuccessLastNameEditRu = "Фамилия пользователя обновлена.";
+    public static final String getSuccessLastNameEditEn = "User's last name has been updated.";
+
+    public static final String getSuccessPhoneNumberEditUz = "Foydalanuvchi telefon raqami yangilandi.";
+    public static final String getSuccessPhoneNumberEditRu = "Номер телефона пользователя обновлен.";
+    public static final String getSuccessPhoneNumberEditEn = "User's phone number has been updated.";
+
 
     public static final String startUz = """
             👋 Salom! My Expenses Manager Bot-ga xush kelibsiz!💰
@@ -35,7 +47,7 @@ public final class Messages {
             ✅ /main – Asosiy buyruqlar
             ✅ /info – Bot haqida ma'lumot olish
             ✅ /help – Yordam
-            ✅ /langauge - Tilni o'zgartirish
+            ✅ /language - Tilni o'zgartirish
             """;
 
     public static final String startRu = """
@@ -47,7 +59,7 @@ public final class Messages {
             ✅ /main – Основные команды
             ✅ /info – Получить информацию о боте
             ✅ /help – Помощь
-            ✅ /langauge - Изменить язык
+            ✅ /language - Изменить язык
             """;
 
     public static final String startEn = """
@@ -59,7 +71,7 @@ public final class Messages {
             ✅ /main – Main commands
             ✅ /info – Get information about the bot
             ✅ /help – Help
-            ✅ /langauge - Change language
+            ✅ /language - Change language
             """;
 
 
@@ -262,5 +274,30 @@ public final class Messages {
     public static final String editPhoneNumberButtonUz = "Telefon raqamni o'zgartirish ✏️";
     public static final String editPhoneNumberButtonRu = "Изменить номер телефона ✏️";
     public static final String editPhoneNumberButtonEn = "Edit Phone Number ✏️";
+
+    public static final String askNewFirstNameUz = "Iltimos, yangi ismni yozing:";
+    public static final String askNewFirstNameRu = "Пожалуйста, введите новое имя:";
+    public static final String askNewFirstNameEn = "Please enter a new first name:";
+
+    public static final String askNewLastNameUz = "Iltimos, yangi familiyangizni yozing:";
+    public static final String askNewLastNameRu = "Пожалуйста, введите новую фамилию:";
+    public static final String askNewLastNameEn = "Please enter a new surname:";
+
+    public static final String askNewPhoneNumberUz = "Iltimos, yangi telefon raqamingizni yozing:";
+    public static final String askNewPhoneNumberRu = "Пожалуйста, введите новый номер телефона:";
+    public static final String askNewPhoneNumberEn = "Please enter a new phone number:";
+
+    public static final String askExpenseSourceUz = "Iltimos, xarajat joyini kiriting:";
+    public static final String askExpenseSourceRu = "Пожалуйста, введите место расхода:";
+    public static final String askExpenseSourceEn = "Please enter the expense location:";
+
+    public static final String askExpenseAmountUz = "Iltimos, xarajat miqdorini kiriting:";
+    public static final String askExpenseAmountRu = "Пожалуйста, введите сумму расхода:";
+    public static final String askExpenseAmountEn = "Please enter the expense amount:";
+
+    public static final String askExpenseDescriptionUz = "Iltimos, xarajat uchun izoh kiriting:";
+    public static final String askExpenseDescriptionRu = "Пожалуйста, введите примечание к расходу:";
+    public static final String askExpenseDescriptionEn = "Please enter a note for the expense:";
+
 
 }

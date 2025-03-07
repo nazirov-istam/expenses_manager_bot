@@ -2,7 +2,6 @@ package com.example.expenses.service;
 
 import com.example.expenses.application.Messages;
 import com.example.expenses.enums.Language;
-import com.example.expenses.enums.Steps;
 import com.example.expenses.model.User;
 import com.example.expenses.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +20,6 @@ public class UserService {
     private final UserRepository userRepository;
 
     public String getStartMessage(User user) {
-        if (user == null) {
-            return "Iltimos, tilni tanlang!";
-        }
-
         return switch (user.getLanguage()) {
             case UZBEK -> Messages.startUzIsRegistered;
             case RUSSIAN -> Messages.startRuIsRegistered;
@@ -69,24 +64,6 @@ public class UserService {
         return userRepository.findById(chatId).orElse(null);
     }
 
-    public void saveUser(User user) {
-        try {
-            userRepository.save(user);
-        } catch (Exception e) {
-            log.error("Error saving user with id {}", user.getChatId(), e);
-        }
-    }
-
-    public void updateStep(Long chatId, Steps steps) {
-        userRepository.findById(chatId).ifPresentOrElse(
-                user -> {
-                    user.setStep(steps);
-                    userRepository.save(user);
-                },
-                () -> log.error("Error saving user with id {}", chatId)
-        );
-    }
-
     public String getInfo(Long chatId, Language language) {
         switch (language) {
             case UZBEK -> {
@@ -94,10 +71,11 @@ public class UserService {
                         .map(user -> String.format("""
                                         👤 Ism: %s
                                         🏷️ Familiya: %s
+                                        📞 Telefon raqam: %s
                                         💰 Daromad miqdori: %s
                                         💸 Xarajatlar miqdori: %s
                                         📅 Qo'shilgan sana: %s
-                                        """, user.getFirstname(), user.getLastname(),
+                                        """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
                                 user.getIncome().toString(), user.getOutcome().toString(), user.getCreatedAt().toString()))
                         .orElse("Bunday foydalanuvchi mavjud emas");
             }
@@ -107,10 +85,11 @@ public class UserService {
                         .map(user -> String.format("""
                                         👤 Имя: %s
                                         🏷️ Фамилия: %s
+                                        📞 Номер телефона: %s
                                         💰 Доход: %s
                                         💸 Расходы: %s
                                         📅 Дата регистрации: %s
-                                        """, user.getFirstname(), user.getLastname(),
+                                        """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
                                 user.getIncome().toString(), user.getOutcome().toString(), user.getCreatedAt().toString()))
                         .orElse("Такой пользователь не существует");
             }
@@ -119,14 +98,16 @@ public class UserService {
                         .map(user -> String.format("""
                                         👤 First Name: %s
                                         🏷️ Last Name: %s
+                                        📞 Phone Number: %s
                                         💰 Income Amount: %s
-                                        💸 Outcome amount: %s
+                                        💸 Outcome Amount: %s
                                         📅 Joined Date: %s
-                                        """, user.getFirstname(), user.getLastname(),
+                                        """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
                                 user.getIncome().toString(), user.getOutcome().toString(), user.getCreatedAt().toString()))
                         .orElse("Such a user does not exist");
             }
         }
         return "";
     }
+
 }

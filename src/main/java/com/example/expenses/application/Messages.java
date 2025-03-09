@@ -275,29 +275,72 @@ public final class Messages {
     public static final String editPhoneNumberButtonRu = "Изменить номер телефона ✏️";
     public static final String editPhoneNumberButtonEn = "Edit Phone Number ✏️";
 
-    public static final String askNewFirstNameUz = "Iltimos, yangi ismni yozing:";
-    public static final String askNewFirstNameRu = "Пожалуйста, введите новое имя:";
-    public static final String askNewFirstNameEn = "Please enter a new first name:";
+    public static final String askNewFirstNameUz = "Iltimos, yangi ismni yozing:\nNamuna: Jasur";
+    public static final String askNewFirstNameRu = "Пожалуйста, введите новое имя:\nПример: Jasur";
+    public static final String askNewFirstNameEn = "Please enter a new first name:\nExample: Jasur";
 
-    public static final String askNewLastNameUz = "Iltimos, yangi familiyangizni yozing:";
-    public static final String askNewLastNameRu = "Пожалуйста, введите новую фамилию:";
-    public static final String askNewLastNameEn = "Please enter a new surname:";
+    public static final String askNewLastNameUz = "Iltimos, yangi familiyangizni yozing:\nNamuna: Karimov";
+    public static final String askNewLastNameRu = "Пожалуйста, введите новую фамилию:\nПример: Karimov";
+    public static final String askNewLastNameEn = "Please enter a new surname:\nExample: Karimov";
 
-    public static final String askNewPhoneNumberUz = "Iltimos, yangi telefon raqamingizni yozing:";
-    public static final String askNewPhoneNumberRu = "Пожалуйста, введите новый номер телефона:";
-    public static final String askNewPhoneNumberEn = "Please enter a new phone number:";
+    public static final String askNewPhoneNumberUz = "Iltimos, yangi telefon raqamingizni yozing:\nNamuna: +998901234567";
+    public static final String askNewPhoneNumberRu = "Пожалуйста, введите новый номер телефона:\nПример: +998901234567";
+    public static final String askNewPhoneNumberEn = "Please enter a new phone number:\nExample: +998901234567";
 
-    public static final String askExpenseSourceUz = "Iltimos, xarajat joyini kiriting:";
-    public static final String askExpenseSourceRu = "Пожалуйста, введите место расхода:";
-    public static final String askExpenseSourceEn = "Please enter the expense location:";
+    public static final String askExpenseSourceUz = "Iltimos, xarajat joyini kiriting:\nNamuna: Supermarket";
+    public static final String askExpenseSourceRu = "Пожалуйста, введите место расхода:\nПример: Supermarket";
+    public static final String askExpenseSourceEn = "Please enter the expense location:\nExample: Supermarket";
 
-    public static final String askExpenseAmountUz = "Iltimos, xarajat miqdorini kiriting:";
-    public static final String askExpenseAmountRu = "Пожалуйста, введите сумму расхода:";
-    public static final String askExpenseAmountEn = "Please enter the expense amount:";
+    public static final String askExpenseAmountUz = "Iltimos, xarajat miqdorini kiriting (so‘mda):\nNamuna: 150000";
+    public static final String askExpenseAmountRu = "Пожалуйста, введите сумму расхода (в сумах):\nПример: 150000";
+    public static final String askExpenseAmountEn = "Please enter the expense amount (in UZS):\nExample: 150000";
 
-    public static final String askExpenseDescriptionUz = "Iltimos, xarajat uchun izoh kiriting:";
-    public static final String askExpenseDescriptionRu = "Пожалуйста, введите примечание к расходу:";
-    public static final String askExpenseDescriptionEn = "Please enter a note for the expense:";
+    public static final String askExpenseDescriptionUz = "Iltimos, xarajat uchun izoh kiriting:\nNamuna: Non va sut uchun";
+    public static final String askExpenseDescriptionRu = "Пожалуйста, введите примечание к расходу:\nПример: Non va sut uchun";
+    public static final String askExpenseDescriptionEn = "Please enter a note for the expense:\nExample: Non va sut uchun";
 
+    public static final String successSaveExpenseUz = "Xarajat ma'lumotlaringiz muvaffaqiyatli saqlandi.";
+    public static final String successSaveExpenseRu = "Ваши данные о расходах успешно сохранены.";
+    public static final String successSaveExpenseEn = "Your expense details have been successfully saved.";
+
+    public static final String failedSaveExpenseUz = "Xarajat ma'lumotlaringiz saqlanmadi.";
+    public static final String failedSaveExpenseRu = "Ваши данные о расходах не были сохранены.";
+    public static final String failedSaveExpenseEn = "Your expense details were not saved.";
+
+    public static final String expenseInfoUz = """
+            ✅ Xarajat ma'lumotlari:
+            📍 Xarajat joyi: %s
+            💰 Xarajat miqdori: %.2f so'm
+            📝 Izoh: %s
+            
+            ❓ Ushbu ma'lumotlarni tasdiqlaysizmi?
+            """;
+
+    public static final String expenseInfoRu = """
+            ✅ Данные о расходе:
+            📍 Место расхода: %s
+            💰 Сумма расхода: %.2f сум
+            📝 Описание: %s
+            
+            ❓ Вы подтверждаете эти данные?
+            """;
+
+    public static final String expenseInfoEn = """
+            ✅ Expense details:
+            📍 Expense location: %s
+            💰 Expense amount: %.2f UZS
+            📝 Description: %s
+            
+            ❓ Do you confirm these details?
+            """;
+
+    public static final String confirmMessageUz = "Tasdiqlash ✅";
+    public static final String declineMessageUz = "Rad etish ❌";
+
+    public static final String confirmMessageRu = "Подтвердить ✅";
+    public static final String declineMessageRu = "Отклонить ❌";
+
+    public static final String confirmMessageEn = "Confirm ✅";
+    public static final String declineMessageEn = "Decline ❌";
 
 }

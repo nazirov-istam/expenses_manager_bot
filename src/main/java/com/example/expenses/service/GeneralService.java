@@ -4,6 +4,7 @@ import com.example.expenses.application.Messages;
 import com.example.expenses.enums.Language;
 import com.example.expenses.enums.Steps;
 import com.example.expenses.model.Expense;
+import com.example.expenses.model.User;
 import com.example.expenses.repository.ExpenseRepository;
 import com.example.expenses.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -244,13 +245,28 @@ public class GeneralService {
     public String confirmExpense(Language language) {
         switch (language) {
             case UZBEK -> {
-                return Messages.askExpenseDescriptionUz;
+                return Messages.successSaveExpenseUz;
             }
             case RUSSIAN -> {
-                return Messages.askExpenseDescriptionRu;
+                return Messages.successSaveExpenseRu;
             }
             case ENGLISH -> {
-                return Messages.askExpenseDescriptionEn;
+                return Messages.successSaveExpenseEn;
+            }
+        }
+        return "";
+    }
+
+    public String declineExpense(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.failedSaveExpenseUz;
+            }
+            case RUSSIAN -> {
+                return Messages.failedSaveExpenseRu;
+            }
+            case ENGLISH -> {
+                return Messages.failedSaveExpenseEn;
             }
         }
         return "";
@@ -309,6 +325,39 @@ public class GeneralService {
         rows.add(row1);
         rows.add(row2);
 
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setKeyboard(rows);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
+        return replyKeyboardMarkup;
+    }
+
+    public ReplyKeyboardMarkup twoButtons(Language language) {
+        KeyboardButton confirmButton = new KeyboardButton();
+        KeyboardButton declineButton = new KeyboardButton();
+
+        switch (language) {
+            case UZBEK -> {
+                confirmButton.setText(Messages.confirmMessageUz);
+                declineButton.setText(Messages.declineMessageUz);
+            }
+            case RUSSIAN -> {
+                confirmButton.setText(Messages.confirmMessageRu);
+                declineButton.setText(Messages.declineMessageRu);
+            }
+            case ENGLISH -> {
+                confirmButton.setText(Messages.confirmMessageEn);
+                declineButton.setText(Messages.declineMessageEn);
+            }
+        }
+
+
+        KeyboardRow row1 = new KeyboardRow();
+        row1.add(confirmButton);
+        row1.add(declineButton);
+        ArrayList<KeyboardRow> rows = new ArrayList<>();
+        rows.add(row1);
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         replyKeyboardMarkup.setKeyboard(rows);
         replyKeyboardMarkup.setResizeKeyboard(true);
@@ -496,42 +545,115 @@ public class GeneralService {
         try {
             Expense expense = new Expense();
             expense.setUser(userService.getCurrentUser(chatId));
-            expense.setExpenseSource(null);
-            expense.setExpenseAmount(null);
-            expense.setDescription(null);
+            expense.setExpenseSource("Noma'lum");
+            expense.setExpenseAmount(0.0);
+            expense.setDescription("Izoh yo'q");
             expense.setCreatedAt(LocalDateTime.now());
-            log.info("Xarajat muvaffaqiyatli ro'yxatdan o'tdi.");
+
             expenseRepository.save(expense);
+            log.info("Xarajat muvaffaqiyatli ro'yxatdan o'tdi: {}", expense);
         } catch (Exception e) {
-            log.error("Xarajatni ro'yxatdan o'tkazishda xatolik ro'y berdi.");
-            throw new RuntimeException();
+            log.error("Xarajatni ro'yxatdan o'tkazishda xatolik ro'y berdi: {}", e.getMessage());
+            throw new RuntimeException("Xarajat ro'yxatdan o'tkazilmadi.", e);
         }
     }
 
     public void enterExpenseSource(Long chatId, String expenseSource) {
-        if (userService.getCurrentUser(chatId) != null) {
-            Expense expense = expenseRepository.findByUser(userService.getCurrentUser(chatId));
-            expense.setExpenseSource(expenseSource);
+        User user = userService.getCurrentUser(chatId);
+        if (user != null) {
+            Expense expense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
+            if (expense != null) {
+                expense.setExpenseSource(expenseSource);
+                expenseRepository.save(expense);
+                log.info("Xarajat joyi yangilandi: {}", expenseSource);
+            } else {
+                log.warn("Foydalanuvchiga tegishli hech qanday xarajat topilmadi: chatId={}", chatId);
+            }
         } else {
-            log.warn("Bunday foydalanuvchi mavjud emas");
+            log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
         }
     }
 
-    public void enterExpenseAmount(Long chatId, String expenseSource) {
-        if (userService.getCurrentUser(chatId) != null) {
-            Expense expense = expenseRepository.findByUser(userService.getCurrentUser(chatId));
-            expense.setExpenseAmount(Double.parseDouble(expenseSource));
+
+    public void enterExpenseAmount(Long chatId, String expenseAmount) {
+        User user = userService.getCurrentUser(chatId);
+        if (user != null) {
+            Expense expense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
+            if (expense != null) {
+                try {
+                    expense.setExpenseAmount(Double.parseDouble(expenseAmount));
+                    expenseRepository.save(expense);
+                    log.info("Xarajat miqdori yangilandi: {}", expenseAmount);
+                } catch (NumberFormatException e) {
+                    log.warn("Noto‘g‘ri raqam formati: {}", expenseAmount);
+                }
+            } else {
+                log.warn("Foydalanuvchiga tegishli hech qanday xarajat topilmadi: chatId={}", chatId);
+            }
         } else {
-            log.warn("Bunday foydalanuvchi mavjud emas");
+            log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
         }
     }
 
     public void enterExpenseDescription(Long chatId, String description) {
-        if (userService.getCurrentUser(chatId) != null) {
-            Expense expense = expenseRepository.findByUser(userService.getCurrentUser(chatId));
-            expense.setDescription(description);
+        User user = userService.getCurrentUser(chatId);
+        if (user != null) {
+            Expense expense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
+            if (expense != null) {
+                expense.setDescription(description);
+                expenseRepository.save(expense);
+                log.info("Xarajat tavsifi yangilandi: {}", description);
+            } else {
+                log.warn("Foydalanuvchiga tegishli hech qanday xarajat topilmadi: chatId={}", chatId);
+            }
         } else {
-            log.warn("Bunday foydalanuvchi mavjud emas");
+            log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
+        }
+    }
+
+    public String confirmationExpense(Long chatId) {
+        User user = userService.getCurrentUser(chatId);
+        if (user != null) {
+            Expense expense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
+            if (expense != null) {
+                return switch (user.getLanguage()) {
+                    case UZBEK -> Messages.expenseInfoUz.formatted(
+                            expense.getExpenseSource(),
+                            expense.getExpenseAmount(),
+                            expense.getDescription()
+                    );
+                    case ENGLISH -> Messages.expenseInfoEn.formatted(
+                            expense.getExpenseSource(),
+                            expense.getExpenseAmount(),
+                            expense.getDescription()
+                    );
+                    case RUSSIAN -> Messages.expenseInfoRu.formatted(
+                            expense.getExpenseSource(),
+                            expense.getExpenseAmount(),
+                            expense.getDescription()
+                    );
+                };
+            } else {
+                log.warn("Foydalanuvchiga tegishli hech qanday xarajat topilmadi: chatId={}", chatId);
+            }
+        } else {
+            log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
+        }
+        return "Xarajat ma'lumotlari topilmadi."; // Agar hech narsa topilmasa, default xabar qaytariladi
+    }
+
+    public void declineExpenseMethod(Long chatId) {
+        User user = userService.getCurrentUser(chatId);
+        if (user != null) {
+            Expense lastExpense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
+            if (lastExpense != null) {
+                expenseRepository.delete(lastExpense);
+                log.info("Oxirgi qo‘shilgan xarajat o‘chirildi: {}", lastExpense);
+            } else {
+                log.warn("Foydalanuvchiga tegishli hech qanday xarajat topilmadi: chatId={}", chatId);
+            }
+        } else {
+            log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
         }
     }
 }

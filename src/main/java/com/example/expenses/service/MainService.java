@@ -59,31 +59,35 @@ public class MainService {
             } else if (userText.equals(Messages.menuProfileViewUz) || userText.equals(Messages.menuProfileViewRu) || userText.equals(Messages.menuProfileViewEn)) {
                 generalService.updateStep(chatId, Steps.PROFILE);
                 sendMessage.setText(userService.getInfo(chatId, user.getLanguage()));
-            }
-
-
-            // TODO Test qilish kerak.
-            /*else if (userText.equals(Messages.menuExpenseUz) || userText.equals(Messages.menuExpenseEn) || userText.equals(Messages.menuExpenseRu)) {
+            } else if (userText.equals(Messages.menuExpenseUz) || userText.equals(Messages.menuExpenseEn) || userText.equals(Messages.menuExpenseRu)) {
                 generalService.registerExpense(chatId);
                 generalService.updateStep(chatId, Steps.EXPENSE);
                 sendMessage.setText(generalService.askExpenseSource(user.getLanguage()));
-            }else if (generalService.getStep(chatId) == Steps.EXPENSE && userText != null){
+            } else if (generalService.getStep(chatId) == Steps.EXPENSE && userText != null) {
                 generalService.updateStep(chatId, Steps.ASK_EXPENSE_AMOUNT);
                 generalService.enterExpenseSource(chatId, userText);
                 sendMessage.setText(generalService.askExpenseAmount(user.getLanguage()));
-            }else if (generalService.getStep(chatId) == Steps.ASK_EXPENSE_AMOUNT && userText != null){
+            } else if (generalService.getStep(chatId) == Steps.ASK_EXPENSE_AMOUNT && userText != null) {
                 generalService.updateStep(chatId, Steps.ASK_EXPENSE_DESCRIPTION);
                 generalService.enterExpenseAmount(chatId, userText);
                 sendMessage.setText(generalService.askExpenseDescription(user.getLanguage()));
-            }else if (generalService.getStep(chatId) == Steps.ASK_EXPENSE_DESCRIPTION && userText != null){
-                generalService.updateStep(chatId, Steps.CONFIRM_EXPENSE);
+            } else if (generalService.getStep(chatId) == Steps.ASK_EXPENSE_DESCRIPTION && userText != null) {
                 generalService.enterExpenseDescription(chatId, userText);
-                sendMessage.setText(generalService.confirmExpense(user.getLanguage()));
-            }
-             */
-
-
-            else if (userText.equals(Messages.menuProfileEditUz) || userText.equals(Messages.menuProfileEditRu) || userText.equals(Messages.menuProfileEditEn)) {
+                generalService.updateStep(chatId, Steps.ASK_CONFIRMATION_EXPENSE);
+                sendMessage.setText(generalService.confirmationExpense(chatId));
+                sendMessage.setReplyMarkup(generalService.twoButtons(user.getLanguage()));
+            } else if (generalService.getStep(chatId) == Steps.ASK_CONFIRMATION_EXPENSE && userText != null) {
+                if (userText.equals(Messages.confirmMessageUz) || userText.equals(Messages.confirmMessageRu) || userText.equals(Messages.confirmMessageEn)) {
+                    generalService.updateStep(chatId, Steps.HOME);
+                    sendMessage.setText(generalService.confirmExpense(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                } else {
+                    generalService.declineExpenseMethod(chatId);
+                    generalService.updateStep(chatId, Steps.HOME);
+                    sendMessage.setText(generalService.declineExpense(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                }
+            } else if (userText.equals(Messages.menuProfileEditUz) || userText.equals(Messages.menuProfileEditRu) || userText.equals(Messages.menuProfileEditEn)) {
                 generalService.updateStep(chatId, Steps.PROFILE_EDIT);
                 sendMessage.setText(generalService.editProfile(user.getLanguage()));
                 sendMessage.setReplyMarkup(generalService.fourButtonProfileEdit(user.getLanguage()));

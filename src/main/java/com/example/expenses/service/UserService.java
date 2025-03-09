@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Slf4j
@@ -31,9 +32,11 @@ public class UserService {
 
     public void registerUser(Message message) {
         try {
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             User user = new User();
             user.setChatId(message.getChatId());
-            user.setCreatedAt(LocalDateTime.now());
+            user.setCreatedAt(LocalDateTime.now().format(formatter));
             user.setIncome(0.0);
             user.setOutcome(0.0);
             user.setPhoneNumber("Ma'lumot kiritilmagan.");

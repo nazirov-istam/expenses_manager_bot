@@ -51,7 +51,7 @@ public class User {
     Language language;
     @Basic
     @Column(name = ("created_at"))
-    LocalDateTime createdAt;
+    String createdAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Income> incomes;

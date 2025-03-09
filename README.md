@@ -1,30 +1,30 @@
-My Expenses Manager Bot
-🚀 @my_expenses_manager_bot – A Telegram bot designed to help users efficiently manage their expenses, track spending, and gain financial insights.
+My Expenses Manager Bot 🤖💰
 
-Features
-✅ Add and categorize expenses easily
-✅ View detailed expense reports
-✅ Track spending trends over time
-✅ Secure and user-friendly
+📌 About the Bot
+My Expenses Manager Bot helps you efficiently track your income and expenses directly from Telegram. It allows you to:
+✅ Add income and expenses in a structured way.
+✅ Edit or delete transactions.
+✅ View total balance, income, and expense reports.
+✅ Support for multiple languages (Uzbek, Russian, English).
 
-Technology Stack
-Java (Spring Boot) – Backend
-PostgreSQL – Database
-Telegram Bot API – Bot integration
-Docker – Deployment (Have not deployed!)
+🚀 Features
 
-Try to work this work:
-https://t.me/my_expenses_manager_bot
+📍 Add transactions – Log your expenses and income easily.
+📊 Track your balance – Get a clear overview of your finances.
+📝 Edit or delete transactions – Modify mistakes effortlessly.
+🌍 Multi-language support – Uzbek, Russian, and English.
+🔒 Secure and user-friendly – Your data is safe and easy to access.
 
-Configure application.properties with your bot token and database credentials.
-Run the application:
-mvn spring-boot:run
+🛠 How to Use
+1️⃣ Start the bot by clicking 👉 https://t.me/my_expenses_manager_bot.
+2️⃣ Choose your preferred language.
+3️⃣ Use the menu options to add, edit, or delete transactions.
+4️⃣ View your balance and transaction history anytime.
 
-Usage
-Start a chat with @my_expenses_manager_bot on Telegram and follow the commands to manage your expenses.
+🛠 Tech Stack
+Backend: Java, Spring Boot, Telegram Bots API
+Database: PostgreSQL
+Deployment: Cloud Server / Docker (if applicable)
 
-Contributing
-Feel free to submit issues or contribute via pull requests!
-
-License
-📜 MIT License
+📬 Contact & Support
+📩 If you have any questions or suggestions, feel free to contact me on Telegram or open an issue in this repository.

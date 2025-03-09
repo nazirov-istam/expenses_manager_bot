@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = ("id"))
     Long id;
     @Basic
     @Column(name = ("expense_source"))

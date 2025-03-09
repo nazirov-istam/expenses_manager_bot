@@ -36,8 +36,11 @@ public class User {
     @Column(name = ("income"))
     Double income;
     @Basic
-    @Column(name = ("outcome"))
-    Double outcome;
+    @Column(name = ("expense"))
+    Double expense;
+    @Basic
+    @Column(name = ("total_balance"))
+    Double totalBalance;
     @Basic
     @Column(name = ("phone_number"))
     String phoneNumber;

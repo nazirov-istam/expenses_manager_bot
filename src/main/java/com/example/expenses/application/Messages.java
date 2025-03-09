@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 @Component
 public final class Messages {
     public static final String language = """
-            \uD83C\uDDFA\uD83C\uDDFF Tilni tanlang !!!
-            \uD83C\uDDF7\uD83C\uDDFA Выберите язык !!!
-            \uD83C\uDDFA\uD83C\uDDF8 Select a language !!!
+            \uD83C\uDDFA\uD83C\uDDFF Tilni tanlang !
+            \uD83C\uDDF7\uD83C\uDDFA Выберите язык !
+            \uD83C\uDDFA\uD83C\uDDF8 Select a language !
             """;
     public static final String Uz = "\uD83C\uDDFA\uD83C\uDDFF Uz";
     public static final String Ru = "\uD83C\uDDF7\uD83C\uDDFA Ru";
@@ -195,13 +195,13 @@ public final class Messages {
     public static final String backEn = "Back" + " ⬅️";
 
 
-    public static final String menuProfileViewUz = "Foydalanuvchi ma'lumotlari" + " \uD83D\uDC64";
-    public static final String menuProfileViewRu = "Информация о пользователе" + " \uD83D\uDC64";
-    public static final String menuProfileViewEn = "User Information" + " \uD83D\uDC64";
+    public static final String menuProfileViewUz = "Profil ma'lumotlari \uD83D\uDC64";
+    public static final String menuProfileViewRu = "Профиль \uD83D\uDC64";
+    public static final String menuProfileViewEn = "Profile Info \uD83D\uDC64";
 
-    public static final String menuProfileEditUz = "Foydalanuvchi ma'lumotlarini o'zgartirish" + " ⚙️";
-    public static final String menuProfileEditRu = "Изменить информацию о пользователе" + " ⚙️";
-    public static final String menuProfileEditEn = "Edit User Information" + " ⚙️";
+    public static final String menuProfileEditUz = "Profilni tahrirlash ⚙️";
+    public static final String menuProfileEditRu = "Редактировать профиль ⚙️";
+    public static final String menuProfileEditEn = "Edit Profile ⚙️";
 
 
     // Daromad
@@ -263,17 +263,17 @@ public final class Messages {
     public static final String successSaveProfileInfoRu = "Ваши личные данные успешно сохранены. \nВы можете просмотреть и изменить их в разделе 'Профиль'.";
     public static final String successSaveProfileInfoEn = "Your personal information has been successfully saved. \nYou can view and edit it in the 'Profile' section.";
 
-    public static final String editFirstNameButtonUz = "Ismni o'zgartirish ✏️";
-    public static final String editFirstNameButtonRu = "Изменить имя ✏️";
-    public static final String editFirstNameButtonEn = "Edit First Name ✏️";
+    public static final String editFirstNameButtonUz = "Ismni tahrirlash ✏️";
+    public static final String editFirstNameButtonRu = "Имя ✏️";
+    public static final String editFirstNameButtonEn = "Edit Name ✏️";
 
-    public static final String editLastNameButtonUz = "Familiyani o'zgartirish ✏️";
-    public static final String editLastNameButtonRu = "Изменить фамилию ✏️";
-    public static final String editLastNameButtonEn = "Edit Last Name ✏️";
+    public static final String editLastNameButtonUz = "Familiyani tahrirlash ✏️";
+    public static final String editLastNameButtonRu = "Фамилия ✏️";
+    public static final String editLastNameButtonEn = "Edit Surname ✏️";
 
-    public static final String editPhoneNumberButtonUz = "Telefon raqamni o'zgartirish ✏️";
-    public static final String editPhoneNumberButtonRu = "Изменить номер телефона ✏️";
-    public static final String editPhoneNumberButtonEn = "Edit Phone Number ✏️";
+    public static final String editPhoneNumberButtonUz = "Telefon raqamni tahrirlash ✏️";
+    public static final String editPhoneNumberButtonRu = "Телефон ✏️";
+    public static final String editPhoneNumberButtonEn = "Edit Phone ✏️";
 
     public static final String askNewFirstNameUz = "Iltimos, yangi ismni yozing:\nNamuna: Jasur";
     public static final String askNewFirstNameRu = "Пожалуйста, введите новое имя:\nПример: Jasur";
@@ -307,32 +307,87 @@ public final class Messages {
     public static final String failedSaveExpenseRu = "Ваши данные о расходах не были сохранены.";
     public static final String failedSaveExpenseEn = "Your expense details were not saved.";
 
+    public static final String askIncomeSourceUz = "Iltimos, daromad manbasini kiriting:\nNamuna: Ish haqi";
+    public static final String askIncomeSourceRu = "Пожалуйста, введите источник дохода:\nПример: Зарплата";
+    public static final String askIncomeSourceEn = "Please enter the income source:\nExample: Salary";
+
+    public static final String askIncomeAmountUz = "Iltimos, daromad miqdorini kiriting (so‘mda):\nNamuna: 2000000";
+    public static final String askIncomeAmountRu = "Пожалуйста, введите сумму дохода (в сумах):\nПример: 2000000";
+    public static final String askIncomeAmountEn = "Please enter the income amount (in UZS):\nExample: 2000000";
+
+    public static final String askIncomeDescriptionUz = "Iltimos, daromad uchun izoh kiriting:\nNamuna: Bonus yoki qo‘shimcha daromad";
+    public static final String askIncomeDescriptionRu = "Пожалуйста, введите примечание к доходу:\nПример: Бонус или дополнительный доход";
+    public static final String askIncomeDescriptionEn = "Please enter a note for the income:\nExample: Bonus or additional income";
+
+    public static final String successSaveIncomeUz = "Daromad ma'lumotlaringiz muvaffaqiyatli saqlandi.";
+    public static final String successSaveIncomeRu = "Ваши данные о доходах успешно сохранены.";
+    public static final String successSaveIncomeEn = "Your income details have been successfully saved.";
+
+    public static final String failedSaveIncomeUz = "Daromad ma'lumotlaringiz saqlanmadi.";
+    public static final String failedSaveIncomeRu = "Ваши данные о доходах не были сохранены.";
+    public static final String failedSaveIncomeEn = "Your income details were not saved.";
+
+
     public static final String expenseInfoUz = """
             ✅ Xarajat ma'lumotlari:
+            
             📍 Xarajat joyi: %s
             💰 Xarajat miqdori: %.2f so'm
             📝 Izoh: %s
             
-            ❓ Ushbu ma'lumotlarni tasdiqlaysizmi?
+            Ushbu ma'lumotlarni tasdiqlaysizmi?
             """;
 
     public static final String expenseInfoRu = """
             ✅ Данные о расходе:
+            
             📍 Место расхода: %s
             💰 Сумма расхода: %.2f сум
             📝 Описание: %s
             
-            ❓ Вы подтверждаете эти данные?
+            Вы подтверждаете эти данные?
             """;
 
     public static final String expenseInfoEn = """
             ✅ Expense details:
+            
             📍 Expense location: %s
             💰 Expense amount: %.2f UZS
             📝 Description: %s
             
-            ❓ Do you confirm these details?
+            Do you confirm these details?
             """;
+
+    public static final String incomeInfoUz = """
+            ✅ Daromad ma'lumotlari:
+            
+            📍 Daromad manbasi: %s
+            💰 Daromad miqdori: %.2f so'm
+            📝 Izoh: %s
+            
+            Ushbu ma'lumotlarni tasdiqlaysizmi?
+            """;
+
+    public static final String incomeInfoRu = """
+            ✅ Данные о доходе:
+            
+            📍 Источник дохода: %s
+            💰 Сумма дохода: %.2f сум
+            📝 Описание: %s
+            
+            Вы подтверждаете эти данные?
+            """;
+
+    public static final String incomeInfoEn = """
+            ✅ Income details:
+            
+            📍 Income source: %s
+            💰 Income amount: %.2f UZS
+            📝 Description: %s
+            
+            Do you confirm these details?
+            """;
+
 
     public static final String confirmMessageUz = "Tasdiqlash ✅";
     public static final String declineMessageUz = "Rad etish ❌";

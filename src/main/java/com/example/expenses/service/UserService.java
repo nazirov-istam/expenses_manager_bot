@@ -38,7 +38,8 @@ public class UserService {
             user.setChatId(message.getChatId());
             user.setCreatedAt(LocalDateTime.now().format(formatter));
             user.setIncome(0.0);
-            user.setOutcome(0.0);
+            user.setExpense(0.0);
+            user.setTotalBalance(0.0);
             user.setPhoneNumber("Ma'lumot kiritilmagan.");
             user.setUsername(Optional.ofNullable(message.getChat())
                     .map(Chat::getUserName)
@@ -68,49 +69,45 @@ public class UserService {
     }
 
     public String getInfo(Long chatId, Language language) {
-        switch (language) {
-            case UZBEK -> {
-                return userRepository.findById(chatId)
-                        .map(user -> String.format("""
+        return userRepository.findById(chatId)
+                .map(user -> {
+                    return switch (language) {
+                        case UZBEK -> String.format("""
                                         👤 Ism: %s
                                         🏷️ Familiya: %s
                                         📞 Telefon raqam: %s
                                         💰 Daromad miqdori: %s
                                         💸 Xarajatlar miqdori: %s
+                                        💵 Umumiy balans: %s
                                         📅 Qo'shilgan sana: %s
                                         """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
-                                user.getIncome().toString(), user.getOutcome().toString(), user.getCreatedAt().toString()))
-                        .orElse("Bunday foydalanuvchi mavjud emas");
-            }
-
-            case RUSSIAN -> {
-                return userRepository.findById(chatId)
-                        .map(user -> String.format("""
+                                user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt());
+                        case RUSSIAN -> String.format("""
                                         👤 Имя: %s
                                         🏷️ Фамилия: %s
                                         📞 Номер телефона: %s
                                         💰 Доход: %s
                                         💸 Расходы: %s
+                                        💵 Общий баланс: %s
                                         📅 Дата регистрации: %s
                                         """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
-                                user.getIncome().toString(), user.getOutcome().toString(), user.getCreatedAt().toString()))
-                        .orElse("Такой пользователь не существует");
-            }
-            case ENGLISH -> {
-                return userRepository.findById(chatId)
-                        .map(user -> String.format("""
+                                user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt());
+                        case ENGLISH -> String.format("""
                                         👤 First Name: %s
                                         🏷️ Last Name: %s
                                         📞 Phone Number: %s
                                         💰 Income Amount: %s
-                                        💸 Outcome Amount: %s
+                                        💸 Expense Amount: %s
+                                        💵 Total Balance: %s
                                         📅 Joined Date: %s
                                         """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
-                                user.getIncome().toString(), user.getOutcome().toString(), user.getCreatedAt().toString()))
-                        .orElse("Such a user does not exist");
-            }
-        }
-        return "";
+                                user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt());
+                    };
+                })
+                .orElse(switch (language) {
+                    case UZBEK -> "Bunday foydalanuvchi mavjud emas";
+                    case RUSSIAN -> "Такой пользователь не существует";
+                    case ENGLISH -> "Such a user does not exist";
+                });
     }
-
 }

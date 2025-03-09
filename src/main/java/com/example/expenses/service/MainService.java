@@ -59,6 +59,34 @@ public class MainService {
             } else if (userText.equals(Messages.menuProfileViewUz) || userText.equals(Messages.menuProfileViewRu) || userText.equals(Messages.menuProfileViewEn)) {
                 generalService.updateStep(chatId, Steps.PROFILE);
                 sendMessage.setText(userService.getInfo(chatId, user.getLanguage()));
+            } else if (userText.equals(Messages.menuIncomeUz) || userText.equals(Messages.menuIncomeRu) || userText.equals(Messages.menuIncomeEn)) {
+                generalService.registerIncome(chatId);
+                generalService.updateStep(chatId, Steps.INCOME);
+                sendMessage.setText(generalService.askIncomeSource(user.getLanguage()));
+            } else if (generalService.getStep(chatId) == Steps.INCOME && userText != null) {
+                generalService.updateStep(chatId, Steps.ASK_INCOME_AMOUNT);
+                generalService.enterIncomeSource(chatId, userText);
+                sendMessage.setText(generalService.askIncomeAmount(user.getLanguage()));
+            } else if (generalService.getStep(chatId) == Steps.ASK_INCOME_AMOUNT && userText != null) {
+                generalService.updateStep(chatId, Steps.ASK_INCOME_DESCRIPTION);
+                generalService.enterIncomeAmount(chatId, userText);
+                sendMessage.setText(generalService.askIncomeDescription(user.getLanguage()));
+            } else if (generalService.getStep(chatId) == Steps.ASK_INCOME_DESCRIPTION && userText != null) {
+                generalService.enterIncomeDescription(chatId, userText);
+                generalService.updateStep(chatId, Steps.ASK_CONFIRMATION_INCOME);
+                sendMessage.setText(generalService.confirmationIncome(chatId));
+                sendMessage.setReplyMarkup(generalService.twoButtons(user.getLanguage()));
+            } else if (generalService.getStep(chatId) == Steps.ASK_CONFIRMATION_INCOME && userText != null) {
+                if (userText.equals(Messages.confirmMessageUz) || userText.equals(Messages.confirmMessageRu) || userText.equals(Messages.confirmMessageEn)) {
+                    generalService.updateStep(chatId, Steps.HOME);
+                    sendMessage.setText(generalService.confirmIncome(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                } else {
+                    generalService.declineIncomeMethod(chatId);
+                    generalService.updateStep(chatId, Steps.HOME);
+                    sendMessage.setText(generalService.declineIncome(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                }
             } else if (userText.equals(Messages.menuExpenseUz) || userText.equals(Messages.menuExpenseEn) || userText.equals(Messages.menuExpenseRu)) {
                 generalService.registerExpense(chatId);
                 generalService.updateStep(chatId, Steps.EXPENSE);
@@ -127,16 +155,17 @@ public class MainService {
                 }
             }
         }
+        return sendMessage;
         /*
                 case "PROFILE" -> {
                     1) Profilni kurish: firstname, lastname, username, income, outcome, createdAt ✅
                     2) Profil malumotlarni yangilash (FirstName, LastName, PhoneNumber) ✅
                 }
                 case "EXPENSE" -> {
-                    1) Xarajat turini yozing;
-                    2) Xrajat miqdorini yozing(O'zbek so'mida)
-                    3) Izoh yozing(Ixtiyoriy)
-                    Hammasini qayta tashlab , tasdiqlash/rad etish buyrug'i junatiladi,
+                    1) Xarajat turini yozing;✅
+                    2) Xrajat miqdorini yozing(O'zbek so'mida)✅
+                    3) Izoh yozing(Ixtiyoriy)✅
+                    Hammasini qayta tashlab , tasdiqlash/rad etish buyrug'i junatiladi,✅
                                 }
                 case "REPORT" -> {
                     1) Yillik hisobot(yillar tanlanadi)
@@ -144,13 +173,12 @@ public class MainService {
                     3) Excelda saqlangan malumotlarni junatsin.
                 }
                 case "INCOME" -> {
-                     1) Daromat manbaini kiriting.
-                     2) Daromat miqdorini kiriting.
-                     3) Izoh(Ixtiyoriy)
-                     4) Tasdiqlash.
-                     }
-            }
-        }*/
-        return sendMessage;
+                     1) Daromat manbaini kiriting.✅
+                     2) Daromat miqdorini kiriting.✅
+                     3) Izoh(Ixtiyoriy)✅
+                     4) Tasdiqlash.✅
+
+                     TODO : adding expense and income is not working !!!
+        */
     }
 }

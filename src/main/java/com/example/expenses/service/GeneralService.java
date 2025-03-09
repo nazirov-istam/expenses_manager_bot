@@ -4,8 +4,10 @@ import com.example.expenses.application.Messages;
 import com.example.expenses.enums.Language;
 import com.example.expenses.enums.Steps;
 import com.example.expenses.model.Expense;
+import com.example.expenses.model.Income;
 import com.example.expenses.model.User;
 import com.example.expenses.repository.ExpenseRepository;
+import com.example.expenses.repository.IncomeRepository;
 import com.example.expenses.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,7 @@ public class GeneralService {
     private final UserService userService;
     private final UserRepository userRepository;
     private final ExpenseRepository expenseRepository;
+    private final IncomeRepository incomeRepository;
 
     public String language(String userText, long chatId) {
         switch (userText) {
@@ -212,6 +215,21 @@ public class GeneralService {
         return "";
     }
 
+    public String askIncomeSource(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.askIncomeSourceUz;
+            }
+            case RUSSIAN -> {
+                return Messages.askIncomeSourceRu;
+            }
+            case ENGLISH -> {
+                return Messages.askIncomeSourceEn;
+            }
+        }
+        return "";
+    }
+
     public String askExpenseAmount(Language language) {
         switch (language) {
             case UZBEK -> {
@@ -222,6 +240,21 @@ public class GeneralService {
             }
             case ENGLISH -> {
                 return Messages.askExpenseAmountEn;
+            }
+        }
+        return "";
+    }
+
+    public String askIncomeAmount(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.askIncomeAmountUz;
+            }
+            case RUSSIAN -> {
+                return Messages.askIncomeAmountRu;
+            }
+            case ENGLISH -> {
+                return Messages.askIncomeAmountEn;
             }
         }
         return "";
@@ -242,6 +275,21 @@ public class GeneralService {
         return "";
     }
 
+    public String askIncomeDescription(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.askIncomeDescriptionUz;
+            }
+            case RUSSIAN -> {
+                return Messages.askIncomeDescriptionRu;
+            }
+            case ENGLISH -> {
+                return Messages.askIncomeDescriptionEn;
+            }
+        }
+        return "";
+    }
+
     public String confirmExpense(Language language) {
         switch (language) {
             case UZBEK -> {
@@ -252,6 +300,21 @@ public class GeneralService {
             }
             case ENGLISH -> {
                 return Messages.successSaveExpenseEn;
+            }
+        }
+        return "";
+    }
+
+    public String confirmIncome(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.successSaveIncomeUz;
+            }
+            case RUSSIAN -> {
+                return Messages.successSaveIncomeRu;
+            }
+            case ENGLISH -> {
+                return Messages.successSaveIncomeEn;
             }
         }
         return "";
@@ -272,23 +335,20 @@ public class GeneralService {
         return "";
     }
 
-    /*switch (userText) {
-                        case Messages.Uz:
-                            userService.saveLanguage(Language.UZBEK, chatId);
-                            sendMessage.setText(Messages.startUz);
-                            break;
-                        case Messages.Ru:
-                            userService.saveLanguage(Language.RUSSIAN, chatId);
-                            sendMessage.setText(Messages.startRu);
-                            break;
-                        case Messages.En:
-                            userService.saveLanguage(Language.ENGLISH, chatId);
-                            sendMessage.setText(Messages.startEn);
-                            break;
-                        default:
-                    }
-
-     */
+    public String declineIncome(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.failedSaveIncomeUz;
+            }
+            case RUSSIAN -> {
+                return Messages.failedSaveIncomeRu;
+            }
+            case ENGLISH -> {
+                return Messages.failedSaveIncomeEn;
+            }
+        }
+        return "";
+    }
 
     public String mainProfile(Language language) {
         switch (language) {
@@ -558,6 +618,23 @@ public class GeneralService {
         }
     }
 
+    public void registerIncome(Long chatId) {
+        try {
+            Income income = new Income();
+            income.setUser(userService.getCurrentUser(chatId));
+            income.setIncomeSource("Noma'lum");
+            income.setIncomeAmount(0.0);
+            income.setDescription("Izoh yo'q");
+            income.setCreatedAt(LocalDateTime.now());
+
+            incomeRepository.save(income);
+            log.info("Daromat muvaffaqiyatli ro'yxatdan o'tdi: {}", income);
+        } catch (Exception e) {
+            log.error("Daromatni ro'yxatdan o'tkazishda xatolik ro'y berdi: {}", e.getMessage());
+            throw new RuntimeException("Daromat ro'yxatdan o'tkazilmadi.", e);
+        }
+    }
+
     public void enterExpenseSource(Long chatId, String expenseSource) {
         User user = userService.getCurrentUser(chatId);
         if (user != null) {
@@ -568,6 +645,22 @@ public class GeneralService {
                 log.info("Xarajat joyi yangilandi: {}", expenseSource);
             } else {
                 log.warn("Foydalanuvchiga tegishli hech qanday xarajat topilmadi: chatId={}", chatId);
+            }
+        } else {
+            log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
+        }
+    }
+
+    public void enterIncomeSource(Long chatId, String incomeSource) {
+        User user = userService.getCurrentUser(chatId);
+        if (user != null) {
+            Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
+            if (income != null) {
+                income.setIncomeSource(incomeSource);
+                incomeRepository.save(income);
+                log.info("Daromat joyi yangilandi: {}", incomeSource);
+            } else {
+                log.warn("Foydalanuvchiga tegishli hech qanday daromat topilmadi: chatId={}", chatId);
             }
         } else {
             log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
@@ -595,6 +688,26 @@ public class GeneralService {
         }
     }
 
+    public void enterIncomeAmount(Long chatId, String expenseAmount) {
+        User user = userService.getCurrentUser(chatId);
+        if (user != null) {
+            Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
+            if (income != null) {
+                try {
+                    income.setIncomeAmount(Double.parseDouble(expenseAmount));
+                    incomeRepository.save(income);
+                    log.info("Daromat miqdori yangilandi: {}", expenseAmount);
+                } catch (NumberFormatException e) {
+                    log.warn("Noto‘g‘ri raqam formati: {}", expenseAmount);
+                }
+            } else {
+                log.warn("Foydalanuvchiga tegishli hech qanday daromat topilmadi: chatId={}", chatId);
+            }
+        } else {
+            log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
+        }
+    }
+
     public void enterExpenseDescription(Long chatId, String description) {
         User user = userService.getCurrentUser(chatId);
         if (user != null) {
@@ -611,10 +724,30 @@ public class GeneralService {
         }
     }
 
+    public void enterIncomeDescription(Long chatId, String description) {
+        User user = userService.getCurrentUser(chatId);
+        if (user != null) {
+            Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
+            if (income != null) {
+                income.setDescription(description);
+                incomeRepository.save(income);
+                log.info("Daromat tavsifi yangilandi: {}", description);
+            } else {
+                log.warn("Foydalanuvchiga tegishli hech qanday daromat topilmadi: chatId={}", chatId);
+            }
+        } else {
+            log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
+        }
+    }
+
     public String confirmationExpense(Long chatId) {
         User user = userService.getCurrentUser(chatId);
         if (user != null) {
             Expense expense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
+            user.setExpense(user.getExpense() + expense.getExpenseAmount());
+            user.setTotalBalance(user.getTotalBalance() - expense.getExpenseAmount());
+            userRepository.save(user);
+            expenseRepository.delete(expense);
             if (expense != null) {
                 return switch (user.getLanguage()) {
                     case UZBEK -> Messages.expenseInfoUz.formatted(
@@ -642,15 +775,71 @@ public class GeneralService {
         return "Xarajat ma'lumotlari topilmadi."; // Agar hech narsa topilmasa, default xabar qaytariladi
     }
 
+    public String confirmationIncome(Long chatId) {
+        User user = userService.getCurrentUser(chatId);
+        if (user != null) {
+            Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
+            user.setIncome(user.getIncome() + income.getIncomeAmount());
+            user.setTotalBalance(user.getTotalBalance() + income.getIncomeAmount());
+            userRepository.save(user);
+            incomeRepository.delete(income);
+            if (income != null) {
+                return switch (user.getLanguage()) {
+                    case UZBEK -> Messages.incomeInfoUz.formatted(
+                            income.getIncomeSource(),
+                            income.getIncomeAmount(),
+                            income.getDescription()
+                    );
+                    case ENGLISH -> Messages.incomeInfoEn.formatted(
+                            income.getIncomeSource(),
+                            income.getIncomeAmount(),
+                            income.getDescription()
+                    );
+                    case RUSSIAN -> Messages.incomeInfoRu.formatted(
+                            income.getIncomeSource(),
+                            income.getIncomeAmount(),
+                            income.getDescription()
+                    );
+                };
+            } else {
+                log.warn("Foydalanuvchiga tegishli hech qanday daromat topilmadi: chatId={}", chatId);
+            }
+        } else {
+            log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
+        }
+        return "Daromat ma'lumotlari topilmadi."; // Agar hech narsa topilmasa, default xabar qaytariladi
+    }
+
     public void declineExpenseMethod(Long chatId) {
         User user = userService.getCurrentUser(chatId);
         if (user != null) {
-            Expense lastExpense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
-            if (lastExpense != null) {
-                expenseRepository.delete(lastExpense);
-                log.info("Oxirgi qo‘shilgan xarajat o‘chirildi: {}", lastExpense);
+            Expense expense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
+            if (expense != null) {
+                user.setExpense(user.getExpense() - expense.getExpenseAmount());
+                user.setTotalBalance(user.getTotalBalance() + expense.getExpenseAmount());
+                userRepository.save(user);
+                expenseRepository.delete(expense);
+                log.info("Oxirgi qo‘shilgan xarajat o‘chirildi: {}", expense);
             } else {
                 log.warn("Foydalanuvchiga tegishli hech qanday xarajat topilmadi: chatId={}", chatId);
+            }
+        } else {
+            log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
+        }
+    }
+
+    public void declineIncomeMethod(Long chatId) {
+        User user = userService.getCurrentUser(chatId);
+        if (user != null) {
+            Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
+            if (income != null) {
+                user.setIncome(user.getIncome() - income.getIncomeAmount());
+                user.setTotalBalance(user.getTotalBalance() - income.getIncomeAmount());
+                userRepository.save(user);
+                incomeRepository.delete(income);
+                log.info("Oxirgi qo‘shilgan daromat o‘chirildi: {}", income);
+            } else {
+                log.warn("Foydalanuvchiga tegishli hech qanday daromat topilmadi: chatId={}", chatId);
             }
         } else {
             log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);

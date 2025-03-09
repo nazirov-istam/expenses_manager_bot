@@ -11,13 +11,10 @@ Technology Stack
 Java (Spring Boot) – Backend
 PostgreSQL – Database
 Telegram Bot API – Bot integration
-JUnit & Mockito – Testing
-Docker – Deployment
+Docker – Deployment (Have not deployed!)
 
-Installation & Setup
-Clone the repository:
-git clone https://github.com/your-username/my-expenses-manager-bot.git
-cd my-expenses-manager-bot
+Try to work this work:
+https://t.me/my_expenses_manager_bot
 
 Configure application.properties with your bot token and database credentials.
 Run the application:

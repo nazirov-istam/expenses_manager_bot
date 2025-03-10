@@ -25,6 +25,11 @@ public final class Messages {
     public static final String welcomeEditProfileRu = "Вы находитесь в разделе 'Изменение данных пользователя'.";
     public static final String welcomeEditProfileEn = "You are in the 'Edit User Information' section.";
 
+    public static final String welcomeReportsUz = "Siz 'Hisobotlar' bo‘limidasiz.";
+    public static final String welcomeReportsRu = "Вы находитесь в разделе 'Отчёты'.";
+    public static final String welcomeReportsEn = "You are in the 'Reports' section.";
+
+
     public static final String getSuccessFirstNameEditUz = "Foydalanuvchi ismi yangilandi.";
     public static final String getSuccessFirstNameEditRu = "Имя пользователя обновлено.";
     public static final String getSuccessFirstNameEditEn = "User's first name has been updated.";
@@ -262,6 +267,32 @@ public final class Messages {
     public static final String successSaveProfileInfoUz = "Shaxsiy ma'lumotlaringiz muvaffaqiyatli saqlandi. \nUlarni 'Profil' bo'limidan ko'rishingiz va o'zgartirishingiz mumkin.";
     public static final String successSaveProfileInfoRu = "Ваши личные данные успешно сохранены. \nВы можете просмотреть и изменить их в разделе 'Профиль'.";
     public static final String successSaveProfileInfoEn = "Your personal information has been successfully saved. \nYou can view and edit it in the 'Profile' section.";
+
+    public static final String askMonthlyReportUz = "Oylik hisobotlar 📊";
+    public static final String askMonthlyReportRu = "Ежемесячные отчёты 📊";
+    public static final String askMonthlyReportEn = "Monthly reports 📊";
+
+    public static final String askYearlyReportUz = "Yillik hisobotlar 📊";
+    public static final String askYearlyReportRu = "Годовые отчёты 📊";
+    public static final String askYearlyReportEn = "Yearly reports 📊";
+
+    public static final String askIncomeUz = "Daromad hisobotlari 📊";
+    public static final String askIncomeRu = "Доход hisobotlari 📊";
+    public static final String askIncomeEn = "Income hisobotlari 📊";
+
+    public static final String askTextFormatUz = "Text holatida \uD83D\uDCDD";
+    public static final String askTextFormatRu = "В текстовом формате \uD83D\uDCDD";
+    public static final String askTextFormatEn = "In text format \uD83D\uDCDD";
+
+    public static final String askExcelFormatUz = "Excel formatida \uD83D\uDDC2";
+    public static final String askExcelFormatRu = "В формате Excel \uD83D\uDDC2";
+    public static final String askExcelFormatEn = "In Excel format \uD83D\uDDC2";
+
+    // Xarajat
+    public static final String askExpenseUz = "Xarajat hisobotlari 📊";
+    public static final String askExpenseRu = "Расход hisobotlari 📊";
+    public static final String askExpenseEn = "Expense hisobotlari 📊";
+
 
     public static final String editFirstNameButtonUz = "Ismni tahrirlash ✏️";
     public static final String editFirstNameButtonRu = "Имя ✏️";

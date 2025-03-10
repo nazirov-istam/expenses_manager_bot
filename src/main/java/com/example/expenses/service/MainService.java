@@ -153,6 +153,56 @@ public class MainService {
                     sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                     sendMessage.setText(generalService.mainMenuWelcome(user.getLanguage()));
                 }
+                // TODO: Report section --> Back !!!
+
+                else if (generalService.getStep(chatId) == Steps.REPORT) {
+                    generalService.updateStep(chatId, Steps.HOME);
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                    sendMessage.setText(generalService.mainMenuWelcome(user.getLanguage()));
+                } else if (generalService.getStep(chatId) == Steps.MONTHLY_INCOME_REPORT) {
+                    generalService.updateStep(chatId, Steps.MONTHLY_REPORT);
+                    sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
+                } else if (generalService.getStep(chatId) == Steps.MONTHLY_REPORT) {
+                    generalService.updateStep(chatId, Steps.REPORT);
+                    sendMessage.setText(generalService.mainReport(user.getLanguage()));
+                } else if (generalService.getStep(chatId) == Steps.YEARLY_INCOME_REPORT) {
+                    generalService.updateStep(chatId, Steps.YEARLY_REPORT);
+                    sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
+                } else if (generalService.getStep(chatId) == Steps.YEARLY_REPORT) {
+                    generalService.updateStep(chatId, Steps.REPORT);
+                    sendMessage.setText(generalService.mainReport(user.getLanguage()));
+                }
+            }
+
+            // TODO: Report section (Buttons are ready !!!) --> Buttons are not working !
+            else if (userText.equals(Messages.menuReportUz) || userText.equals(Messages.menuReportRu) || userText.equals(Messages.menuReportEn)) {
+                generalService.updateStep(chatId, Steps.REPORT);
+                sendMessage.setReplyMarkup(generalService.threeButtonReport(user.getLanguage()));
+                sendMessage.setText(generalService.mainReport(user.getLanguage()));
+            } else if (userText.equals(Messages.askMonthlyReportUz) || userText.equals(Messages.askMonthlyReportEn) || userText.equals(Messages.askMonthlyReportRu)) {
+                generalService.updateStep(chatId, Steps.MONTHLY_REPORT);
+                sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
+            } else if (userText.equals(Messages.askIncomeUz) || userText.equals(Messages.askIncomeRu) || userText.equals(Messages.askIncomeEn)) {
+                generalService.updateStep(chatId, Steps.MONTHLY_INCOME_REPORT);
+                sendMessage.setReplyMarkup(generalService.threeButtonFormalSelectionReport(user.getLanguage()));
+            } else if (userText.equals(Messages.askTextFormatUz) || userText.equals(Messages.askTextFormatRu) || userText.equals(Messages.askTextFormatEn)) {
+                generalService.updateStep(chatId, Steps.MONTHLY_INCOME_REPORT_FORMAT_SELECTION);
+                // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
+            } else if (userText.equals(Messages.askExcelFormatUz) || userText.equals(Messages.askExcelFormatRu) || userText.equals(Messages.askExcelFormatEn)) {
+                generalService.updateStep(chatId, Steps.MONTHLY_INCOME_REPORT_FORMAT_SELECTION);
+                // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
+            } else if (userText.equals(Messages.askYearlyReportUz) || userText.equals(Messages.askYearlyReportRu) || userText.equals(Messages.askYearlyReportEn)) {
+                generalService.updateStep(chatId, Steps.YEARLY_REPORT);
+                sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
+            } else if (userText.equals(Messages.askIncomeUz) || userText.equals(Messages.askIncomeRu) || userText.equals(Messages.askIncomeEn)) {
+                generalService.updateStep(chatId, Steps.YEARLY_INCOME_REPORT);
+                sendMessage.setReplyMarkup(generalService.threeButtonFormalSelectionReport(user.getLanguage()));
+            } else if (userText.equals(Messages.askTextFormatUz) || userText.equals(Messages.askTextFormatRu) || userText.equals(Messages.askTextFormatEn)) {
+                generalService.updateStep(chatId, Steps.YEARLY_INCOME_REPORT_FORMAT_SELECTION);
+                // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
+            } else if (userText.equals(Messages.askExcelFormatUz) || userText.equals(Messages.askExcelFormatRu) || userText.equals(Messages.askExcelFormatEn)) {
+                generalService.updateStep(chatId, Steps.YEARLY_INCOME_REPORT_FORMAT_SELECTION);
+                // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
             }
         }
         return sendMessage;
@@ -177,8 +227,6 @@ public class MainService {
                      2) Daromat miqdorini kiriting.✅
                      3) Izoh(Ixtiyoriy)✅
                      4) Tasdiqlash.✅
-
-                     TODO : adding expense and income is not working !!!
         */
     }
 }

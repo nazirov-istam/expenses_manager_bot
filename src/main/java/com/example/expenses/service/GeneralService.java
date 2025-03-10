@@ -95,6 +95,21 @@ public class GeneralService {
         return "";
     }
 
+    public String mainReport(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.welcomeReportsUz;
+            }
+            case RUSSIAN -> {
+                return Messages.welcomeReportsRu;
+            }
+            case ENGLISH -> {
+                return Messages.welcomeReportsEn;
+            }
+        }
+        return "";
+    }
+
     public String editProfile(Language language) {
         switch (language) {
             case UZBEK -> {
@@ -560,6 +575,135 @@ public class GeneralService {
         return replyKeyboardMarkup;
     }
 
+    public ReplyKeyboard threeButtonReport(Language language) {
+        KeyboardButton monthly = new KeyboardButton();
+        KeyboardButton yearly = new KeyboardButton();
+        KeyboardButton back = new KeyboardButton();
+
+
+        switch (language) {
+            case UZBEK -> {
+                monthly.setText(Messages.askMonthlyReportUz);
+                yearly.setText(Messages.askYearlyReportUz);
+                back.setText(Messages.backUz);
+            }
+            case RUSSIAN -> {
+                monthly.setText(Messages.askMonthlyReportRu);
+                yearly.setText(Messages.askYearlyReportRu);
+                back.setText(Messages.backRu);
+            }
+            case ENGLISH -> {
+                monthly.setText(Messages.askMonthlyReportEn);
+                yearly.setText(Messages.askYearlyReportEn);
+                back.setText(Messages.backEn);
+
+            }
+        }
+
+        KeyboardRow row1 = new KeyboardRow();
+        KeyboardRow row2 = new KeyboardRow();
+        row1.add(monthly);
+        row1.add(yearly);
+        row2.add(back);
+
+        ArrayList<KeyboardRow> rows = new ArrayList<>();
+        rows.add(row1);
+        rows.add(row2);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setKeyboard(rows);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
+        return replyKeyboardMarkup;
+    }
+
+    public ReplyKeyboard threeButtonMonthlyAndYearlyReport(Language language) {
+        KeyboardButton income = new KeyboardButton();
+        KeyboardButton outcome = new KeyboardButton();
+        KeyboardButton back = new KeyboardButton();
+
+
+        switch (language) {
+            case UZBEK -> {
+                income.setText(Messages.askIncomeUz);
+                outcome.setText(Messages.askExpenseUz);
+                back.setText(Messages.backUz);
+            }
+            case RUSSIAN -> {
+                income.setText(Messages.askIncomeRu);
+                outcome.setText(Messages.askExpenseRu);
+                back.setText(Messages.backRu);
+            }
+            case ENGLISH -> {
+                income.setText(Messages.askIncomeEn);
+                outcome.setText(Messages.askExpenseEn);
+                back.setText(Messages.backEn);
+
+            }
+        }
+
+        KeyboardRow row1 = new KeyboardRow();
+        KeyboardRow row2 = new KeyboardRow();
+        row1.add(income);
+        row1.add(outcome);
+        row2.add(back);
+
+        ArrayList<KeyboardRow> rows = new ArrayList<>();
+        rows.add(row1);
+        rows.add(row2);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setKeyboard(rows);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
+        return replyKeyboardMarkup;
+    }
+
+    public ReplyKeyboard threeButtonFormalSelectionReport(Language language) {
+        KeyboardButton text = new KeyboardButton();
+        KeyboardButton excel = new KeyboardButton();
+        KeyboardButton back = new KeyboardButton();
+
+
+        switch (language) {
+            case UZBEK -> {
+                text.setText(Messages.askTextFormatUz);
+                excel.setText(Messages.askExcelFormatUz);
+                back.setText(Messages.backUz);
+            }
+            case RUSSIAN -> {
+                text.setText(Messages.askTextFormatRu);
+                excel.setText(Messages.askExcelFormatRu);
+                back.setText(Messages.backRu);
+            }
+            case ENGLISH -> {
+                text.setText(Messages.askTextFormatEn);
+                excel.setText(Messages.askExcelFormatEn);
+                back.setText(Messages.backEn);
+
+            }
+        }
+
+        KeyboardRow row1 = new KeyboardRow();
+        KeyboardRow row2 = new KeyboardRow();
+        row1.add(text);
+        row1.add(excel);
+        row2.add(back);
+
+        ArrayList<KeyboardRow> rows = new ArrayList<>();
+        rows.add(row1);
+        rows.add(row2);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setKeyboard(rows);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
+        return replyKeyboardMarkup;
+    }
+
     public Steps getStep(Long chatId) {
         return userRepository.getStepByChatId(chatId).getStep();
     }
@@ -777,37 +921,38 @@ public class GeneralService {
 
     public String confirmationIncome(Long chatId) {
         User user = userService.getCurrentUser(chatId);
-        if (user != null) {
-            Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
-            user.setIncome(user.getIncome() + income.getIncomeAmount());
-            user.setTotalBalance(user.getTotalBalance() + income.getIncomeAmount());
-            userRepository.save(user);
-            incomeRepository.delete(income);
-            if (income != null) {
-                return switch (user.getLanguage()) {
-                    case UZBEK -> Messages.incomeInfoUz.formatted(
-                            income.getIncomeSource(),
-                            income.getIncomeAmount(),
-                            income.getDescription()
-                    );
-                    case ENGLISH -> Messages.incomeInfoEn.formatted(
-                            income.getIncomeSource(),
-                            income.getIncomeAmount(),
-                            income.getDescription()
-                    );
-                    case RUSSIAN -> Messages.incomeInfoRu.formatted(
-                            income.getIncomeSource(),
-                            income.getIncomeAmount(),
-                            income.getDescription()
-                    );
-                };
-            } else {
-                log.warn("Foydalanuvchiga tegishli hech qanday daromat topilmadi: chatId={}", chatId);
-            }
-        } else {
+        if (user == null) {
             log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
+            return "Daromat ma'lumotlari topilmadi.";
         }
-        return "Daromat ma'lumotlari topilmadi."; // Agar hech narsa topilmasa, default xabar qaytariladi
+
+        Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
+        if (income == null) {
+            log.warn("Foydalanuvchiga tegishli hech qanday daromat topilmadi: chatId={}", chatId);
+            return "Daromat ma'lumotlari topilmadi.";
+        }
+
+        user.setIncome(user.getIncome() + income.getIncomeAmount());
+        user.setTotalBalance(user.getTotalBalance() + income.getIncomeAmount());
+        userRepository.save(user);
+
+        return switch (user.getLanguage()) {
+            case UZBEK -> Messages.incomeInfoUz.formatted(
+                    income.getIncomeSource(),
+                    income.getIncomeAmount(),
+                    income.getDescription()
+            );
+            case ENGLISH -> Messages.incomeInfoEn.formatted(
+                    income.getIncomeSource(),
+                    income.getIncomeAmount(),
+                    income.getDescription()
+            );
+            case RUSSIAN -> Messages.incomeInfoRu.formatted(
+                    income.getIncomeSource(),
+                    income.getIncomeAmount(),
+                    income.getDescription()
+            );
+        };
     }
 
     public void declineExpenseMethod(Long chatId) {
@@ -830,19 +975,23 @@ public class GeneralService {
 
     public void declineIncomeMethod(Long chatId) {
         User user = userService.getCurrentUser(chatId);
-        if (user != null) {
-            Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
-            if (income != null) {
-                user.setIncome(user.getIncome() - income.getIncomeAmount());
-                user.setTotalBalance(user.getTotalBalance() - income.getIncomeAmount());
-                userRepository.save(user);
-                incomeRepository.delete(income);
-                log.info("Oxirgi qo‘shilgan daromat o‘chirildi: {}", income);
-            } else {
-                log.warn("Foydalanuvchiga tegishli hech qanday daromat topilmadi: chatId={}", chatId);
-            }
-        } else {
+        if (user == null) {
             log.warn("Bunday foydalanuvchi mavjud emas: chatId={}", chatId);
+            return;
         }
+
+        Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
+        if (income == null) {
+            log.warn("Foydalanuvchiga tegishli hech qanday daromat topilmadi: chatId={}", chatId);
+            return;
+        }
+
+        user.setIncome(Math.max(0, user.getIncome() - income.getIncomeAmount()));
+        user.setTotalBalance(Math.max(0, user.getTotalBalance() - income.getIncomeAmount()));
+        userRepository.save(user);
+
+        incomeRepository.delete(income);
+        log.info("Oxirgi qo‘shilgan daromat o‘chirildi: {}", income);
     }
+
 }

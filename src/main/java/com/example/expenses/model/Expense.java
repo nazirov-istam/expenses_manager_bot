@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = ("expense"))
+@Table(name = ("expenses"))
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

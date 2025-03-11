@@ -32,11 +32,9 @@ public class UserService {
 
     public void registerUser(Message message) {
         try {
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             User user = new User();
             user.setChatId(message.getChatId());
-            user.setCreatedAt(LocalDateTime.now().format(formatter));
+            user.setCreatedAt(LocalDateTime.now());
             user.setIncome(0.0);
             user.setExpense(0.0);
             user.setTotalBalance(0.0);
@@ -69,6 +67,7 @@ public class UserService {
     }
 
     public String getInfo(Long chatId, Language language) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return userRepository.findById(chatId)
                 .map(user -> {
                     return switch (language) {
@@ -81,7 +80,7 @@ public class UserService {
                                         💵 Umumiy balans: %s
                                         📅 Qo'shilgan sana: %s
                                         """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
-                                user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt());
+                                user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt().format(formatter));
                         case RUSSIAN -> String.format("""
                                         👤 Имя: %s
                                         🏷️ Фамилия: %s
@@ -91,7 +90,7 @@ public class UserService {
                                         💵 Общий баланс: %s
                                         📅 Дата регистрации: %s
                                         """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
-                                user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt());
+                                user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt().format(formatter));
                         case ENGLISH -> String.format("""
                                         👤 First Name: %s
                                         🏷️ Last Name: %s
@@ -101,7 +100,7 @@ public class UserService {
                                         💵 Total Balance: %s
                                         📅 Joined Date: %s
                                         """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
-                                user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt());
+                                user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt().format(formatter));
                     };
                 })
                 .orElse(switch (language) {
@@ -110,4 +109,70 @@ public class UserService {
                     case ENGLISH -> "Such a user does not exist";
                 });
     }
+
+    // TODO: Userni usha oydagi barcha xarajatlarini chiqarish
+
+    // TODO: Userni usha oydagi barcha daromatlarini chiqarish
+
+    // TODO: Userni usha yildagi barcha xarajatlarini chiqarish
+
+    // TODO: Userni usha yildagi barcha daromatlarini chiqarish
+
+    /*
+
+    public File generateExpenseReport(Long userId, String month) throws Exception {
+        List<Expense> expenses = expenseRepository.findAllByUserAndMonth(userId, month);
+
+        User currentUser = getCurrentUser(userId);
+
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Expenses");
+
+        // Define column headers based on the selected language
+        String[] columns;
+        switch (currentUser.getLanguage()) {
+            case RUSSIAN:
+                columns = new String[]{"Сумма расхода", "Источник расхода", "Описание", "Дата создания"};
+                break;
+            case UZBEK:
+                columns = new String[]{"Xarajat summasi", "Xarajat manbai", "Tavsif", "Yaratilgan sana"};
+                break;
+            default: // English
+                columns = new String[]{"Expense Amount", "Expense Source", "Description", "Created At"};
+                break;
+        }
+
+        // Create Header Row
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < columns.length; i++) {
+            headerRow.createCell(i).setCellValue(columns[i]);
+        }
+
+        // Fill Data
+        int rowNum = 1;
+        for (Expense expense : expenses) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(expense.getExpenseAmount()); // Expense Amount
+            row.createCell(1).setCellValue(expense.getExpenseSource()); // Expense Source
+            row.createCell(2).setCellValue(expense.getDescription());   // Description
+            row.createCell(3).setCellValue(expense.getCreatedAt().toString()); // Created At
+        }
+
+        // Save to File
+        File file = new File("expenses_" + userId + "_" + month + ".xlsx");
+        try (FileOutputStream fileOut = new FileOutputStream(file)) {
+            workbook.write(fileOut);
+        }
+        workbook.close();
+
+        return file;
+    }
+
+    SendDocument document = new SendDocument();
+    document.setChatId(userChatId);
+    document.setDocument(new InputFile(file));
+    telegramBot.execute(document);
+
+    file.delete();
+     */
 }

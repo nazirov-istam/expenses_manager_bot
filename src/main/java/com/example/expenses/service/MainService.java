@@ -159,18 +159,30 @@ public class MainService {
                     generalService.updateStep(chatId, Steps.HOME);
                     sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                     sendMessage.setText(generalService.mainMenuWelcome(user.getLanguage()));
-                } else if (generalService.getStep(chatId) == Steps.MONTHLY_INCOME_REPORT) {
-                    generalService.updateStep(chatId, Steps.MONTHLY_REPORT);
-                    sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
                 } else if (generalService.getStep(chatId) == Steps.MONTHLY_REPORT) {
                     generalService.updateStep(chatId, Steps.REPORT);
                     sendMessage.setText(generalService.mainReport(user.getLanguage()));
-                } else if (generalService.getStep(chatId) == Steps.YEARLY_INCOME_REPORT) {
-                    generalService.updateStep(chatId, Steps.YEARLY_REPORT);
+                    sendMessage.setReplyMarkup(generalService.threeButtonReport(user.getLanguage()));
+                } else if (generalService.getStep(chatId) == Steps.MONTHLY_INCOME_REPORT) {
+                    generalService.updateStep(chatId, Steps.MONTHLY_REPORT);
+                    sendMessage.setText(generalService.mainReportIncomeOrExpense(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
+                } else if (generalService.getStep(chatId) == Steps.MONTHLY_EXPENSE_REPORT) {
+                    generalService.updateStep(chatId, Steps.MONTHLY_REPORT);
+                    sendMessage.setText(generalService.mainReportIncomeOrExpense(user.getLanguage()));
                     sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
                 } else if (generalService.getStep(chatId) == Steps.YEARLY_REPORT) {
                     generalService.updateStep(chatId, Steps.REPORT);
                     sendMessage.setText(generalService.mainReport(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.threeButtonReport(user.getLanguage()));
+                } else if (generalService.getStep(chatId) == Steps.YEARLY_INCOME_REPORT) {
+                    generalService.updateStep(chatId, Steps.YEARLY_REPORT);
+                    sendMessage.setText(generalService.mainReportIncomeOrExpense(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
+                } else if (generalService.getStep(chatId) == Steps.YEARLY_EXPENSE_REPORT) {
+                    generalService.updateStep(chatId, Steps.YEARLY_REPORT);
+                    sendMessage.setText(generalService.mainReportIncomeOrExpense(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
                 }
             }
 
@@ -181,28 +193,41 @@ public class MainService {
                 sendMessage.setText(generalService.mainReport(user.getLanguage()));
             } else if (userText.equals(Messages.askMonthlyReportUz) || userText.equals(Messages.askMonthlyReportEn) || userText.equals(Messages.askMonthlyReportRu)) {
                 generalService.updateStep(chatId, Steps.MONTHLY_REPORT);
+                sendMessage.setText(generalService.mainReportIncomeOrExpense(user.getLanguage()));
                 sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
             } else if (userText.equals(Messages.askIncomeUz) || userText.equals(Messages.askIncomeRu) || userText.equals(Messages.askIncomeEn)) {
                 generalService.updateStep(chatId, Steps.MONTHLY_INCOME_REPORT);
-                sendMessage.setReplyMarkup(generalService.threeButtonFormalSelectionReport(user.getLanguage()));
+                sendMessage.setText(generalService.mainReportInTextOrExcelForm(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.threeButtonFormatSelectionReport(user.getLanguage()));
             } else if (userText.equals(Messages.askTextFormatUz) || userText.equals(Messages.askTextFormatRu) || userText.equals(Messages.askTextFormatEn)) {
-                generalService.updateStep(chatId, Steps.MONTHLY_INCOME_REPORT_FORMAT_SELECTION);
+                sendMessage.setText("Text formatida kurish !");
+                sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                 // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
             } else if (userText.equals(Messages.askExcelFormatUz) || userText.equals(Messages.askExcelFormatRu) || userText.equals(Messages.askExcelFormatEn)) {
-                generalService.updateStep(chatId, Steps.MONTHLY_INCOME_REPORT_FORMAT_SELECTION);
                 // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
+                sendMessage.setText("Excel formatida kurish !");
+                sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
             } else if (userText.equals(Messages.askYearlyReportUz) || userText.equals(Messages.askYearlyReportRu) || userText.equals(Messages.askYearlyReportEn)) {
                 generalService.updateStep(chatId, Steps.YEARLY_REPORT);
+                sendMessage.setText(generalService.mainReportIncomeOrExpense(user.getLanguage()));
                 sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
             } else if (userText.equals(Messages.askIncomeUz) || userText.equals(Messages.askIncomeRu) || userText.equals(Messages.askIncomeEn)) {
                 generalService.updateStep(chatId, Steps.YEARLY_INCOME_REPORT);
-                sendMessage.setReplyMarkup(generalService.threeButtonFormalSelectionReport(user.getLanguage()));
+                sendMessage.setText(generalService.mainReportInTextOrExcelForm(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.threeButtonFormatSelectionReport(user.getLanguage()));
             } else if (userText.equals(Messages.askTextFormatUz) || userText.equals(Messages.askTextFormatRu) || userText.equals(Messages.askTextFormatEn)) {
-                generalService.updateStep(chatId, Steps.YEARLY_INCOME_REPORT_FORMAT_SELECTION);
+                sendMessage.setText("Text formatida kurish !");
+                sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                 // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
             } else if (userText.equals(Messages.askExcelFormatUz) || userText.equals(Messages.askExcelFormatRu) || userText.equals(Messages.askExcelFormatEn)) {
-                generalService.updateStep(chatId, Steps.YEARLY_INCOME_REPORT_FORMAT_SELECTION);
+                sendMessage.setText("Excel formatida kurish !");
                 // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
+                generalService.updateStep(chatId, Steps.HOME);
+                sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+            } else if (userText.equals(Messages.askExpenseUz) || userText.equals(Messages.askExpenseRu) || userText.equals(Messages.askExpenseEn)) {
+                generalService.updateStep(chatId, Steps.MONTHLY_EXPENSE_REPORT);
+                sendMessage.setText(generalService.mainReportInTextOrExcelForm(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.threeButtonFormatSelectionReport(user.getLanguage()));
             }
         }
         return sendMessage;

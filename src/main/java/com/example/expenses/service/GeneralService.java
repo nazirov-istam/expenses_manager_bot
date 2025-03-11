@@ -110,6 +110,51 @@ public class GeneralService {
         return "";
     }
 
+    public String mainReportMonthlyOrYearly(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.askMonthlyOrYearlyReportUz;
+            }
+            case RUSSIAN -> {
+                return Messages.askMonthlyOrYearlyReportRu;
+            }
+            case ENGLISH -> {
+                return Messages.askMonthlyOrYearlyReportEn;
+            }
+        }
+        return "";
+    }
+
+    public String mainReportIncomeOrExpense(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.askIncomeOrExpenseUz;
+            }
+            case RUSSIAN -> {
+                return Messages.askIncomeOrExpenseRu;
+            }
+            case ENGLISH -> {
+                return Messages.askIncomeOrExpenseEn;
+            }
+        }
+        return "";
+    }
+
+    public String mainReportInTextOrExcelForm(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.askReportFormatUz;
+            }
+            case RUSSIAN -> {
+                return Messages.askReportFormatRu;
+            }
+            case ENGLISH -> {
+                return Messages.askReportFormatEn;
+            }
+        }
+        return "";
+    }
+
     public String editProfile(Language language) {
         switch (language) {
             case UZBEK -> {
@@ -661,7 +706,7 @@ public class GeneralService {
         return replyKeyboardMarkup;
     }
 
-    public ReplyKeyboard threeButtonFormalSelectionReport(Language language) {
+    public ReplyKeyboard threeButtonFormatSelectionReport(Language language) {
         KeyboardButton text = new KeyboardButton();
         KeyboardButton excel = new KeyboardButton();
         KeyboardButton back = new KeyboardButton();

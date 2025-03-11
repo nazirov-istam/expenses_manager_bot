@@ -29,6 +29,18 @@ public final class Messages {
     public static final String welcomeReportsRu = "Вы находитесь в разделе 'Отчёты'.";
     public static final String welcomeReportsEn = "You are in the 'Reports' section.";
 
+    public static final String askMonthlyOrYearlyReportUz = "Iltimos, oylik yoki yillik hisoblarni ko'rishni xohlayotganingizni tanlang.";
+    public static final String askMonthlyOrYearlyReportEn = "Please select whether you want to view the monthly or yearly reports.";
+    public static final String askMonthlyOrYearlyReportRu = "Пожалуйста, выберите, хотите ли вы просмотреть ежемесячные или год";
+
+    public static final String askIncomeOrExpenseUz = "Iltimos, daromat yoki xarajat hisobotlarini ko'rishni xohlayotganingizni tanlang.";
+    public static final String askIncomeOrExpenseEn = "Please select whether you want to view the income or expense reports.";
+    public static final String askIncomeOrExpenseRu = "Пожалуйста, выберите, хотите ли вы просмотреть отчёты о доходах или расходах.";
+
+    public static final String askReportFormatUz = "Iltimos, hisobot formatini tanlang: Excel yoki Matn (Text).";
+    public static final String askReportFormatEn = "Please select the report format: Excel or Text.";
+    public static final String askReportFormatRu = "Пожалуйста, выберите формат отчёта: Excel или Текст.";
+
 
     public static final String getSuccessFirstNameEditUz = "Foydalanuvchi ismi yangilandi.";
     public static final String getSuccessFirstNameEditRu = "Имя пользователя обновлено.";
@@ -277,8 +289,8 @@ public final class Messages {
     public static final String askYearlyReportEn = "Yearly reports 📊";
 
     public static final String askIncomeUz = "Daromad hisobotlari 📊";
-    public static final String askIncomeRu = "Доход hisobotlari 📊";
-    public static final String askIncomeEn = "Income hisobotlari 📊";
+    public static final String askIncomeRu = "Доход отчёты 📊";
+    public static final String askIncomeEn = "Income reports 📊";
 
     public static final String askTextFormatUz = "Text holatida \uD83D\uDCDD";
     public static final String askTextFormatRu = "В текстовом формате \uD83D\uDCDD";
@@ -290,8 +302,8 @@ public final class Messages {
 
     // Xarajat
     public static final String askExpenseUz = "Xarajat hisobotlari 📊";
-    public static final String askExpenseRu = "Расход hisobotlari 📊";
-    public static final String askExpenseEn = "Expense hisobotlari 📊";
+    public static final String askExpenseRu = "Расход отчёты 📊";
+    public static final String askExpenseEn = "Expense reports 📊";
 
 
     public static final String editFirstNameButtonUz = "Ismni tahrirlash ✏️";

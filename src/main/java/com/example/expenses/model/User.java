@@ -7,6 +7,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = ("bot_user"))
+@Table(name = ("users"))
 public class User {
     @Id
     @Column(name = ("chat_id"))
@@ -53,7 +54,7 @@ public class User {
     Language language;
     @Basic
     @Column(name = ("created_at"))
-    String createdAt;
+    LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Income> incomes;

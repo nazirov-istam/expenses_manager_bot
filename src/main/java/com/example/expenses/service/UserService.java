@@ -3,6 +3,8 @@ package com.example.expenses.service;
 import com.example.expenses.application.Messages;
 import com.example.expenses.enums.Language;
 import com.example.expenses.model.User;
+import com.example.expenses.repository.ExpenseRepository;
+import com.example.expenses.repository.IncomeRepository;
 import com.example.expenses.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -117,62 +119,4 @@ public class UserService {
     // TODO: Userni usha yildagi barcha xarajatlarini chiqarish
 
     // TODO: Userni usha yildagi barcha daromatlarini chiqarish
-
-    /*
-
-    public File generateExpenseReport(Long userId, String month) throws Exception {
-        List<Expense> expenses = expenseRepository.findAllByUserAndMonth(userId, month);
-
-        User currentUser = getCurrentUser(userId);
-
-        Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Expenses");
-
-        // Define column headers based on the selected language
-        String[] columns;
-        switch (currentUser.getLanguage()) {
-            case RUSSIAN:
-                columns = new String[]{"Сумма расхода", "Источник расхода", "Описание", "Дата создания"};
-                break;
-            case UZBEK:
-                columns = new String[]{"Xarajat summasi", "Xarajat manbai", "Tavsif", "Yaratilgan sana"};
-                break;
-            default: // English
-                columns = new String[]{"Expense Amount", "Expense Source", "Description", "Created At"};
-                break;
-        }
-
-        // Create Header Row
-        Row headerRow = sheet.createRow(0);
-        for (int i = 0; i < columns.length; i++) {
-            headerRow.createCell(i).setCellValue(columns[i]);
-        }
-
-        // Fill Data
-        int rowNum = 1;
-        for (Expense expense : expenses) {
-            Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(expense.getExpenseAmount()); // Expense Amount
-            row.createCell(1).setCellValue(expense.getExpenseSource()); // Expense Source
-            row.createCell(2).setCellValue(expense.getDescription());   // Description
-            row.createCell(3).setCellValue(expense.getCreatedAt().toString()); // Created At
-        }
-
-        // Save to File
-        File file = new File("expenses_" + userId + "_" + month + ".xlsx");
-        try (FileOutputStream fileOut = new FileOutputStream(file)) {
-            workbook.write(fileOut);
-        }
-        workbook.close();
-
-        return file;
-    }
-
-    SendDocument document = new SendDocument();
-    document.setChatId(userChatId);
-    document.setDocument(new InputFile(file));
-    telegramBot.execute(document);
-
-    file.delete();
-     */
 }

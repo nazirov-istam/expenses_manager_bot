@@ -152,10 +152,7 @@ public class MainService {
                     generalService.updateStep(chatId, Steps.HOME);
                     sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                     sendMessage.setText(generalService.mainMenuWelcome(user.getLanguage()));
-                }
-                // TODO: Report section --> Back !!!
-
-                else if (generalService.getStep(chatId) == Steps.REPORT) {
+                } else if (generalService.getStep(chatId) == Steps.REPORT) {
                     generalService.updateStep(chatId, Steps.HOME);
                     sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                     sendMessage.setText(generalService.mainMenuWelcome(user.getLanguage()));
@@ -186,7 +183,7 @@ public class MainService {
                 }
             }
 
-            // TODO: Report section (Buttons are ready !!!) --> Buttons are not working !
+            // TODO: Report section (Excel format should be added)!
             else if (userText.equals(Messages.menuReportUz) || userText.equals(Messages.menuReportRu) || userText.equals(Messages.menuReportEn)) {
                 generalService.updateStep(chatId, Steps.REPORT);
                 sendMessage.setReplyMarkup(generalService.threeButtonReport(user.getLanguage()));
@@ -198,11 +195,7 @@ public class MainService {
             } else if (userText.equals(Messages.askIncomeUz) || userText.equals(Messages.askIncomeRu) || userText.equals(Messages.askIncomeEn)) {
                 generalService.updateStep(chatId, Steps.MONTHLY_INCOME_REPORT);
                 sendMessage.setText(generalService.mainReportInTextOrExcelForm(user.getLanguage()));
-                sendMessage.setReplyMarkup(generalService.threeButtonFormatSelectionReport(user.getLanguage()));
-            } else if (userText.equals(Messages.askTextFormatUz) || userText.equals(Messages.askTextFormatRu) || userText.equals(Messages.askTextFormatEn)) {
-                sendMessage.setText("Text formatida kurish !");
-                sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
-                // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.twoButtonFormatSelectionReport(user.getLanguage()));
             } else if (userText.equals(Messages.askExcelFormatUz) || userText.equals(Messages.askExcelFormatRu) || userText.equals(Messages.askExcelFormatEn)) {
                 // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
                 sendMessage.setText("Excel formatida kurish !");
@@ -214,11 +207,7 @@ public class MainService {
             } else if (userText.equals(Messages.askIncomeUz) || userText.equals(Messages.askIncomeRu) || userText.equals(Messages.askIncomeEn)) {
                 generalService.updateStep(chatId, Steps.YEARLY_INCOME_REPORT);
                 sendMessage.setText(generalService.mainReportInTextOrExcelForm(user.getLanguage()));
-                sendMessage.setReplyMarkup(generalService.threeButtonFormatSelectionReport(user.getLanguage()));
-            } else if (userText.equals(Messages.askTextFormatUz) || userText.equals(Messages.askTextFormatRu) || userText.equals(Messages.askTextFormatEn)) {
-                sendMessage.setText("Text formatida kurish !");
-                sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
-                // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.twoButtonFormatSelectionReport(user.getLanguage()));
             } else if (userText.equals(Messages.askExcelFormatUz) || userText.equals(Messages.askExcelFormatRu) || userText.equals(Messages.askExcelFormatEn)) {
                 sendMessage.setText("Excel formatida kurish !");
                 // sendMessage.setReplyMarkup(generalService.threeButtonMonthlyIncomeReport(user.getLanguage()));
@@ -227,7 +216,7 @@ public class MainService {
             } else if (userText.equals(Messages.askExpenseUz) || userText.equals(Messages.askExpenseRu) || userText.equals(Messages.askExpenseEn)) {
                 generalService.updateStep(chatId, Steps.MONTHLY_EXPENSE_REPORT);
                 sendMessage.setText(generalService.mainReportInTextOrExcelForm(user.getLanguage()));
-                sendMessage.setReplyMarkup(generalService.threeButtonFormatSelectionReport(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.twoButtonFormatSelectionReport(user.getLanguage()));
             }
         }
         return sendMessage;

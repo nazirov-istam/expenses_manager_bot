@@ -706,25 +706,21 @@ public class GeneralService {
         return replyKeyboardMarkup;
     }
 
-    public ReplyKeyboard threeButtonFormatSelectionReport(Language language) {
-        KeyboardButton text = new KeyboardButton();
+    public ReplyKeyboard twoButtonFormatSelectionReport(Language language) {
         KeyboardButton excel = new KeyboardButton();
         KeyboardButton back = new KeyboardButton();
 
 
         switch (language) {
             case UZBEK -> {
-                text.setText(Messages.askTextFormatUz);
                 excel.setText(Messages.askExcelFormatUz);
                 back.setText(Messages.backUz);
             }
             case RUSSIAN -> {
-                text.setText(Messages.askTextFormatRu);
                 excel.setText(Messages.askExcelFormatRu);
                 back.setText(Messages.backRu);
             }
             case ENGLISH -> {
-                text.setText(Messages.askTextFormatEn);
                 excel.setText(Messages.askExcelFormatEn);
                 back.setText(Messages.backEn);
 
@@ -733,7 +729,6 @@ public class GeneralService {
 
         KeyboardRow row1 = new KeyboardRow();
         KeyboardRow row2 = new KeyboardRow();
-        row1.add(text);
         row1.add(excel);
         row2.add(back);
 

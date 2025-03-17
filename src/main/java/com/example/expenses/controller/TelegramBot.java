@@ -7,6 +7,9 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -33,9 +36,13 @@ public class TelegramBot extends TelegramLongPollingBot {
                 log.error("DefaultBotOptions is null");
                 return; // или выбросьте исключение
             }
-            SendMessage response = mainService.mainBot(update);
+            PartialBotApiMethod<?> response = mainService.mainBot(update);
             if (response != null) {
-                execute(response);
+                if (response instanceof SendMessage sendMessage) {
+                    execute(sendMessage);
+                } else if (response instanceof SendDocument sendDocument) {
+                    execute(sendDocument);
+                }
             } else {
                 log.warn("main service returned null");
                 System.err.println("main service returned null");

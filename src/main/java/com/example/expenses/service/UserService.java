@@ -21,6 +21,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final IncomeRepository incomeRepository;
+    private final ExpenseRepository expenseRepository;
 
     public String getStartMessage(User user) {
         return switch (user.getLanguage()) {
@@ -119,4 +121,6 @@ public class UserService {
     // TODO: Userni usha yildagi barcha xarajatlarini chiqarish
 
     // TODO: Userni usha yildagi barcha daromatlarini chiqarish
+
+
 }

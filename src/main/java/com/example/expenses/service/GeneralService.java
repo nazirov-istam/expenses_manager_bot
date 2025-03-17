@@ -140,16 +140,48 @@ public class GeneralService {
         return "";
     }
 
-    public String mainReportInTextOrExcelForm(Language language) {
+
+
+    public String askFormatOfReport(Language language) {
         switch (language) {
             case UZBEK -> {
-                return Messages.askReportFormatUz;
+                return Messages.askFormatUz;
             }
             case RUSSIAN -> {
-                return Messages.askReportFormatRu;
+                return Messages.askFormatRu;
             }
             case ENGLISH -> {
-                return Messages.askReportFormatEn;
+                return Messages.askFormatEn;
+            }
+        }
+        return "";
+    }
+
+    public String expenseReportProcessingMethod(Language language){
+        switch (language) {
+            case UZBEK -> {
+                return Messages.expenseReportProcessingUz;
+            }
+            case RUSSIAN -> {
+                return Messages.expenseReportProcessingRu;
+            }
+            case ENGLISH -> {
+                return Messages.expenseReportProcessingEn;
+            }
+        }
+        return "";
+    }
+
+    public String incomeReportProcessingMethod(Language language){
+        switch (language) {
+            case UZBEK -> {
+                return Messages.incomeReportProcessingUz;
+            }
+            case RUSSIAN -> {
+                return Messages.incomeReportProcessingRu;
+            }
+            case ENGLISH -> {
+                return Messages.incomeReportProcessingEn;
             }
         }
         return "";
@@ -1033,5 +1065,4 @@ public class GeneralService {
         incomeRepository.delete(income);
         log.info("Oxirgi qo‘shilgan daromat o‘chirildi: {}", income);
     }
-
 }

@@ -292,9 +292,21 @@ public final class Messages {
     public static final String askIncomeRu = "Доход отчёты 📊";
     public static final String askIncomeEn = "Income reports 📊";
 
-    public static final String askTextFormatUz = "Text holatida \uD83D\uDCDD";
-    public static final String askTextFormatRu = "В текстовом формате \uD83D\uDCDD";
-    public static final String askTextFormatEn = "In text format \uD83D\uDCDD";
+    public static final String askFormatUz = """
+        Sanani pastdagi formatda kiriting:
+        F: "YYYY-MM" -> "2025-03"
+        """;
+
+    public static final String askFormatRu = """
+        Введите дату в следующем формате:
+        Ф: "YYYY-MM" -> "2025-03"
+        """;
+
+    public static final String askFormatEn = """
+        Enter the date in the following format:
+        F: "YYYY-MM" -> "2025-03"
+        """;
+
 
     public static final String askExcelFormatUz = "Excel formatida \uD83D\uDDC2";
     public static final String askExcelFormatRu = "В формате Excel \uD83D\uDDC2";
@@ -441,4 +453,41 @@ public final class Messages {
     public static final String confirmMessageEn = "Confirm ✅";
     public static final String declineMessageEn = "Decline ❌";
 
+    // Expense Report Messages
+    public static final String expenseReportProcessingUz = """
+        Sizning xarajat hisobotingiz tayyorlanayapti.
+        
+        Eslatma: Bu bir necha daqiqa olishi mumkin.
+        """;
+
+    public static final String expenseReportProcessingRu = """
+        Ваш отчет о расходах готовится.
+        
+        Примечание: Это может занять несколько минут.
+        """;
+
+    public static final String expenseReportProcessingEn = """
+        Your expense report is being prepared.
+        
+        Note: This may take a few minutes.
+        """;
+
+    // Income Report Messages
+    public static final String incomeReportProcessingUz = """
+        Sizning daromat hisobotingiz tayyorlanayapti.
+        
+        Eslatma: Bu bir necha daqiqa olishi mumkin.
+        """;
+
+    public static final String incomeReportProcessingRu = """
+        Ваш отчет о доходах готовится.
+        
+        Примечание: Это может занять несколько минут.
+        """;
+
+    public static final String incomeReportProcessingEn = """
+        Your income report is being prepared.
+        
+        Note: This may take a few minutes.
+        """;
 }

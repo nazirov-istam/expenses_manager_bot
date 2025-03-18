@@ -141,23 +141,37 @@ public class GeneralService {
     }
 
 
-
-    public String askFormatOfReport(Language language) {
+    public String askFormatOfMonthlyReport(Language language) {
         switch (language) {
             case UZBEK -> {
-                return Messages.askFormatUz;
+                return Messages.askMonthlyFormatUz;
             }
             case RUSSIAN -> {
-                return Messages.askFormatRu;
+                return Messages.askMonthlyFormatRu;
             }
             case ENGLISH -> {
-                return Messages.askFormatEn;
+                return Messages.askMonthlyFormatEn;
             }
         }
         return "";
     }
 
-    public String expenseReportProcessingMethod(Language language){
+    public String askFormatOfYearlyReport(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.askYearlyFormatUz;
+            }
+            case RUSSIAN -> {
+                return Messages.askYearlyFormatRu;
+            }
+            case ENGLISH -> {
+                return Messages.askYearlyFormatEn;
+            }
+        }
+        return "";
+    }
+
+    public String expenseReportProcessingMethod(Language language) {
         switch (language) {
             case UZBEK -> {
                 return Messages.expenseReportProcessingUz;
@@ -172,7 +186,7 @@ public class GeneralService {
         return "";
     }
 
-    public String incomeReportProcessingMethod(Language language){
+    public String incomeReportProcessingMethod(Language language) {
         switch (language) {
             case UZBEK -> {
                 return Messages.incomeReportProcessingUz;
@@ -437,6 +451,21 @@ public class GeneralService {
             }
             case ENGLISH -> {
                 return Messages.failedSaveIncomeEn;
+            }
+        }
+        return "";
+    }
+
+    public String noReportResponse(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.noReportByGivenYearUz;
+            }
+            case RUSSIAN -> {
+                return Messages.noReportByGivenYearRu;
+            }
+            case ENGLISH -> {
+                return Messages.noReportByGivenYearEn;
             }
         }
         return "";

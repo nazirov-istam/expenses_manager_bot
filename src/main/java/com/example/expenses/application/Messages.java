@@ -292,20 +292,37 @@ public final class Messages {
     public static final String askIncomeRu = "Доход отчёты 📊";
     public static final String askIncomeEn = "Income reports 📊";
 
-    public static final String askFormatUz = """
+    public static final String askMonthlyFormatUz = """
         Sanani pastdagi formatda kiriting:
         F: "YYYY-MM" -> "2025-03"
         """;
 
-    public static final String askFormatRu = """
+    public static final String askMonthlyFormatRu = """
         Введите дату в следующем формате:
         Ф: "YYYY-MM" -> "2025-03"
         """;
 
-    public static final String askFormatEn = """
+    public static final String askMonthlyFormatEn = """
         Enter the date in the following format:
         F: "YYYY-MM" -> "2025-03"
         """;
+
+    public static final String askYearlyFormatUz = """
+        Yilni pastdagi formatda kiriting:
+        F: "YYYY" -> "2025"
+        """;
+
+    public static final String askYearlyFormatRu = """
+        Введите год в следующем формате:
+        Ф: "ГГГГ" -> "2025"
+        """;
+
+    public static final String askYearlyFormatEn = """
+        Enter the year in the following format:
+        F: "YYYY" -> "2025"
+        """;
+
+
 
 
     public static final String askExcelFormatUz = "Excel formatida \uD83D\uDDC2";
@@ -490,4 +507,17 @@ public final class Messages {
         
         Note: This may take a few minutes.
         """;
+
+    public static final String noReportByGivenYearUz = """
+        Berilgan yil bo‘yicha hisobot ma’lumotlari mavjud emas.
+        """;
+
+    public static final String noReportByGivenYearRu = """
+        Отчетные данные за указанный год отсутствуют.
+        """;
+
+    public static final String noReportByGivenYearEn = """
+        No report data available for the specified year.
+        """;
+
 }

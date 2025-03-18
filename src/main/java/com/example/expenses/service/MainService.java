@@ -188,7 +188,7 @@ public class MainService {
                     sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
                 }
             }
-            // TODO
+            // TODO Report Section. Monthly Report is not working !!!
             else if (userText.equals(Messages.menuReportUz) || userText.equals(Messages.menuReportRu) || userText.equals(Messages.menuReportEn)) {
                 generalService.updateStep(chatId, Steps.REPORT);
                 sendMessage.setReplyMarkup(generalService.threeButtonReport(user.getLanguage()));
@@ -199,23 +199,19 @@ public class MainService {
                 sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
             } else if (user.getStep() == Steps.MONTHLY_REPORT && (userText.equals(Messages.askIncomeUz) || userText.equals(Messages.askIncomeRu) || userText.equals(Messages.askIncomeEn))) {
                 generalService.updateStep(chatId, Steps.MONTHLY_INCOME_REPORT);
-                sendMessage.setText(generalService.askFormatOfReport(user.getLanguage()));
+                sendMessage.setText(generalService.askFormatOfMonthlyReport(user.getLanguage()));
                 generalService.updateStep(chatId, Steps.HOME);
                 sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
             } else if (user.getStep() == Steps.MONTHLY_INCOME_REPORT && userText != null) {
-                // TODO 
-                sendDocument.setCaption(generalService.incomeReportProcessingMethod(user.getLanguage()));
+                sendDocument.setDocument(reportService.sendMonthlyIncomeReportDirectly(chatId, userText));
                 generalService.updateStep(chatId, Steps.HOME);
                 sendDocument.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
-                sendDocument.setDocument(reportService.sendIncomeReportDirectly(chatId, userText));
                 return sendDocument;
             } else if (user.getStep() == Steps.MONTHLY_REPORT && (userText.equals(Messages.askExpenseUz) || userText.equals(Messages.askExpenseRu) || userText.equals(Messages.askExpenseEn))) {
                 generalService.updateStep(chatId, Steps.MONTHLY_EXPENSE_REPORT);
-                sendMessage.setText(generalService.askFormatOfReport(user.getLanguage()));
+                sendMessage.setText(generalService.askFormatOfMonthlyReport(user.getLanguage()));
             } else if (user.getStep() == Steps.MONTHLY_EXPENSE_REPORT && userText != null) {
-                //TODO 
-                sendDocument.setCaption(generalService.expenseReportProcessingMethod(user.getLanguage()));
-                sendDocument.setDocument(reportService.sendExpenseReportDirectly(chatId, userText));
+                sendDocument.setDocument(reportService.sendMonthlyExpenseReportDirectly(chatId, userText));
                 generalService.updateStep(chatId, Steps.HOME);
                 sendDocument.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                 return sendDocument;
@@ -225,24 +221,32 @@ public class MainService {
                 sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
             } else if (user.getStep() == Steps.YEARLY_REPORT && (userText.equals(Messages.askIncomeUz) || userText.equals(Messages.askIncomeRu) || userText.equals(Messages.askIncomeEn))) {
                 generalService.updateStep(chatId, Steps.YEARLY_INCOME_REPORT);
-                sendMessage.setText(generalService.askFormatOfReport(user.getLanguage()));
+                sendMessage.setText(generalService.askFormatOfYearlyReport(user.getLanguage()));
             } else if (user.getStep() == Steps.YEARLY_INCOME_REPORT && userText != null) {
-                //TODO 
-                sendDocument.setCaption(generalService.incomeReportProcessingMethod(user.getLanguage()));
-                sendDocument.setDocument(reportService.sendIncomeReportDirectly(chatId, userText));
                 generalService.updateStep(chatId, Steps.HOME);
-                sendDocument.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
-                return sendDocument;
+                if (!userService.checkIfIncomeExists(userText, chatId)) {
+                    sendMessage.setText(generalService.noReportResponse(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                    return sendMessage;
+                } else {
+                    sendDocument.setDocument(reportService.sendYearlyIncomeReportDirectly(chatId, userText));
+                    sendDocument.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                    return sendDocument;
+                }
             } else if (user.getStep() == Steps.YEARLY_REPORT && (userText.equals(Messages.askExpenseUz) || userText.equals(Messages.askExpenseRu) || userText.equals(Messages.askExpenseEn))) {
                 generalService.updateStep(chatId, Steps.YEARLY_EXPENSE_REPORT);
-                sendMessage.setText(generalService.askFormatOfReport(user.getLanguage()));
+                sendMessage.setText(generalService.askFormatOfYearlyReport(user.getLanguage()));
             } else if (user.getStep() == Steps.YEARLY_EXPENSE_REPORT && userText != null) {
-                //TODO 
-                sendDocument.setCaption(generalService.expenseReportProcessingMethod(user.getLanguage()));
-                sendDocument.setDocument(reportService.sendExpenseReportDirectly(chatId, userText));
                 generalService.updateStep(chatId, Steps.HOME);
-                sendDocument.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
-                return sendDocument;
+                if (!userService.checkIfExpenseExists(userText, chatId)) {
+                    sendMessage.setText(generalService.noReportResponse(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                    return sendMessage;
+                } else {
+                    sendDocument.setDocument(reportService.sendYearlyExpenseReportDirectly(chatId, userText));
+                    sendDocument.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                    return sendDocument;
+                }
             }
         }
         return sendMessage;
@@ -258,9 +262,9 @@ public class MainService {
                     Hammasini qayta tashlab , tasdiqlash/rad etish buyrug'i junatiladi,✅
                                 }
                 case "REPORT" -> {
-                    1) Yillik hisobot(yillar tanlanadi)
+                    1) Yillik hisobot(yillar tanlanadi)✅
                     2) Oylik Hisobot(Oy tanlanadi)
-                    3) Excelda saqlangan malumotlarni junatsin.
+                    3) Excelda saqlangan malumotlarni junatsin.✅
                 }
                 case "INCOME" -> {
                      1) Daromat manbaini kiriting.✅

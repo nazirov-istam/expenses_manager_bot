@@ -114,13 +114,13 @@ public class UserService {
                 });
     }
 
-    // TODO: Userni usha oydagi barcha xarajatlarini chiqarish
+    public boolean checkIfIncomeExists(String year, Long userId) {
+        int parsedYear = Integer.parseInt(year); // String -> int
+        return incomeRepository.existsByYearAndUserId(parsedYear, userId);
+    }
 
-    // TODO: Userni usha oydagi barcha daromatlarini chiqarish
-
-    // TODO: Userni usha yildagi barcha xarajatlarini chiqarish
-
-    // TODO: Userni usha yildagi barcha daromatlarini chiqarish
-
-
+    public boolean checkIfExpenseExists(String year, Long userId) {
+        int parsedYear = Integer.parseInt(year); // String -> int
+        return expenseRepository.existsByYearAndUserId(parsedYear, userId);
+    }
 }

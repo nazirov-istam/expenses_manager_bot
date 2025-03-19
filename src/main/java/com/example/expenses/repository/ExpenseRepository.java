@@ -14,8 +14,15 @@ import java.util.List;
 public interface ExpenseRepository extends CrudRepository<Expense, Long> {
     Expense findTopByUserOrderByCreatedAtDesc(User user);
 
-    List<Expense> findAllByUserChatIdAndCreatedAtBetween(Long chatId, LocalDateTime startDate, LocalDateTime endDate);
+    @Query("SELECT e FROM Expense e WHERE e.user.chatId = :chatId AND e.createdAt BETWEEN :startDate AND :endDate")
+    List<Expense> findAllByUserChatIdAndCreatedAtBetween(@Param("chatId") Long chatId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
     @Query("SELECT COUNT(e) > 0 FROM Expense e WHERE EXTRACT(YEAR FROM e.createdAt) = :year AND e.user.chatId = :userId")
     boolean existsByYearAndUserId(@Param("year") int year, @Param("userId") Long userId);
+
+    @Query("SELECT COUNT(e) > 0 FROM Expense e WHERE e.user.chatId = :chatId AND e.createdAt BETWEEN :startDate AND :endDate")
+    boolean existsByUserChatIdAndCreatedAtBetween(@Param("chatId") Long chatId,
+                                                  @Param("startDate") LocalDateTime startDate,
+                                                  @Param("endDate") LocalDateTime endDate);
+
 }

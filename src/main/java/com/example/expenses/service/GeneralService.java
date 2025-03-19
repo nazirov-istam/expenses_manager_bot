@@ -171,36 +171,6 @@ public class GeneralService {
         return "";
     }
 
-    public String expenseReportProcessingMethod(Language language) {
-        switch (language) {
-            case UZBEK -> {
-                return Messages.expenseReportProcessingUz;
-            }
-            case RUSSIAN -> {
-                return Messages.expenseReportProcessingRu;
-            }
-            case ENGLISH -> {
-                return Messages.expenseReportProcessingEn;
-            }
-        }
-        return "";
-    }
-
-    public String incomeReportProcessingMethod(Language language) {
-        switch (language) {
-            case UZBEK -> {
-                return Messages.incomeReportProcessingUz;
-            }
-            case RUSSIAN -> {
-                return Messages.incomeReportProcessingRu;
-            }
-            case ENGLISH -> {
-                return Messages.incomeReportProcessingEn;
-            }
-        }
-        return "";
-    }
-
     public String editProfile(Language language) {
         switch (language) {
             case UZBEK -> {
@@ -456,7 +426,7 @@ public class GeneralService {
         return "";
     }
 
-    public String noReportResponse(Language language) {
+    public String noReportResponseByYear(Language language) {
         switch (language) {
             case UZBEK -> {
                 return Messages.noReportByGivenYearUz;
@@ -466,6 +436,21 @@ public class GeneralService {
             }
             case ENGLISH -> {
                 return Messages.noReportByGivenYearEn;
+            }
+        }
+        return "";
+    }
+
+    public String noReportResponseByDate(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.noReportByGivenYearAndMonthUz;
+            }
+            case RUSSIAN -> {
+                return Messages.noReportByGivenYearAndMonthRu;
+            }
+            case ENGLISH -> {
+                return Messages.noReportByGivenYearAndMonthEn;
             }
         }
         return "";
@@ -484,6 +469,49 @@ public class GeneralService {
             }
         }
         return "";
+    }
+
+    public ReplyKeyboardMarkup fiveButtons(String btn1, String btn2, String btn3, String btn4, String btn5) {
+        KeyboardButton button1 = new KeyboardButton();
+        button1.setText(btn1);
+
+        KeyboardButton button2 = new KeyboardButton();
+        button2.setText(btn2);
+
+        KeyboardButton button3 = new KeyboardButton();
+        button3.setText(btn3);
+
+        KeyboardButton button4 = new KeyboardButton();
+        button4.setText(btn4);
+
+        KeyboardButton button5 = new KeyboardButton();
+        button5.setText(btn5);
+
+        KeyboardRow row1 = new KeyboardRow();
+        KeyboardRow row2 = new KeyboardRow();
+        KeyboardRow row3 = new KeyboardRow();
+        KeyboardRow row4 = new KeyboardRow();
+        KeyboardRow row5 = new KeyboardRow();
+
+        row1.add(button1);
+        row2.add(button2);
+        row3.add(button3);
+        row4.add(button4);
+        row5.add(button5);
+
+        ArrayList<KeyboardRow> rows = new ArrayList<>();
+        rows.add(row1);
+        rows.add(row2);
+        rows.add(row3);
+        rows.add(row4);
+        rows.add(row5);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setKeyboard(rows);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
+        return replyKeyboardMarkup;
     }
 
     public ReplyKeyboardMarkup threeButtons(String btn1, String btn2, String btn3) {
@@ -753,44 +781,6 @@ public class GeneralService {
         KeyboardRow row2 = new KeyboardRow();
         row1.add(income);
         row1.add(outcome);
-        row2.add(back);
-
-        ArrayList<KeyboardRow> rows = new ArrayList<>();
-        rows.add(row1);
-        rows.add(row2);
-
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        replyKeyboardMarkup.setKeyboard(rows);
-        replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setSelective(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(true);
-        return replyKeyboardMarkup;
-    }
-
-    public ReplyKeyboard twoButtonFormatSelectionReport(Language language) {
-        KeyboardButton excel = new KeyboardButton();
-        KeyboardButton back = new KeyboardButton();
-
-
-        switch (language) {
-            case UZBEK -> {
-                excel.setText(Messages.askExcelFormatUz);
-                back.setText(Messages.backUz);
-            }
-            case RUSSIAN -> {
-                excel.setText(Messages.askExcelFormatRu);
-                back.setText(Messages.backRu);
-            }
-            case ENGLISH -> {
-                excel.setText(Messages.askExcelFormatEn);
-                back.setText(Messages.backEn);
-
-            }
-        }
-
-        KeyboardRow row1 = new KeyboardRow();
-        KeyboardRow row2 = new KeyboardRow();
-        row1.add(excel);
         row2.add(back);
 
         ArrayList<KeyboardRow> rows = new ArrayList<>();

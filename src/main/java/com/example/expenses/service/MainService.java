@@ -200,21 +200,31 @@ public class MainService {
             } else if (user.getStep() == Steps.MONTHLY_REPORT && (userText.equals(Messages.askIncomeUz) || userText.equals(Messages.askIncomeRu) || userText.equals(Messages.askIncomeEn))) {
                 generalService.updateStep(chatId, Steps.MONTHLY_INCOME_REPORT);
                 sendMessage.setText(generalService.askFormatOfMonthlyReport(user.getLanguage()));
-                generalService.updateStep(chatId, Steps.HOME);
-                sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
             } else if (user.getStep() == Steps.MONTHLY_INCOME_REPORT && userText != null) {
-                sendDocument.setDocument(reportService.sendMonthlyIncomeReportDirectly(chatId, userText));
                 generalService.updateStep(chatId, Steps.HOME);
-                sendDocument.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
-                return sendDocument;
+                if (!userService.checkIfIncomeExistsByDate(userText, chatId)) {
+                    sendMessage.setText(generalService.noReportResponseByDate(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                    return sendMessage;
+                } else {
+                    sendDocument.setDocument(reportService.sendMonthlyIncomeReportDirectly(chatId, userText));
+                    sendDocument.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                    return sendDocument;
+                }
             } else if (user.getStep() == Steps.MONTHLY_REPORT && (userText.equals(Messages.askExpenseUz) || userText.equals(Messages.askExpenseRu) || userText.equals(Messages.askExpenseEn))) {
                 generalService.updateStep(chatId, Steps.MONTHLY_EXPENSE_REPORT);
                 sendMessage.setText(generalService.askFormatOfMonthlyReport(user.getLanguage()));
             } else if (user.getStep() == Steps.MONTHLY_EXPENSE_REPORT && userText != null) {
-                sendDocument.setDocument(reportService.sendMonthlyExpenseReportDirectly(chatId, userText));
                 generalService.updateStep(chatId, Steps.HOME);
-                sendDocument.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
-                return sendDocument;
+                if (!userService.checkIfExpenseExistsByDate(userText, chatId)) {
+                    sendMessage.setText(generalService.noReportResponseByDate(user.getLanguage()));
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                    return sendMessage;
+                } else {
+                    sendDocument.setDocument(reportService.sendMonthlyExpenseReportDirectly(chatId, userText));
+                    sendDocument.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                    return sendDocument;
+                }
             } else if (userText.equals(Messages.askYearlyReportUz) || userText.equals(Messages.askYearlyReportRu) || userText.equals(Messages.askYearlyReportEn)) {
                 generalService.updateStep(chatId, Steps.YEARLY_REPORT);
                 sendMessage.setText(generalService.mainReportIncomeOrExpense(user.getLanguage()));
@@ -222,10 +232,11 @@ public class MainService {
             } else if (user.getStep() == Steps.YEARLY_REPORT && (userText.equals(Messages.askIncomeUz) || userText.equals(Messages.askIncomeRu) || userText.equals(Messages.askIncomeEn))) {
                 generalService.updateStep(chatId, Steps.YEARLY_INCOME_REPORT);
                 sendMessage.setText(generalService.askFormatOfYearlyReport(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.fiveButtons("2025", "2026", "2027", "2028", "2029"));
             } else if (user.getStep() == Steps.YEARLY_INCOME_REPORT && userText != null) {
                 generalService.updateStep(chatId, Steps.HOME);
-                if (!userService.checkIfIncomeExists(userText, chatId)) {
-                    sendMessage.setText(generalService.noReportResponse(user.getLanguage()));
+                if (!userService.checkIfIncomeExistsByYear(userText, chatId)) {
+                    sendMessage.setText(generalService.noReportResponseByYear(user.getLanguage()));
                     sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                     return sendMessage;
                 } else {
@@ -236,10 +247,11 @@ public class MainService {
             } else if (user.getStep() == Steps.YEARLY_REPORT && (userText.equals(Messages.askExpenseUz) || userText.equals(Messages.askExpenseRu) || userText.equals(Messages.askExpenseEn))) {
                 generalService.updateStep(chatId, Steps.YEARLY_EXPENSE_REPORT);
                 sendMessage.setText(generalService.askFormatOfYearlyReport(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.fiveButtons("2025", "2026", "2027", "2028", "2029"));
             } else if (user.getStep() == Steps.YEARLY_EXPENSE_REPORT && userText != null) {
                 generalService.updateStep(chatId, Steps.HOME);
-                if (!userService.checkIfExpenseExists(userText, chatId)) {
-                    sendMessage.setText(generalService.noReportResponse(user.getLanguage()));
+                if (!userService.checkIfExpenseExistsByYear(userText, chatId)) {
+                    sendMessage.setText(generalService.noReportResponseByYear(user.getLanguage()));
                     sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                     return sendMessage;
                 } else {
@@ -248,6 +260,9 @@ public class MainService {
                     return sendDocument;
                 }
             }
+        }
+        if (sendMessage.getText().isEmpty()) {
+            sendMessage.setText("Default text");
         }
         return sendMessage;
         /*
@@ -263,7 +278,7 @@ public class MainService {
                                 }
                 case "REPORT" -> {
                     1) Yillik hisobot(yillar tanlanadi)✅
-                    2) Oylik Hisobot(Oy tanlanadi)
+                    2) Oylik Hisobot(Oy tanlanadi)✅
                     3) Excelda saqlangan malumotlarni junatsin.✅
                 }
                 case "INCOME" -> {

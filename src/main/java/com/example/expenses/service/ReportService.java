@@ -39,6 +39,11 @@ public class ReportService {
             Row header;
             String totalLabel;
 
+            CellStyle boldStyle = workbook.createCellStyle();
+            Font boldFont = workbook.createFont();
+            boldFont.setBold(true);
+            boldStyle.setFont(boldFont);
+
             switch (language) {
                 case UZBEK -> {
                     sheet = workbook.createSheet("Daromat Hisoboti");
@@ -78,13 +83,17 @@ public class ReportService {
                 row.createCell(0).setCellValue(income.getIncomeSource());
                 row.createCell(1).setCellValue(income.getIncomeAmount());
                 row.createCell(2).setCellValue(income.getDescription());
-                row.createCell(3).setCellValue(income.getCreatedAt().toString().formatted("yyyy-MM-dd HH:mm:ss"));
+                row.createCell(3).setCellValue(income.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                 totalIncome += income.getIncomeAmount();
             }
 
             Row totalRow = sheet.createRow(rowNum);
-            totalRow.createCell(0).setCellValue(totalLabel);
+            createHeaderCell(totalRow, 0, totalLabel, boldStyle);
             totalRow.createCell(1).setCellValue(totalIncome);
+
+            for (int i = 0; i < 4; i++) {
+                sheet.autoSizeColumn(i);
+            }
 
             workbook.write(outputStream);
             return outputStream.toByteArray();
@@ -109,7 +118,7 @@ public class ReportService {
             return yearMonth;
         }
 
-        if (yearMonth.matches("\\d{4}-\\d{1}")) {
+        if (yearMonth.matches("\\d{4}-\\d")) {
             String[] parts = yearMonth.split("-");
             int year = Integer.parseInt(parts[0]);
             int month = Integer.parseInt(parts[1]);
@@ -151,6 +160,11 @@ public class ReportService {
             Row header;
             String totalLabel;
 
+            CellStyle boldStyle = workbook.createCellStyle();
+            Font boldFont = workbook.createFont();
+            boldFont.setBold(true);
+            boldStyle.setFont(boldFont);
+
             switch (language) {
                 case UZBEK -> {
                     sheet = workbook.createSheet("Xarajat Hisoboti");
@@ -190,13 +204,17 @@ public class ReportService {
                 row.createCell(0).setCellValue(expense.getExpenseSource());
                 row.createCell(1).setCellValue(expense.getExpenseAmount());
                 row.createCell(2).setCellValue(expense.getDescription());
-                row.createCell(3).setCellValue(expense.getCreatedAt().toString().formatted("yyyy-MM-dd HH:mm:ss"));
+                row.createCell(3).setCellValue(expense.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                 totalExpense += expense.getExpenseAmount();
             }
 
             Row totalRow = sheet.createRow(rowNum);
-            totalRow.createCell(0).setCellValue(totalLabel);
+            createHeaderCell(totalRow, 0, totalLabel, boldStyle);
             totalRow.createCell(1).setCellValue(totalExpense);
+
+            for (int i = 0; i < 4; i++) {
+                sheet.autoSizeColumn(i);
+            }
 
             workbook.write(outputStream);
             return outputStream.toByteArray();
@@ -287,7 +305,7 @@ public class ReportService {
                 row.createCell(0).setCellValue(income.getIncomeSource());
                 row.createCell(1).setCellValue(income.getIncomeAmount());
                 row.createCell(2).setCellValue(income.getDescription());
-                row.createCell(3).setCellValue(income.getCreatedAt().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                row.createCell(3).setCellValue(income.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                 totalIncome += income.getIncomeAmount();
             }
 
@@ -368,7 +386,7 @@ public class ReportService {
                 row.createCell(0).setCellValue(expense.getExpenseSource());
                 row.createCell(1).setCellValue(expense.getExpenseAmount());
                 row.createCell(2).setCellValue(expense.getDescription());
-                row.createCell(3).setCellValue(expense.getCreatedAt().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                row.createCell(3).setCellValue(expense.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                 totalExpense += expense.getExpenseAmount();
             }
 

@@ -13,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -114,13 +115,49 @@ public class UserService {
                 });
     }
 
-    public boolean checkIfIncomeExists(String year, Long userId) {
+    public boolean checkIfIncomeExistsByYear(String year, Long userId) {
         int parsedYear = Integer.parseInt(year); // String -> int
         return incomeRepository.existsByYearAndUserId(parsedYear, userId);
     }
 
-    public boolean checkIfExpenseExists(String year, Long userId) {
+    public boolean checkIfExpenseExistsByYear(String year, Long userId) {
         int parsedYear = Integer.parseInt(year); // String -> int
         return expenseRepository.existsByYearAndUserId(parsedYear, userId);
+    }
+
+    public boolean checkIfIncomeExistsByDate(String userText, Long userId) {
+        String[] parts = userText.split("-");
+
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Noto‘g‘ri sana formati. To‘g‘ri format: YYYY-MM yoki YYYY-M");
+        }
+
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+
+        YearMonth yearMonth = YearMonth.of(year, month);
+
+        LocalDateTime startDate = yearMonth.atDay(1).atStartOfDay();
+        LocalDateTime endDate = yearMonth.atEndOfMonth().atTime(23, 59, 59, 999999999); // "2025-03-31 23:59:59.999999999"
+
+        return incomeRepository.existsByUserChatIdAndCreatedAtBetween(userId, startDate, endDate);
+    }
+
+    public boolean checkIfExpenseExistsByDate(String userText, Long userId) {
+        String[] parts = userText.split("-");
+
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Noto‘g‘ri sana formati. To‘g‘ri format: YYYY-MM yoki YYYY-M");
+        }
+
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+
+        YearMonth yearMonth = YearMonth.of(year, month);
+
+        LocalDateTime startDate = yearMonth.atDay(1).atStartOfDay();
+        LocalDateTime endDate = yearMonth.atEndOfMonth().atTime(23, 59, 59, 999999999);
+
+        return expenseRepository.existsByUserChatIdAndCreatedAtBetween(userId, startDate, endDate);
     }
 }

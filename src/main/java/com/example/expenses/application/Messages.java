@@ -37,11 +37,6 @@ public final class Messages {
     public static final String askIncomeOrExpenseEn = "Please select whether you want to view the income or expense reports.";
     public static final String askIncomeOrExpenseRu = "Пожалуйста, выберите, хотите ли вы просмотреть отчёты о доходах или расходах.";
 
-    public static final String askReportFormatUz = "Iltimos, hisobot formatini tanlang: Excel yoki Matn (Text).";
-    public static final String askReportFormatEn = "Please select the report format: Excel or Text.";
-    public static final String askReportFormatRu = "Пожалуйста, выберите формат отчёта: Excel или Текст.";
-
-
     public static final String getSuccessFirstNameEditUz = "Foydalanuvchi ismi yangilandi.";
     public static final String getSuccessFirstNameEditRu = "Имя пользователя обновлено.";
     public static final String getSuccessFirstNameEditEn = "User's first name has been updated.";
@@ -293,41 +288,25 @@ public final class Messages {
     public static final String askIncomeEn = "Income reports 📊";
 
     public static final String askMonthlyFormatUz = """
-        Sanani pastdagi formatda kiriting:
-        F: "YYYY-MM" -> "2025-03"
-        """;
+            Sanani pastdagi formatda kiriting:
+            F: "YYYY-MM" -> "2025-03"
+            """;
 
     public static final String askMonthlyFormatRu = """
-        Введите дату в следующем формате:
-        Ф: "YYYY-MM" -> "2025-03"
-        """;
+            Введите дату в следующем формате:
+            Ф: "YYYY-MM" -> "2025-03"
+            """;
 
     public static final String askMonthlyFormatEn = """
-        Enter the date in the following format:
-        F: "YYYY-MM" -> "2025-03"
-        """;
+            Enter the date in the following format:
+            F: "YYYY-MM" -> "2025-03"
+            """;
 
-    public static final String askYearlyFormatUz = """
-        Yilni pastdagi formatda kiriting:
-        F: "YYYY" -> "2025"
-        """;
+    public static final String askYearlyFormatUz = "Qaysi yilga oid hisobotni olishni xohlaysiz?";
 
-    public static final String askYearlyFormatRu = """
-        Введите год в следующем формате:
-        Ф: "ГГГГ" -> "2025"
-        """;
+    public static final String askYearlyFormatRu = "За какой годовой отчет вы хотели бы получить информацию?";
 
-    public static final String askYearlyFormatEn = """
-        Enter the year in the following format:
-        F: "YYYY" -> "2025"
-        """;
-
-
-
-
-    public static final String askExcelFormatUz = "Excel formatida \uD83D\uDDC2";
-    public static final String askExcelFormatRu = "В формате Excel \uD83D\uDDC2";
-    public static final String askExcelFormatEn = "In Excel format \uD83D\uDDC2";
+    public static final String askYearlyFormatEn = "For which year would you like to receive the report?";
 
     // Xarajat
     public static final String askExpenseUz = "Xarajat hisobotlari 📊";
@@ -470,54 +449,27 @@ public final class Messages {
     public static final String confirmMessageEn = "Confirm ✅";
     public static final String declineMessageEn = "Decline ❌";
 
-    // Expense Report Messages
-    public static final String expenseReportProcessingUz = """
-        Sizning xarajat hisobotingiz tayyorlanayapti.
-        
-        Eslatma: Bu bir necha daqiqa olishi mumkin.
-        """;
-
-    public static final String expenseReportProcessingRu = """
-        Ваш отчет о расходах готовится.
-        
-        Примечание: Это может занять несколько минут.
-        """;
-
-    public static final String expenseReportProcessingEn = """
-        Your expense report is being prepared.
-        
-        Note: This may take a few minutes.
-        """;
-
-    // Income Report Messages
-    public static final String incomeReportProcessingUz = """
-        Sizning daromat hisobotingiz tayyorlanayapti.
-        
-        Eslatma: Bu bir necha daqiqa olishi mumkin.
-        """;
-
-    public static final String incomeReportProcessingRu = """
-        Ваш отчет о доходах готовится.
-        
-        Примечание: Это может занять несколько минут.
-        """;
-
-    public static final String incomeReportProcessingEn = """
-        Your income report is being prepared.
-        
-        Note: This may take a few minutes.
-        """;
-
     public static final String noReportByGivenYearUz = """
-        Berilgan yil bo‘yicha hisobot ma’lumotlari mavjud emas.
-        """;
+            Berilgan yil bo‘yicha hisobot ma’lumotlari mavjud emas.
+            """;
 
     public static final String noReportByGivenYearRu = """
-        Отчетные данные за указанный год отсутствуют.
-        """;
+            Отчетные данные за указанный год отсутствуют.
+            """;
 
     public static final String noReportByGivenYearEn = """
-        No report data available for the specified year.
-        """;
+            No report data available for the specified year.
+            """;
 
+    public static final String noReportByGivenYearAndMonthUz = """
+            Berilgan yil va oy bo‘yicha hisobot ma’lumotlari mavjud emas.
+            """;
+
+    public static final String noReportByGivenYearAndMonthRu = """
+            Отчетные данные за указанный год и месяц отсутствуют.
+            """;
+
+    public static final String noReportByGivenYearAndMonthEn = """
+            No report data available for the specified year and month.
+            """;
 }

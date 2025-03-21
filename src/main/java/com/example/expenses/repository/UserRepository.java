@@ -15,7 +15,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE User u SET u.income = 0.0, u.expense = 0.0, u.totalBalance = 0.0")
+    @Query("UPDATE User u SET u.income = 0.0, u.expense = 0.0")
     void resetAllUserBalances();
 
 

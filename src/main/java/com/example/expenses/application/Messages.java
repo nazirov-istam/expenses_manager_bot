@@ -60,6 +60,7 @@ public final class Messages {
             ✅ /info – Bot haqida ma'lumot olish
             ✅ /help – Yordam
             ✅ /language - Tilni o'zgartirish
+            ✅ /stats - Umumiy foydalanuvchilar soni
             """;
 
     public static final String startRu = """
@@ -72,6 +73,7 @@ public final class Messages {
             ✅ /info – Получить информацию о боте
             ✅ /help – Помощь
             ✅ /language - Изменить язык
+            ✅ /stats - Общее количество пользователей
             """;
 
     public static final String startEn = """
@@ -84,19 +86,20 @@ public final class Messages {
             ✅ /info – Get information about the bot
             ✅ /help – Help
             ✅ /language - Change language
+            ✅ /stats - Total number of users
             """;
 
 
     public static final String startUzIsRegistered = """
-            Siz allaqachon ro‘yxatdan o‘tgansiz. 📌
+            Siz avval ro‘yxatdan o‘tgansiz. 📌
             """;
 
     public static final String startRuIsRegistered = """
-            Вы уже зарегистрированы. 📌
+            Вы ранее зарегистрировались. 📌
             """;
 
     public static final String startEnIsRegistered = """
-            You are already registered. 📌
+            You have previously registered. 📌
             """;
 
 
@@ -233,47 +236,82 @@ public final class Messages {
 
     // User ma'lumotlarini surash
     public static final String askFirstNameUz = """
+            Ro'yxatdan to'liq o'tish uchun shaxsiy ma'lumotlaringizni birma-bir kiriting.📌
+            
             \uD83D\uDCCB Iltimos, ismingizni kiriting:
             Namuna: Sardor
+            """;
+
+    public static final String askFirstNameRu = """
+            Для завершения регистрации введите свои личные данные по очереди.📌
+            
+            \uD83D\uDCCB Пожалуйста, введите ваше имя:
+            Пример: Сергей
+            """;
+
+    public static final String askFirstNameEn = """
+            To complete the registration, please enter your personal details one by one.📌
+            
+            \uD83D\uDCCB Please enter your first name:
+            Example: John
             """;
     public static final String askLastNameUz = """
             \uD83D\uDCCB Iltimos, familiyangizni kiriting:
             Namuna: Sardorov
             """;
-    public static final String askCurrentIncomeUz = """
-            \uD83D\uDCB5 Iltimos, hozirgi daromat miqdoringizni kiriting:
+    public static final String askCurrentBalanceUz = """
+            \uD83D\uDCB5 Iltimos, hozirgi balans miqdoringizni kiriting:
             Namuna: 10000000
             """;
 
-    public static final String askFirstNameRu = """
-            \uD83D\uDCCB Пожалуйста, введите ваше имя:
-            Пример: Сардор
+    public static final String askPhoneNumberUz = """
+            📲 Iltimos, telefon raqamingizni kiriting:
+            Namuna: +998919876543
+            """;
+
+    public static final String askPhoneNumberRu = """
+            📲 Пожалуйста, введите свой номер телефона:
+            Пример: +998919876543
+            """;
+
+    public static final String askPhoneNumberEn = """
+            📲 Please, enter your phone number:
+            Example: +998919876543
             """;
     public static final String askLastNameRu = """
             \uD83D\uDCCB Пожалуйста, введите вашу фамилию:
             Пример: Сардоров
             """;
-    public static final String askCurrentIncomeRu = """
-            \uD83D\uDCB5 Пожалуйста, введите ваш текущий доход:
+    public static final String askCurrentBalanceRu = """
+            \uD83D\uDCB5 Пожалуйста, введите ваш текущий Баланс:
             Пример: 10000000
-            """;
-
-    public static final String askFirstNameEn = """
-            \uD83D\uDCCB Please enter your first name:
-            Example: Sardor
             """;
     public static final String askLastNameEn = """
             \uD83D\uDCCB Please enter your last name:
-            Example: Sardorov
+            Example: Way
             """;
-    public static final String askCurrentIncomeEn = """
-            \uD83D\uDCB5 Please enter your current income amount:
+    public static final String askCurrentBalanceEn = """
+            \uD83D\uDCB5 Please enter your current balance amount:
             Example: 10000000
             """;
 
-    public static final String successSaveProfileInfoUz = "Shaxsiy ma'lumotlaringiz muvaffaqiyatli saqlandi. \nUlarni 'Profil' bo'limidan ko'rishingiz va o'zgartirishingiz mumkin.";
-    public static final String successSaveProfileInfoRu = "Ваши личные данные успешно сохранены. \nВы можете просмотреть и изменить их в разделе 'Профиль'.";
-    public static final String successSaveProfileInfoEn = "Your personal information has been successfully saved. \nYou can view and edit it in the 'Profile' section.";
+    public static final String successSaveProfileInfoUz = """
+            Shaxsiy ma'lumotlaringiz muvaffaqiyatli saqlandi.✅
+            
+            Ularni 'Profil' bo‘limidan ko‘rishingiz va o‘zgartirishingiz mumkin.📌
+            """;
+
+    public static final String successSaveProfileInfoRu = """
+            Ваши личные данные успешно сохранены.✅
+            
+            Вы можете просмотреть и изменить их в разделе 'Профиль'.📌
+            """;
+
+    public static final String successSaveProfileInfoEn = """
+            Your personal information has been successfully saved.✅
+            
+            You can view and edit it in the 'Profile' section.📌
+            """;
 
     public static final String askMonthlyReportUz = "Oylik hisobotlar 📊";
     public static final String askMonthlyReportRu = "Ежемесячные отчёты 📊";
@@ -338,25 +376,59 @@ public final class Messages {
     public static final String askNewPhoneNumberRu = "Пожалуйста, введите новый номер телефона:\nПример: +998901234567";
     public static final String askNewPhoneNumberEn = "Please enter a new phone number:\nExample: +998901234567";
 
-    public static final String askExpenseSourceUz = "Iltimos, xarajat joyini kiriting:\nNamuna: Supermarket";
-    public static final String askExpenseSourceRu = "Пожалуйста, введите место расхода:\nПример: Supermarket";
-    public static final String askExpenseSourceEn = "Please enter the expense location:\nExample: Supermarket";
+    public static final String askExpenseSourceUz = """
+            Iltimos, xarajat joyini kiriting:
+            🏬 Namuna: Supermarket
+            """;
 
-    public static final String askExpenseAmountUz = "Iltimos, xarajat miqdorini kiriting (so‘mda):\nNamuna: 150000";
-    public static final String askExpenseAmountRu = "Пожалуйста, введите сумму расхода (в сумах):\nПример: 150000";
-    public static final String askExpenseAmountEn = "Please enter the expense amount (in UZS):\nExample: 150000";
+    public static final String askExpenseSourceRu = """
+            Пожалуйста, введите место расхода:
+            🏬 Пример: Supermarket
+            """;
 
-    public static final String askExpenseDescriptionUz = "Iltimos, xarajat uchun izoh kiriting:\nNamuna: Non va sut uchun";
-    public static final String askExpenseDescriptionRu = "Пожалуйста, введите примечание к расходу:\nПример: Non va sut uchun";
-    public static final String askExpenseDescriptionEn = "Please enter a note for the expense:\nExample: Non va sut uchun";
+    public static final String askExpenseSourceEn = """
+            Please enter the expense location:
+            🏬 Example: Supermarket
+            """;
 
-    public static final String successSaveExpenseUz = "Xarajat ma'lumotlaringiz muvaffaqiyatli saqlandi.";
-    public static final String successSaveExpenseRu = "Ваши данные о расходах успешно сохранены.";
-    public static final String successSaveExpenseEn = "Your expense details have been successfully saved.";
+    public static final String askExpenseAmountUz = """
+            Iltimos, xarajat miqdorini kiriting (so‘mda):
+            💰 Namuna: 150000
+            """;
 
-    public static final String failedSaveExpenseUz = "Xarajat ma'lumotlaringiz saqlanmadi.";
-    public static final String failedSaveExpenseRu = "Ваши данные о расходах не были сохранены.";
-    public static final String failedSaveExpenseEn = "Your expense details were not saved.";
+    public static final String askExpenseAmountRu = """
+            Пожалуйста, введите сумму расхода (в сумах):
+            💰 Пример: 150000
+            """;
+
+    public static final String askExpenseAmountEn = """
+            Please enter the expense amount (in UZS):
+            💰 Example: 150000
+            """;
+
+    public static final String askExpenseDescriptionUz = """
+            Iltimos, xarajat uchun izoh kiriting:
+            📝 Namuna: Non va sut uchun
+            """;
+
+    public static final String askExpenseDescriptionRu = """
+            Пожалуйста, введите примечание к расходу:
+            📝 Пример: Хлеб и молоко
+            """;
+
+    public static final String askExpenseDescriptionEn = """
+            Please enter a note for the expense:
+            📝 Example: Bread and milk
+            """;
+
+
+    public static final String successSaveExpenseUz = "Xarajat ma'lumotlaringiz muvaffaqiyatli saqlandi.✅";
+    public static final String successSaveExpenseRu = "Ваши данные о расходах успешно сохранены.✅";
+    public static final String successSaveExpenseEn = "Your expense details have been successfully saved.✅";
+
+    public static final String failedSaveExpenseUz = "Xarajat ma'lumotlaringiz saqlanmadi.❌";
+    public static final String failedSaveExpenseRu = "Ваши данные о расходах не были сохранены.❌";
+    public static final String failedSaveExpenseEn = "Your expense details were not saved.❌";
 
     public static final String askIncomeSourceUz = "Iltimos, daromad manbasini kiriting:\nNamuna: Ish haqi";
     public static final String askIncomeSourceRu = "Пожалуйста, введите источник дохода:\nПример: Зарплата";
@@ -370,13 +442,13 @@ public final class Messages {
     public static final String askIncomeDescriptionRu = "Пожалуйста, введите примечание к доходу:\nПример: Бонус или дополнительный доход";
     public static final String askIncomeDescriptionEn = "Please enter a note for the income:\nExample: Bonus or additional income";
 
-    public static final String successSaveIncomeUz = "Daromad ma'lumotlaringiz muvaffaqiyatli saqlandi.";
-    public static final String successSaveIncomeRu = "Ваши данные о доходах успешно сохранены.";
-    public static final String successSaveIncomeEn = "Your income details have been successfully saved.";
+    public static final String successSaveIncomeUz = "Daromad ma'lumotlaringiz muvaffaqiyatli saqlandi.✅";
+    public static final String successSaveIncomeRu = "Ваши данные о доходах успешно сохранены.✅";
+    public static final String successSaveIncomeEn = "Your income details have been successfully saved.✅";
 
-    public static final String failedSaveIncomeUz = "Daromad ma'lumotlaringiz saqlanmadi.";
-    public static final String failedSaveIncomeRu = "Ваши данные о доходах не были сохранены.";
-    public static final String failedSaveIncomeEn = "Your income details were not saved.";
+    public static final String failedSaveIncomeUz = "Daromad ma'lumotlaringiz saqlanmadi.❌";
+    public static final String failedSaveIncomeRu = "Ваши данные о доходах не были сохранены.❌";
+    public static final String failedSaveIncomeEn = "Your income details were not saved.❌";
 
 
     public static final String expenseInfoUz = """
@@ -450,26 +522,108 @@ public final class Messages {
     public static final String declineMessageEn = "Decline ❌";
 
     public static final String noReportByGivenYearUz = """
-            Berilgan yil bo‘yicha hisobot ma’lumotlari mavjud emas.
+            Berilgan yil bo‘yicha hisobot ma’lumotlari mavjud emas.⚠️
             """;
 
     public static final String noReportByGivenYearRu = """
-            Отчетные данные за указанный год отсутствуют.
+            Отчетные данные за указанный год отсутствуют⚠️.
             """;
 
     public static final String noReportByGivenYearEn = """
-            No report data available for the specified year.
+            No report data available for the specified year⚠️.
             """;
 
     public static final String noReportByGivenYearAndMonthUz = """
-            Berilgan yil va oy bo‘yicha hisobot ma’lumotlari mavjud emas.
+            Berilgan oy bo‘yicha hisobot ma’lumotlari mavjud emas.⚠️
             """;
 
     public static final String noReportByGivenYearAndMonthRu = """
-            Отчетные данные за указанный год и месяц отсутствуют.
+            Отчетные данные за указанный месяц отсутствуют.⚠️
             """;
 
     public static final String noReportByGivenYearAndMonthEn = """
-            No report data available for the specified year and month.
+            No report data available for the specified month.⚠️
+            """;
+
+    public static final String getAskFirstNameAgainUz = """
+            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            
+            Iltimos, ismingizni qayta kiriting!
+            """;
+
+    public static final String getAskFirstNameAgainRu = """
+            ❌ Ошибка: Используйте только английские буквы!
+            
+            Пожалуйста, введите ваше имя заново!
+            """;
+
+    public static final String getAskFirstNameAgainEn = """
+            ❌ Error: Use only English letters!
+            
+            Please re-enter your name!
+            """;
+
+    public static final String getAskLastNameAgainUz = """
+            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            
+            Iltimos, familiyangizni qayta kiriting!
+            """;
+
+    public static final String getAskLastNameAgainRu = """
+            ❌ Ошибка: Используйте только английские буквы!
+            
+            Пожалуйста, введите ваше фамилию!
+            """;
+
+    public static final String getAskLastNameAgainEn = """
+            ❌ Error: Use only English letters!
+            
+            Please,, re-enter your surname!
+            """;
+
+    public static final String getAskPhoneNumberAgainUz = """
+            ❌ Xatolik:
+            Telefon raqamini quyidagi formatda kiriting:
+            +998911234567"
+            
+            Iltimos, telefon raqamingizni qayta kiriting!
+            """;
+
+    public static final String getAskPhoneNumberAgainEn = """
+            ❌ Error:
+            Please enter your phone number in the following format:
+            +998911234567
+            
+            Please re-enter your phone number!
+            """;
+    public static final String getAskPhoneNumberAgainRu = """
+            ❌ Ошибка:
+            Пожалуйста, введите номер телефона в следующем формате:
+            +998911234567
+            
+            Пожалуйста, введите номер телефона заново!
+            """;
+
+    public static final String getAskCurrentBalanceAgainUz = """
+            ❌ Xatolik:
+            Balans faqat raqam va nuqtadan iborat bo‘lishi kerak.
+            Masalan: 12345.67 yoki 100
+            
+            Iltimos, balansni qayta kiriting!
+            """;
+    public static final String getAskCurrentBalanceAgainRu = """
+            ❌ Ошибка:
+            Баланс должен содержать только цифры и точку.
+            Например: 12345.67 или 100
+            
+            Пожалуйста, введите баланс заново!
+            """;
+
+    public static final String getAskCurrentBalanceAgainEn = """
+            ❌ Error:
+            The balance must contain only numbers and a dot.
+            Example: 12345.67 or 100
+            
+            Please enter the balance again!
             """;
 }

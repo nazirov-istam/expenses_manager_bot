@@ -42,9 +42,50 @@ public class MainService {
                 }
                 generalService.updateStep(chatId, Steps.START);
             } else if (userText.equals(Messages.Uz) || userText.equals(Messages.Ru) || userText.equals(Messages.En)) {
-                generalService.updateStep(chatId, Steps.LANGUAGE);
-                sendMessage.setText(generalService.language(userText, chatId));
-            } else if (userText.equals(Commands.LANGUAGE)) {
+                if (user.getStep() == Steps.START) {
+                    userService.setLanguage(userText, chatId);
+                    generalService.updateStep(chatId, Steps.ENTER_FIRSTNAME);
+                    sendMessage.setText(userService.getFirstName(userText));
+                } else if (user.getStep() == Steps.HOME) {
+                    generalService.updateStep(chatId, Steps.LANGUAGE);
+                    sendMessage.setText(generalService.language(userText, chatId));
+                }
+            } else if (user.getStep() == Steps.ENTER_FIRSTNAME && userText != null) {
+                if (userService.setFirstName(chatId, userText)) {
+                    generalService.updateStep(chatId, Steps.ENTER_LASTNAME);
+                    sendMessage.setText(userService.getLastName(user));
+                } else {
+                    generalService.updateStep(chatId, Steps.ENTER_FIRSTNAME);
+                    sendMessage.setText(userService.getFirstNameAgain(user));
+                }
+            } else if (user.getStep() == Steps.ENTER_LASTNAME && userText != null) {
+                if (userService.setLastName(chatId, userText)) {
+                    generalService.updateStep(chatId, Steps.ENTER_PHONE_NUMBER);
+                    sendMessage.setText(userService.getPhoneNumber(user));
+                } else {
+                    generalService.updateStep(chatId, Steps.ENTER_LASTNAME);
+                    sendMessage.setText(userService.getLastNameAgain(user));
+                }
+            } else if (user.getStep() == Steps.ENTER_PHONE_NUMBER && userText != null) {
+                if (userService.setPhoneNumber(chatId, userText)) {
+                    generalService.updateStep(chatId, Steps.ENTER_BALANCE);
+                    sendMessage.setText(userService.getBalance(user));
+                } else {
+                    generalService.updateStep(chatId, Steps.ENTER_PHONE_NUMBER);
+                    sendMessage.setText(userService.getPhoneNumberAgain(user));
+                }
+            } else if (user.getStep() == Steps.ENTER_BALANCE && userText != null) {
+                if (userService.setBalance(chatId, userText)) {
+                    generalService.updateStep(chatId, Steps.HOME);
+                    sendMessage.setText(userService.saveUser(user));
+                    sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                } else {
+                    generalService.updateStep(chatId, Steps.ENTER_BALANCE);
+                    sendMessage.setText(userService.getBalanceAgain(user));
+                }
+            }
+            // TODO
+            else if (userText.equals(Commands.LANGUAGE)) {
                 generalService.updateStep(chatId, Steps.HOME);
                 sendMessage.setText(Messages.language);
                 sendMessage.setReplyMarkup(generalService.threeButtons(Messages.Uz, Messages.Ru, Messages.En));
@@ -260,9 +301,6 @@ public class MainService {
                     return sendDocument;
                 }
             }
-        }
-        if (sendMessage.getText().isEmpty()) {
-            sendMessage.setText("Default text");
         }
         return sendMessage;
         /*

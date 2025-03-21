@@ -604,11 +604,11 @@ public class GeneralService {
 
         KeyboardRow row1 = new KeyboardRow();
         row1.add(profileButton);
-        row1.add(incomeButton);
+        row1.add(reportButton);
 
         KeyboardRow row2 = new KeyboardRow();
+        row2.add(incomeButton);
         row2.add(expenseButton);
-        row2.add(reportButton);
 
         ArrayList<KeyboardRow> rows = new ArrayList<>();
         rows.add(row1);
@@ -982,7 +982,6 @@ public class GeneralService {
             user.setExpense(user.getExpense() + expense.getExpenseAmount());
             user.setTotalBalance(user.getTotalBalance() - expense.getExpenseAmount());
             userRepository.save(user);
-            expenseRepository.delete(expense);
             if (expense != null) {
                 return switch (user.getLanguage()) {
                     case UZBEK -> Messages.expenseInfoUz.formatted(

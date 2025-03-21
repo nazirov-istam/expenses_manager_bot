@@ -25,12 +25,130 @@ public class UserService {
     private final IncomeRepository incomeRepository;
     private final ExpenseRepository expenseRepository;
 
+    public boolean setFirstName(Long chatId, String userText) {
+        User user = getCurrentUser(chatId);
+        if (userText.matches("[A-Za-z]+")) {
+            user.setFirstname(userText);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean setLastName(Long chatId, String userText) {
+        User user = getCurrentUser(chatId);
+        if (userText.matches("[A-Za-z]+")) {
+            user.setLastname(userText);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean setPhoneNumber(Long chatId, String userText) {
+        User user = getCurrentUser(chatId);
+        if (userText.matches("\\+\\d{12}")) {
+            user.setPhoneNumber(userText);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean setBalance(Long chatId, String userText) {
+        User user = getCurrentUser(chatId);
+        if (userText.matches("\\d+(\\.\\d+)?")) {
+            double value = Double.parseDouble(userText);
+            user.setTotalBalance(value);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String getStartMessage(User user) {
         return switch (user.getLanguage()) {
             case UZBEK -> Messages.startUzIsRegistered;
             case RUSSIAN -> Messages.startRuIsRegistered;
             case ENGLISH -> Messages.startEnIsRegistered;
             default -> "Iltimos, tilni tanlang!";
+        };
+    }
+
+    public String getFirstName(String userText) {
+        return switch (userText) {
+            case Messages.Uz -> Messages.askFirstNameUz;
+            case Messages.Ru -> Messages.askFirstNameRu;
+            case Messages.En -> Messages.askFirstNameEn;
+            default -> throw new IllegalStateException("Unexpected value: " + userText);
+        };
+    }
+
+    public String getFirstNameAgain(User user) {
+        return switch (user.getLanguage()) {
+            case UZBEK -> Messages.getAskFirstNameAgainUz;
+            case RUSSIAN -> Messages.getAskFirstNameAgainRu;
+            case ENGLISH -> Messages.getAskFirstNameAgainEn;
+        };
+    }
+
+    public String getLastName(User user) {
+        return switch (user.getLanguage()) {
+            case UZBEK -> Messages.askLastNameUz;
+            case RUSSIAN -> Messages.askLastNameRu;
+            case ENGLISH -> Messages.askLastNameEn;
+        };
+    }
+
+    public String getLastNameAgain(User user) {
+        return switch (user.getLanguage()) {
+            case UZBEK -> Messages.getAskLastNameAgainUz;
+            case RUSSIAN -> Messages.getAskLastNameAgainRu;
+            case ENGLISH -> Messages.getAskLastNameAgainEn;
+        };
+    }
+
+    public String getPhoneNumber(User user) {
+        return switch (user.getLanguage()) {
+            case UZBEK -> Messages.askPhoneNumberUz;
+            case RUSSIAN -> Messages.askPhoneNumberRu;
+            case ENGLISH -> Messages.askPhoneNumberEn;
+        };
+    }
+
+    public String getPhoneNumberAgain(User user) {
+        return switch (user.getLanguage()) {
+            case UZBEK -> Messages.getAskPhoneNumberAgainUz;
+            case RUSSIAN -> Messages.getAskPhoneNumberAgainRu;
+            case ENGLISH -> Messages.getAskPhoneNumberAgainEn;
+        };
+    }
+
+    public String getBalance(User user) {
+        return switch (user.getLanguage()) {
+            case UZBEK -> Messages.askCurrentBalanceUz;
+            case RUSSIAN -> Messages.askCurrentBalanceRu;
+            case ENGLISH -> Messages.askCurrentBalanceEn;
+        };
+    }
+
+    public String getBalanceAgain(User user) {
+        return switch (user.getLanguage()) {
+            case UZBEK -> Messages.getAskCurrentBalanceAgainUz;
+            case RUSSIAN -> Messages.getAskCurrentBalanceAgainRu;
+            case ENGLISH -> Messages.getAskCurrentBalanceAgainEn;
+        };
+    }
+
+    public String saveUser(User user) {
+        return switch (user.getLanguage()) {
+            case UZBEK -> Messages.successSaveProfileInfoUz;
+            case RUSSIAN -> Messages.successSaveProfileInfoRu;
+            case ENGLISH -> Messages.successSaveProfileInfoEn;
         };
     }
 
@@ -42,16 +160,8 @@ public class UserService {
             user.setCreatedAt(LocalDateTime.now());
             user.setIncome(0.0);
             user.setExpense(0.0);
-            user.setTotalBalance(0.0);
-            user.setPhoneNumber("Ma'lumot kiritilmagan.");
             user.setUsername(Optional.ofNullable(message.getChat())
                     .map(Chat::getUserName)
-                    .orElse("Ma'lumot kiritilmagan."));
-            user.setFirstname(Optional.ofNullable(message.getChat())
-                    .map(Chat::getFirstName)
-                    .orElse("Ma'lumot kiritilmagan."));
-            user.setLastname(Optional.ofNullable(message.getChat())
-                    .map(Chat::getLastName)
                     .orElse("Ma'lumot kiritilmagan."));
             log.info("Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi.");
             userRepository.save(user);
@@ -64,6 +174,16 @@ public class UserService {
     public void saveLanguage(Language language, long chatId) {
         User user = getCurrentUser(chatId);
         user.setLanguage(language);
+        userRepository.save(user);
+    }
+
+    public void setLanguage(String language, long chatId) {
+        User user = getCurrentUser(chatId);
+        switch (language) {
+            case Messages.Uz -> user.setLanguage(Language.UZBEK);
+            case Messages.Ru -> user.setLanguage(Language.RUSSIAN);
+            case Messages.En -> user.setLanguage(Language.ENGLISH);
+        }
         userRepository.save(user);
     }
 
@@ -83,7 +203,7 @@ public class UserService {
                                         💰 Daromad miqdori: %s
                                         💸 Xarajatlar miqdori: %s
                                         💵 Umumiy balans: %s
-                                        📅 Qo'shilgan sana: %s
+                                        📅 Ro'yxatdan o'tgan sana: %s
                                         """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
                                 user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt().format(formatter));
                         case RUSSIAN -> String.format("""
@@ -103,7 +223,7 @@ public class UserService {
                                         💰 Income Amount: %s
                                         💸 Expense Amount: %s
                                         💵 Total Balance: %s
-                                        📅 Joined Date: %s
+                                        📅 Registration date: %s
                                         """, user.getFirstname(), user.getLastname(), user.getPhoneNumber(),
                                 user.getIncome(), user.getExpense(), user.getTotalBalance(), user.getCreatedAt().format(formatter));
                     };

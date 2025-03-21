@@ -1,12 +1,13 @@
 package com.example.expenses.service;
 
+import com.example.expenses.enums.Language;
 import com.example.expenses.model.User;
 import com.example.expenses.repository.UserRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BalanceResetService {
@@ -18,30 +19,32 @@ public class BalanceResetService {
         this.telegramService = telegramService;
     }
 
-    //TODO Test qilib kurish kerak
-
-    @Scheduled(cron = "0 0 0 1 * ?")
-    @Transactional
+    //@Scheduled(cron = "0 0 0 1 * ?")
+    @Scheduled(cron = "0 27 11 21 3 ?")
     public void resetUserBalances() {
         List<User> users = userRepository.findAll();
 
-        // 1️⃣ Userlarning balansini 0 ga tushirish
         userRepository.resetAllUserBalances();
 
-        // 2️⃣ Har bir userga Telegram orqali xabar yuborish
+        Map<Language, String> messages = Map.of(
+                Language.RUSSIAN, "Здравствуйте, %s %s!\n\nВаш баланс доходов и расходов был обнулен. ✅\nСледите за своими финансовыми операциями в новом месяце! 🎯",
+                Language.ENGLISH, "Hello, %s %s!\n\nYour income and expense balance has been reset. ✅\nKeep track of your financial transactions this month! 🎯",
+                Language.UZBEK, "Assalomu alaykum, %s %s!\n\nSizning daromad va xarajat balansingiz nollandi. ✅\nYangi oydagi moliyaviy hisob-kitoblaringizni kuzatib boring! 🎯"
+        );
+
         for (User user : users) {
             if (user.getChatId() != null) {
-                String message = switch (user.getLanguage()) {
-                    case RUSSIAN -> "Здравствуйте, " + user.getFirstname() + " " + user.getLastname() + "!\n" +
-                            "Ваш баланс был обнулен. Следите за своими финансовыми операциями в новом месяце!";
-                    case ENGLISH -> "Hello, " + user.getFirstname() + " " + user.getLastname() + "!\n" +
-                            "Your balance has been reset. Keep track of your financial transactions this month!";
-                    default -> "Assalomu alaykum, " + user.getFirstname() + " " + user.getLastname() + "!\n" +
-                            "Sizning balansingiz nollandi. Yangi oydagi moliyaviy hisob-kitoblaringizni kuzatib boring!";
-                };
+                String messageTemplate = messages.getOrDefault(user.getLanguage(), messages.get(Language.ENGLISH));
+                String message = escapeMarkdownV2(String.format(messageTemplate, user.getFirstname(), user.getLastname()));
                 telegramService.sendTelegramMessage(user.getChatId(), message);
             }
         }
+
         System.out.println("Barcha userlarning balanslari 0 ga tushirildi va xabar yuborildi.");
     }
+
+    public String escapeMarkdownV2(String text) {
+        return text.replaceAll("([_\\-*\\[\\]()~`>#+=|{}.!])", "\\\\$1");
+    }
+
 }

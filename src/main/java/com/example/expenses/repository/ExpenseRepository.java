@@ -25,4 +25,29 @@ public interface ExpenseRepository extends CrudRepository<Expense, Long> {
                                                   @Param("startDate") LocalDateTime startDate,
                                                   @Param("endDate") LocalDateTime endDate);
 
+    @Query(value = "SELECT COALESCE(SUM(e.expenseAmount), 0) FROM Expense e WHERE e.user.chatId = :chatId")
+    Long getTotalExpenseByChatId(@Param("chatId") Long chatId);
+
+    @Query("SELECT COUNT(e) FROM Expense e WHERE e.user.chatId = :chatId")
+    long countTotalExpense(@Param("chatId") Long chatId);
+
+    @Query("""
+                SELECT TO_CHAR(e.createdAt, 'YYYY-MM') AS month, SUM(e.expenseAmount) AS total
+                FROM Expense e
+                WHERE e.user.chatId = :chatId
+                GROUP BY month
+                ORDER BY total DESC
+                LIMIT 1
+            """)
+    String findMostExpensiveMonth(@Param("chatId") Long chatId);
+
+    @Query("""
+                SELECT TO_CHAR(e.createdAt, 'YYYY-MM') AS month, SUM(e.expenseAmount) AS total
+                FROM Expense e
+                WHERE e.user.chatId = :chatId
+                GROUP BY month
+                ORDER BY total ASC
+                LIMIT 1
+            """)
+    String findLeastExpensiveMonth(@Param("chatId") Long chatId);
 }

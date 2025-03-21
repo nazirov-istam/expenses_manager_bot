@@ -49,6 +49,37 @@ public final class Messages {
     public static final String getSuccessPhoneNumberEditRu = "Номер телефона пользователя обновлен.";
     public static final String getSuccessPhoneNumberEditEn = "User's phone number has been updated.";
 
+    public static final String statsUz = """
+            Umumiy statistik ma'lumotlar 🗂
+            
+            📈 Jami daromad: %.2f
+            📉 Jami xarajat: %.2f
+            📊 Foiz o‘zgarishi (O'tgan 2 oy bo'yicha):
+            📅 Eng ko‘p sarflangan/qo'shilgan kun: %s
+            📅 Eng kam sarflangan/qo'shilgan kun: %s
+            """;
+
+    public static final String statsRu = """
+            Общая статистическая информация 🗂
+            
+            📈 Общий доход: %.2f
+            📉 Общие расходы: %.2f
+            📊 Изменение в процентах (за последние 2 месяца):
+            📅 День с наибольшими расходами/доходами: %s
+            📅 День с наименьшими расходами/доходами: %s
+            """;
+
+    public static final String statsEn = """
+            General Statistical Information 🗂
+            
+            📈 Total Income: %.2f
+            📉 Total Expenses: %.2f
+            📊 Percentage Change (Last 2 Months):
+            📅 Highest Spending/Earning Day: %s
+            📅 Lowest Spending/Earning Day: %s
+            """;
+
+
 
     public static final String startUz = """
             👋 Salom! My Expenses Manager Bot-ga xush kelibsiz!💰
@@ -391,6 +422,79 @@ public final class Messages {
             🏬 Example: Supermarket
             """;
 
+    public static final String askExpenseSourceAgainUz = """
+            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            
+            Iltimos, xarajat joyini qayta kiriting:
+            """;
+
+    public static final String askExpenseSourceAgainRu = """
+            ❌ Ошибка: Используйте только английские буквы!
+            
+            Пожалуйста, введите место расхода заново:
+            """;
+
+    public static final String askExpenseSourceAgainEn = """
+            ❌ Error: Use only English letters!
+            
+            Please re-enter the expense location:
+            """;
+
+    public static final String askIncomeSourceAgainUz = """
+            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            
+            Iltimos, daromad manbasini qayta kiriting:
+            """;
+
+    public static final String askIncomeSourceAgainRu = """
+            ❌ Ошибка: Используйте только английские буквы!
+            
+            Пожалуйста, введите источник дохода заново:
+            """;
+
+    public static final String askIncomeSourceAgainEn = """
+            ❌ Error: Use only English letters!
+            
+            Please re-enter the income source:
+            """;
+
+    public static final String askIncomeDescriptionAgainUz = """
+            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            
+            Iltimos, daromad izohini qayta kiriting:
+            """;
+
+    public static final String askIncomeDescriptionAgainRu = """
+            ❌ Ошибка: Используйте только английские буквы!
+            
+            Пожалуйста, введите источник дохода заново:
+            """;
+
+    public static final String askIncomeDescriptionAgainEn = """
+            ❌ Error: Use only English letters!
+            
+            Please re-enter the income description:
+            """;
+
+    public static final String askExpenseDescriptionAgainUz = """
+            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            
+            Iltimos, xarajat izohini qayta kiriting:
+            """;
+
+    public static final String askExpenseDescriptionAgainRu = """
+            ❌ Ошибка: Используйте только английские буквы!
+            
+            Пожалуйста, введите примечание к расходу заново:
+            """;
+
+    public static final String askExpenseDescriptionAgainEn = """
+            ❌ Error: Use only English letters!
+            
+            Please re-enter the expense description:
+            """;
+
+
     public static final String askExpenseAmountUz = """
             Iltimos, xarajat miqdorini kiriting (so‘mda):
             💰 Namuna: 150000
@@ -406,6 +510,55 @@ public final class Messages {
             💰 Example: 150000
             """;
 
+    public static final String askIncomeAmountAgainUz = """
+            ❌ Xatolik:
+            Daromad miqdori faqat raqam va nuqtadan iborat bo‘lishi kerak.
+            Masalan: 12345.67 yoki 100
+            
+            Iltimos, daromad miqdorini qayta kiriting!
+            """;
+
+    public static final String askIncomeAmountAgainRu = """
+            ❌ Ошибка:
+            Сумма дохода должна содержать только цифры и точку.
+            Например: 12345.67 или 100
+            
+            Пожалуйста, введите сумму дохода заново!
+            """;
+
+    public static final String askIncomeAmountAgainEn = """
+            ❌ Error:
+            The income amount must contain only numbers and a dot.
+            Example: 12345.67 or 100
+            
+            Please re-enter the income amount!
+            """;
+
+    public static final String askExpenseAmountAgainUz = """
+            ❌ Xatolik:
+            Xarajat miqdori faqat raqam va nuqtadan iborat bo‘lishi kerak.
+            Masalan: 12345.67 yoki 100
+            
+            Iltimos, xarajat miqdorini qayta kiriting!
+            """;
+
+    public static final String askExpenseAmountAgainRu = """
+            ❌ Ошибка:
+            Сумма расхода должна содержать только цифры и точку.
+            Например: 12345.67 или 100
+            
+            Пожалуйста, введите сумму расхода заново!
+            """;
+
+    public static final String askExpenseAmountAgainEn = """
+            ❌ Error:
+            The expense amount must contain only numbers and a dot.
+            Example: 12345.67 or 100
+            
+            Please re-enter the expense amount!
+            """;
+
+
     public static final String askExpenseDescriptionUz = """
             Iltimos, xarajat uchun izoh kiriting:
             📝 Namuna: Non va sut uchun
@@ -420,15 +573,6 @@ public final class Messages {
             Please enter a note for the expense:
             📝 Example: Bread and milk
             """;
-
-
-    public static final String successSaveExpenseUz = "Xarajat ma'lumotlaringiz muvaffaqiyatli saqlandi.✅";
-    public static final String successSaveExpenseRu = "Ваши данные о расходах успешно сохранены.✅";
-    public static final String successSaveExpenseEn = "Your expense details have been successfully saved.✅";
-
-    public static final String failedSaveExpenseUz = "Xarajat ma'lumotlaringiz saqlanmadi.❌";
-    public static final String failedSaveExpenseRu = "Ваши данные о расходах не были сохранены.❌";
-    public static final String failedSaveExpenseEn = "Your expense details were not saved.❌";
 
     public static final String askIncomeSourceUz = "Iltimos, daromad manbasini kiriting:\nNamuna: Ish haqi";
     public static final String askIncomeSourceRu = "Пожалуйста, введите источник дохода:\nПример: Зарплата";
@@ -446,9 +590,17 @@ public final class Messages {
     public static final String successSaveIncomeRu = "Ваши данные о доходах успешно сохранены.✅";
     public static final String successSaveIncomeEn = "Your income details have been successfully saved.✅";
 
-    public static final String failedSaveIncomeUz = "Daromad ma'lumotlaringiz saqlanmadi.❌";
-    public static final String failedSaveIncomeRu = "Ваши данные о доходах не были сохранены.❌";
-    public static final String failedSaveIncomeEn = "Your income details were not saved.❌";
+    public static final String declineSaveIncomeUz = "Daromad ma'lumotlaringiz saqlanmadi.❌";
+    public static final String declineSaveIncomeRu = "Ваши данные о доходах не были сохранены.❌";
+    public static final String declineSaveIncomeEn = "Your income details were not saved.❌";
+
+    public static final String successSaveExpenseUz = "Xarajat ma'lumotlaringiz muvaffaqiyatli saqlandi.✅";
+    public static final String successSaveExpenseRu = "Ваши данные о расходах успешно сохранены.✅";
+    public static final String successSaveExpenseEn = "Your expense details have been successfully saved.✅";
+
+    public static final String declineSaveExpenseUz = "Xarajat ma'lumotlaringiz saqlanmadi.❌";
+    public static final String declineSaveExpenseRu = "Ваши данные о расходах не были сохранены.❌";
+    public static final String declineSaveExpenseEn = "Your expense details were not saved.❌";
 
 
     public static final String expenseInfoUz = """
@@ -546,37 +698,37 @@ public final class Messages {
             """;
 
     public static final String getAskFirstNameAgainUz = """
-            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            ❌ Xatolik: Faqat harflardan foydalaning!
             
             Iltimos, ismingizni qayta kiriting!
             """;
 
     public static final String getAskFirstNameAgainRu = """
-            ❌ Ошибка: Используйте только английские буквы!
+            ❌ Ошибка: Используйте только буквы!
             
             Пожалуйста, введите ваше имя заново!
             """;
 
     public static final String getAskFirstNameAgainEn = """
-            ❌ Error: Use only English letters!
+            ❌ Error: Use only letters!
             
             Please re-enter your name!
             """;
 
     public static final String getAskLastNameAgainUz = """
-            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            ❌ Xatolik: Faqat harflardan foydalaning!
             
             Iltimos, familiyangizni qayta kiriting!
             """;
 
     public static final String getAskLastNameAgainRu = """
-            ❌ Ошибка: Используйте только английские буквы!
+            ❌ Ошибка: Используйте только буквы!
             
             Пожалуйста, введите ваше фамилию!
             """;
 
     public static final String getAskLastNameAgainEn = """
-            ❌ Error: Use only English letters!
+            ❌ Error: Use only letters!
             
             Please,, re-enter your surname!
             """;

@@ -27,7 +27,7 @@ public class UserService {
 
     public boolean setFirstName(Long chatId, String userText) {
         User user = getCurrentUser(chatId);
-        if (userText.matches("[A-Za-z]+")) {
+        if (userText.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ ]+")) {
             user.setFirstname(userText);
             userRepository.save(user);
             return true;
@@ -38,7 +38,7 @@ public class UserService {
 
     public boolean setLastName(Long chatId, String userText) {
         User user = getCurrentUser(chatId);
-        if (userText.matches("[A-Za-z]+")) {
+        if (userText.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ ]+")) {
             user.setLastname(userText);
             userRepository.save(user);
             return true;
@@ -49,7 +49,7 @@ public class UserService {
 
     public boolean setPhoneNumber(Long chatId, String userText) {
         User user = getCurrentUser(chatId);
-        if (userText.matches("\\+\\d{12}")) {
+        if (userText.matches("\\+\\d+")) {
             user.setPhoneNumber(userText);
             userRepository.save(user);
             return true;
@@ -279,5 +279,40 @@ public class UserService {
         LocalDateTime endDate = yearMonth.atEndOfMonth().atTime(23, 59, 59, 999999999);
 
         return expenseRepository.existsByUserChatIdAndCreatedAtBetween(userId, startDate, endDate);
+    }
+
+    public String getUserStatistics(Long chatId) {
+        if (chatId == 1386819485) {
+            long totalUsers = userRepository.getTotalUserCount();
+
+            Object[] mostActiveMonth = userRepository.findMonthWithMostUsers()
+                    .orElse(new Object[]{"Ma'lumot yo'q", 0});
+            Object[] leastActiveMonth = userRepository.findMonthWithLeastUsers()
+                    .orElse(new Object[]{"Ma'lumot yo'q", 0});
+
+            String mostActiveMonthFormatted = formatMonthData(mostActiveMonth);
+            String leastActiveMonthFormatted = formatMonthData(leastActiveMonth);
+
+            return String.format("""
+                    📊 Bot foydalanuvchilari statistikasi:
+                    
+                    👥 Umumiy foydalanuvchilar soni: %d
+                    📅 Eng ko‘p foydalanuvchi qo‘shilgan oy: %s
+                    📅 Eng kam foydalanuvchi qo‘shilgan oy: %s
+                    """, totalUsers, mostActiveMonthFormatted, leastActiveMonthFormatted);
+        }
+
+        return switch (getCurrentUser(chatId).getLanguage()) {
+            case UZBEK -> "Bunday buyruq mavjud emas yoki noto‘g‘ri formatda kiritilgan.";
+            case RUSSIAN -> "Такой команды не существует или она введена в неверном формате.";
+            case ENGLISH -> "Such a command does not exist or has been entered in an incorrect format.";
+        };
+    }
+
+    private String formatMonthData(Object[] monthData) {
+        if (monthData == null || monthData.length < 2 || monthData[0] == null || monthData[1] == null) {
+            return "Ma'lumot topilmadi";
+        }
+        return String.format("%s , %s kishi", monthData[0], monthData[1]);
     }
 }

@@ -113,6 +113,13 @@ public class ReportService {
         return incomeRepository.findAllByUserChatIdAndCreatedAtBetween(chatId, startDate, endDate);
     }
 
+    public List<Income> getMonthlyIncomeWeekly(Long chatId) {
+        LocalDateTime endDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime startDate = endDate.minusDays(6);
+
+        return incomeRepository.findAllByUserChatIdAndCreatedAtBetween(chatId, startDate, endDate);
+    }
+
     private String normalizeYearMonth(String yearMonth) {
         if (yearMonth.matches("\\d{4}-\\d{2}")) {
             return yearMonth;
@@ -148,6 +155,7 @@ public class ReportService {
 
         return new InputFile(inputStream, fileName);
     }
+
 
     public byte[] generateMonthlyExpenseReport(Long chatId, String yearMonth) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

@@ -19,8 +19,7 @@ public class BalanceResetService {
         this.telegramService = telegramService;
     }
 
-    //@Scheduled(cron = "0 0 0 1 * ?")
-    @Scheduled(cron = "0 27 11 21 3 ?")
+    @Scheduled(cron = "0 0 0 1 * ?")
     public void resetUserBalances() {
         List<User> users = userRepository.findAll();
 
@@ -47,4 +46,8 @@ public class BalanceResetService {
         return text.replaceAll("([_\\-*\\[\\]()~`>#+=|{}.!])", "\\\\$1");
     }
 
+    @Scheduled(cron = "0 0 0 * * MON")
+    public void sendWeeklyIncomeReport() {
+
+    }
 }

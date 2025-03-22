@@ -126,16 +126,31 @@ public class GeneralService {
     }
 
 
-    public String askFormatOfMonthlyReport(Language language) {
+    public String askYearOfMonthlyReport(Language language) {
         switch (language) {
             case UZBEK -> {
-                return Messages.askMonthlyFormatUz;
+                return Messages.askYearOfMonthlyFormatUz;
             }
             case RUSSIAN -> {
-                return Messages.askMonthlyFormatRu;
+                return Messages.askYearOfMonthlyFormatRu;
             }
             case ENGLISH -> {
-                return Messages.askMonthlyFormatEn;
+                return Messages.askYearOfMonthlyFormatEn;
+            }
+        }
+        return "";
+    }
+
+    public String askMonthOfMonthlyReport(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.askMonthOfMonthlyFormatUz;
+            }
+            case RUSSIAN -> {
+                return Messages.askMonthOfMonthlyFormatRu;
+            }
+            case ENGLISH -> {
+                return Messages.askMonthOfMonthlyFormatEn;
             }
         }
         return "";
@@ -589,6 +604,103 @@ public class GeneralService {
         return replyKeyboardMarkup;
     }
 
+    public ReplyKeyboardMarkup twelveButtonsForMonths(Language language) {
+        KeyboardButton january = new KeyboardButton();
+        KeyboardButton february = new KeyboardButton();
+        KeyboardButton march = new KeyboardButton();
+        KeyboardButton april = new KeyboardButton();
+        KeyboardButton may = new KeyboardButton();
+        KeyboardButton june = new KeyboardButton();
+        KeyboardButton july = new KeyboardButton();
+        KeyboardButton august = new KeyboardButton();
+        KeyboardButton september = new KeyboardButton();
+        KeyboardButton october = new KeyboardButton();
+        KeyboardButton november = new KeyboardButton();
+        KeyboardButton december = new KeyboardButton();
+
+        switch (language) {
+            case UZBEK -> {
+                january.setText("Yanvar");
+                february.setText("Fevral");
+                march.setText("Mart");
+                april.setText("Aprel");
+                may.setText("May");
+                june.setText("Iyun");
+                july.setText("Iyul");
+                august.setText("Avgust");
+                september.setText("Sentabr");
+                october.setText("Oktabr");
+                november.setText("Noyabr");
+                december.setText("Dekabr");
+            }
+            case RUSSIAN -> {
+                january.setText("Январь");
+                february.setText("Февраль");
+                march.setText("Март");
+                april.setText("Апрель");
+                may.setText("Май");
+                june.setText("Июнь");
+                july.setText("Июль");
+                august.setText("Август");
+                september.setText("Сентябрь");
+                october.setText("Октябрь");
+                november.setText("Ноябрь");
+                december.setText("Декабрь");
+            }
+            case ENGLISH -> {
+                january.setText("January");
+                february.setText("February");
+                march.setText("March");
+                april.setText("April");
+                may.setText("May");
+                june.setText("June");
+                july.setText("July");
+                august.setText("August");
+                september.setText("September");
+                october.setText("October");
+                november.setText("November");
+                december.setText("December");
+            }
+        }
+
+
+        KeyboardRow row1 = new KeyboardRow();
+        KeyboardRow row2 = new KeyboardRow();
+        KeyboardRow row3 = new KeyboardRow();
+        KeyboardRow row4 = new KeyboardRow();
+        KeyboardRow row5 = new KeyboardRow();
+        KeyboardRow row6 = new KeyboardRow();
+
+        row1.add(january);
+        row1.add(july);
+        row2.add(february);
+        row2.add(august);
+        row3.add(march);
+        row3.add(september);
+        row4.add(april);
+        row4.add(october);
+        row5.add(may);
+        row5.add(november);
+        row6.add(june);
+        row6.add(december);
+
+
+        ArrayList<KeyboardRow> rows = new ArrayList<>();
+        rows.add(row1);
+        rows.add(row2);
+        rows.add(row3);
+        rows.add(row4);
+        rows.add(row5);
+        rows.add(row6);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setKeyboard(rows);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
+        return replyKeyboardMarkup;
+    }
+
     public ReplyKeyboardMarkup threeButtons(String btn1, String btn2, String btn3) {
         KeyboardButton button1 = new KeyboardButton();
         button1.setText(btn1);
@@ -600,14 +712,12 @@ public class GeneralService {
         button3.setText(btn3);
 
         KeyboardRow row1 = new KeyboardRow();
-        KeyboardRow row2 = new KeyboardRow();
         row1.add(button1);
         row1.add(button2);
-        row2.add(button3);
+        row1.add(button3);
 
         ArrayList<KeyboardRow> rows = new ArrayList<>();
         rows.add(row1);
-        rows.add(row2);
 
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         replyKeyboardMarkup.setKeyboard(rows);
@@ -944,8 +1054,6 @@ public class GeneralService {
             throw new RuntimeException("Daromat ro'yxatdan o'tkazilmadi.", e);
         }
     }
-
-    // TODO
 
     public boolean enterExpenseSource(Long chatId, String expenseSource) {
         User user = userService.getCurrentUser(chatId);

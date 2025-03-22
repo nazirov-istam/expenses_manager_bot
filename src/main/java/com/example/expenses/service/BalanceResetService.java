@@ -45,9 +45,4 @@ public class BalanceResetService {
     public String escapeMarkdownV2(String text) {
         return text.replaceAll("([_\\-*\\[\\]()~`>#+=|{}.!])", "\\\\$1");
     }
-
-    @Scheduled(cron = "0 0 0 * * MON")
-    public void sendWeeklyIncomeReport() {
-
-    }
 }

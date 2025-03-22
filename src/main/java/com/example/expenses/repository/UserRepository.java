@@ -43,5 +43,4 @@ public interface UserRepository extends CrudRepository<User, Long> {
             LIMIT 1
             """, nativeQuery = true)
     Optional<Object[]> findMonthWithLeastUsers();
-
 }

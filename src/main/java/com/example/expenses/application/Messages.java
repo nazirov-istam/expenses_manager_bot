@@ -80,7 +80,6 @@ public final class Messages {
             """;
 
 
-
     public static final String startUz = """
             👋 Salom! My Expenses Manager Bot-ga xush kelibsiz!💰
             
@@ -356,20 +355,14 @@ public final class Messages {
     public static final String askIncomeRu = "Доход отчёты 📊";
     public static final String askIncomeEn = "Income reports 📊";
 
-    public static final String askMonthlyFormatUz = """
-            Sanani pastdagi formatda kiriting:
-            F: "YYYY-MM" -> "2025-03"
-            """;
+    public static final String askYearOfMonthlyFormatUz = "Yilni tanlang: ";
+    public static final String askYearOfMonthlyFormatRu = "Выберите год: ";
+    public static final String askYearOfMonthlyFormatEn = "Select the year: ";
 
-    public static final String askMonthlyFormatRu = """
-            Введите дату в следующем формате:
-            Ф: "YYYY-MM" -> "2025-03"
-            """;
+    public static final String askMonthOfMonthlyFormatUz = "Oyni tanlang: ";
+    public static final String askMonthOfMonthlyFormatRu = "Выберите месяц: ";
+    public static final String askMonthOfMonthlyFormatEn = "Select the month: ";
 
-    public static final String askMonthlyFormatEn = """
-            Enter the date in the following format:
-            F: "YYYY-MM" -> "2025-03"
-            """;
 
     public static final String askYearlyFormatUz = "Qaysi yilga oid hisobotni olishni xohlaysiz?";
 

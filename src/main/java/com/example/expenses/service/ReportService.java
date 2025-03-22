@@ -104,8 +104,6 @@ public class ReportService {
     }
 
     public List<Income> getMonthlyIncome(Long chatId, String yearMonth) {
-        yearMonth = normalizeYearMonth(yearMonth);
-
         YearMonth ym = YearMonth.parse(yearMonth, DateTimeFormatter.ofPattern("yyyy-MM"));
         LocalDateTime startDate = ym.atDay(1).atStartOfDay();
         LocalDateTime endDate = ym.atEndOfMonth().atTime(23, 59, 59);
@@ -113,32 +111,7 @@ public class ReportService {
         return incomeRepository.findAllByUserChatIdAndCreatedAtBetween(chatId, startDate, endDate);
     }
 
-    public List<Income> getMonthlyIncomeWeekly(Long chatId) {
-        LocalDateTime endDate = LocalDateTime.now().minusDays(1);
-        LocalDateTime startDate = endDate.minusDays(6);
-
-        return incomeRepository.findAllByUserChatIdAndCreatedAtBetween(chatId, startDate, endDate);
-    }
-
-    private String normalizeYearMonth(String yearMonth) {
-        if (yearMonth.matches("\\d{4}-\\d{2}")) {
-            return yearMonth;
-        }
-
-        if (yearMonth.matches("\\d{4}-\\d")) {
-            String[] parts = yearMonth.split("-");
-            int year = Integer.parseInt(parts[0]);
-            int month = Integer.parseInt(parts[1]);
-            return String.format("%04d-%02d", year, month);
-        }
-
-        throw new IllegalArgumentException("Invalid yearMonth format! Expected yyyy-MM.");
-    }
-
     public List<Expense> getMonthlyExpense(Long chatId, String yearMonth) {
-
-        yearMonth = normalizeYearMonth(yearMonth);
-
         YearMonth ym = YearMonth.parse(yearMonth, DateTimeFormatter.ofPattern("yyyy-MM"));
         LocalDateTime startDate = ym.atDay(1).atStartOfDay();
         LocalDateTime endDate = ym.atEndOfMonth().atTime(23, 59, 59);

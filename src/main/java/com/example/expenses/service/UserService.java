@@ -15,6 +15,8 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -258,7 +260,7 @@ public class UserService {
         YearMonth yearMonth = YearMonth.of(year, month);
 
         LocalDateTime startDate = yearMonth.atDay(1).atStartOfDay();
-        LocalDateTime endDate = yearMonth.atEndOfMonth().atTime(23, 59, 59, 999999999); // "2025-03-31 23:59:59.999999999"
+        LocalDateTime endDate = yearMonth.atEndOfMonth().atTime(23, 59, 59, 999999999);
 
         return incomeRepository.existsByUserChatIdAndCreatedAtBetween(userId, startDate, endDate);
     }
@@ -314,5 +316,33 @@ public class UserService {
             return "Ma'lumot topilmadi";
         }
         return String.format("%s , %s kishi", monthData[0], monthData[1]);
+    }
+
+    public static Map<Long, String> map = new HashMap<>();
+
+    public void saveYearOfMonthlyReport(Long chatId, String userText) {
+        map.put(chatId, userText);
+    }
+
+    public String saveMonthOfMonthlyReport(Long chatId, String userText) {
+        switch (userText) {
+            case "Yanvar", "January", "Январь" -> map.put(chatId, map.get(chatId) + "-01");
+            case "Fevral", "February", "Февраль" -> map.put(chatId, map.get(chatId) + "-02");
+            case "Mart", "March", "Март" -> map.put(chatId, map.get(chatId) + "-03");
+            case "Aprel", "April", "Апрель" -> map.put(chatId, map.get(chatId) + "-04");
+            case "May", "Май" -> map.put(chatId, map.get(chatId) + "-05");
+            case "Iyun", "June", "Июнь" -> map.put(chatId, map.get(chatId) + "-06");
+            case "Iyul", "July", "Июль" -> map.put(chatId, map.get(chatId) + "-07");
+            case "Avgust", "August", "Август" -> map.put(chatId, map.get(chatId) + "-08");
+            case "Sentabr", "September", "Сентябрь" -> map.put(chatId, map.get(chatId) + "-09");
+            case "Oktabr", "October", "Октябрь" -> map.put(chatId, map.get(chatId) + "-10");
+            case "Noyabr", "November", "Ноябрь" -> map.put(chatId, map.get(chatId) + "-11");
+            case "Dekabr", "December", "Декабрь" -> map.put(chatId, map.get(chatId) + "-12");
+        }
+        return map.get(chatId);
+    }
+
+    public void deleteYearAndDateOfMonthlyReport(Long chatId) {
+        map.put(chatId, "");
     }
 }

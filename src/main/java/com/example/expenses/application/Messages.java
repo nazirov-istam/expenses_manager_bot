@@ -729,7 +729,7 @@ public final class Messages {
     public static final String getAskPhoneNumberAgainUz = """
             ❌ Xatolik:
             Telefon raqamini quyidagi formatda kiriting:
-            +998911234567"
+            +998911234567
             
             Iltimos, telefon raqamingizni qayta kiriting!
             """;

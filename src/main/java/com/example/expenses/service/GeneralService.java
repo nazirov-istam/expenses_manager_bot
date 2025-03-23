@@ -994,31 +994,37 @@ public class GeneralService {
         );
     }
 
-    public void updateFirstName(Long chatId, String firstName) {
-        userRepository.findById(chatId).ifPresentOrElse(
-                user -> {
-                    user.setFirstname(firstName);
-                    userRepository.save(user);
-                }, () -> log.warn("Bunday foydalanuvchi mavjud emas")
-        );
+    public boolean updateFirstName(Long chatId, String firstName) {
+        User user = userService.getCurrentUser(chatId);
+        if (firstName.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ ]+")) {
+            user.setFirstname(firstName);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void updateLastName(Long chatId, String lastName) {
-        userRepository.findById(chatId).ifPresentOrElse(
-                user -> {
-                    user.setLastname(lastName);
-                    userRepository.save(user);
-                }, () -> log.warn("Bunday foydalanuvchi mavjud emas")
-        );
+    public boolean updateLastName(Long chatId, String lastName) {
+        User user = userService.getCurrentUser(chatId);
+        if (lastName.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ ]+")) {
+            user.setFirstname(lastName);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void updatePhoneNumber(Long chatId, String phoneNumber) {
-        userRepository.findById(chatId).ifPresentOrElse(
-                user -> {
-                    user.setPhoneNumber(phoneNumber);
-                    userRepository.save(user);
-                }, () -> log.warn("Bunday foydalanuvchi mavjud emas")
-        );
+    public boolean updatePhoneNumber(Long chatId, String phoneNumber) {
+        User user = userService.getCurrentUser(chatId);
+        if (phoneNumber.matches("\\+\\d+")) {
+            user.setPhoneNumber(phoneNumber);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void registerExpense(Long chatId) {

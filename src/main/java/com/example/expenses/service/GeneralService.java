@@ -32,19 +32,19 @@ public class GeneralService {
     private final ExpenseRepository expenseRepository;
     private final IncomeRepository incomeRepository;
 
-    public String language(String userText, long chatId) {
+    public String languageChangeSuccess(String userText, long chatId) {
         switch (userText) {
             case Messages.Uz -> {
                 userService.saveLanguage(UZBEK, chatId);
-                return Messages.startUz;
+                return Messages.languageChangeSuccessUz;
             }
             case Messages.Ru -> {
                 userService.saveLanguage(RUSSIAN, chatId);
-                return Messages.startRu;
+                return Messages.languageChangeSuccessRu;
             }
             case Messages.En -> {
                 userService.saveLanguage(ENGLISH, chatId);
-                return Messages.startEn;
+                return Messages.languageChangeSuccessEn;
             }
         }
         return "";
@@ -1110,7 +1110,7 @@ public class GeneralService {
         if (user != null) {
             Expense expense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
             if (expense != null) {
-                if (description.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ ]+")) {
+                if (description.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ \\d]+")) {
                     expense.setDescription(description);
                     expenseRepository.save(expense);
                     log.info("Xarajat tavsifi yangilandi: {}", description);
@@ -1176,7 +1176,7 @@ public class GeneralService {
         if (user != null) {
             Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
             if (income != null) {
-                if (description.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ ]+")) {
+                if (description.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ \\d]+")) {
                     income.setDescription(description);
                     incomeRepository.save(income);
                     log.info("Daromat tavsifi yangilandi: {}", description);

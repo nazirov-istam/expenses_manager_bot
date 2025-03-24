@@ -9,6 +9,11 @@ public final class Messages {
             \uD83C\uDDF7\uD83C\uDDFA Выберите язык !
             \uD83C\uDDFA\uD83C\uDDF8 Select a language !
             """;
+
+    public static final String languageChangeSuccessUz = "Foydalanuvchi tili muvaffaqiyatli o'zgartirildi✅";
+    public static final String languageChangeSuccessRu = "Язык пользователя успешно изменен✅";
+    public static final String languageChangeSuccessEn = "User language successfully changed✅";
+
     public static final String Uz = "\uD83C\uDDFA\uD83C\uDDFF Uz";
     public static final String Ru = "\uD83C\uDDF7\uD83C\uDDFA Ru";
     public static final String En = "\uD83C\uDDFA\uD83C\uDDF8 En";
@@ -29,10 +34,6 @@ public final class Messages {
     public static final String welcomeReportsRu = "Вы находитесь в разделе 'Отчёты'.";
     public static final String welcomeReportsEn = "You are in the 'Reports' section.";
 
-    public static final String askMonthlyOrYearlyReportUz = "Iltimos, oylik yoki yillik hisoblarni ko'rishni xohlayotganingizni tanlang.";
-    public static final String askMonthlyOrYearlyReportEn = "Please select whether you want to view the monthly or yearly reports.";
-    public static final String askMonthlyOrYearlyReportRu = "Пожалуйста, выберите, хотите ли вы просмотреть ежемесячные или год";
-
     public static final String askIncomeOrExpenseUz = "Iltimos, daromat yoki xarajat hisobotlarini ko'rishni xohlayotganingizni tanlang.";
     public static final String askIncomeOrExpenseEn = "Please select whether you want to view the income or expense reports.";
     public static final String askIncomeOrExpenseRu = "Пожалуйста, выберите, хотите ли вы просмотреть отчёты о доходах или расходах.";
@@ -49,76 +50,53 @@ public final class Messages {
     public static final String getSuccessPhoneNumberEditRu = "Номер телефона пользователя обновлен.";
     public static final String getSuccessPhoneNumberEditEn = "User's phone number has been updated.";
 
-    public static final String statsUz = """
-            Umumiy statistik ma'lumotlar 🗂
+    public static final String registerSuccessUz = """
+            👋 My Expenses Manager Bot-ga xush kelibsiz!💰
             
-            📈 Jami daromad: %.2f
-            📉 Jami xarajat: %.2f
-            📊 Foiz o‘zgarishi (O'tgan 2 oy bo'yicha):
-            📅 Eng ko‘p sarflangan/qo'shilgan kun: %s
-            📅 Eng kam sarflangan/qo'shilgan kun: %s
+            Endi xarajat va daromatlaringizni kuzatib borish, byudjetingizni boshqarish va moliyaviy maqsadlaringizga erishish ancha oson bo‘ladi.
+            
+             📌 Quyidagi qismlar yordamida botdan foydalanishingiz mumkin:
+            ✅ Profil - shaxsiy malumotlarni ko'rish va o'zgartirish
+            ✅ Daromat - daromatni ro'yxatdan o'tkazish
+            ✅ Xarajat - xarajatni ro'yxatdan o'tkazish
+            ✅ Hisobot -  umumiy hisobotlarni olish
+            
+            🗓 Menu -> Qo'shimcha buyruqlar
+            
+            🚀 Moliyaviy intizomga ega bo‘lish va mablag‘laringizni samarali boshqarish uchun hozirdanoq botdan foydalanishni boshlang!
             """;
 
-    public static final String statsRu = """
-            Общая статистическая информация 🗂
+    public static final String registerSuccessRu = """
+            👋 Добро пожаловать в My Expenses Manager Bot!💰
             
-            📈 Общий доход: %.2f
-            📉 Общие расходы: %.2f
-            📊 Изменение в процентах (за последние 2 месяца):
-            📅 День с наибольшими расходами/доходами: %s
-            📅 День с наименьшими расходами/доходами: %s
+            Теперь отслеживать свои доходы и расходы, управлять бюджетом и достигать финансовых целей стало намного проще.
+            
+            📌 Вы можете использовать бот с помощью следующих разделов:
+            ✅ Профиль – просмотр и изменение личных данных
+            ✅ Доход – регистрация дохода
+            ✅ Расход – регистрация расхода
+            ✅ Отчет – получение общих отчетов
+            
+            🗓 Меню -> Дополнительные команды
+            
+            🚀 Начните пользоваться ботом прямо сейчас, чтобы развить финансовую дисциплину и эффективно управлять своими средствами!
             """;
 
-    public static final String statsEn = """
-            General Statistical Information 🗂
+    public static final String registerSuccessEn = """
+            👋 Welcome to My Expenses Manager Bot!💰
             
-            📈 Total Income: %.2f
-            📉 Total Expenses: %.2f
-            📊 Percentage Change (Last 2 Months):
-            📅 Highest Spending/Earning Day: %s
-            📅 Lowest Spending/Earning Day: %s
+            Now tracking your expenses and income, managing your budget, and achieving your financial goals is easier than ever.
+            
+            📌 You can use the bot through the following sections:
+            ✅ Profile – View and edit personal information
+            ✅ Income – Register income
+            ✅ Expense – Register expenses
+            ✅ Report – Get general reports
+            
+            🗓 Menu -> Additional commands
+            
+            🚀 Start using the bot now to develop financial discipline and manage your money effectively!
             """;
-
-
-    public static final String startUz = """
-            👋 Salom! My Expenses Manager Bot-ga xush kelibsiz!💰
-            
-            Bu bot yordamida xarajatlaringizni kuzatishingiz, byudjetingizni nazorat qilishingiz va moliyaviy maqsadlaringizga erishishingiz mumkin.
-            
-            📌 Asosiy buyruqlar:
-            ✅ /main – Asosiy buyruqlar
-            ✅ /info – Bot haqida ma'lumot olish
-            ✅ /help – Yordam
-            ✅ /language - Tilni o'zgartirish
-            ✅ /stats - Umumiy foydalanuvchilar soni
-            """;
-
-    public static final String startRu = """
-            👋 Привет! Добро пожаловать в My Expenses Manager Bot!💰
-            
-            С помощью этого бота вы можете отслеживать свои расходы, контролировать бюджет и достигать финансовых целей.
-            
-            📌 Основные команды:
-            ✅ /main – Основные команды
-            ✅ /info – Получить информацию о боте
-            ✅ /help – Помощь
-            ✅ /language - Изменить язык
-            ✅ /stats - Общее количество пользователей
-            """;
-
-    public static final String startEn = """
-            👋 Hello! Welcome to My Expenses Manager Bot!💰
-            
-            With this bot, you can track your expenses, manage your budget, and achieve your financial goals.
-            
-            📌 Main commands:
-            ✅ /main – Main commands
-            ✅ /info – Get information about the bot
-            ✅ /help – Help
-            ✅ /language - Change language
-            ✅ /stats - Total number of users
-            """;
-
 
     public static final String startUzIsRegistered = """
             Siz avval ro‘yxatdan o‘tgansiz. 📌
@@ -415,74 +393,75 @@ public final class Messages {
             🏬 Example: Supermarket
             """;
 
+
     public static final String askExpenseSourceAgainUz = """
-            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            ❌ Xatolik: Faqat harflar va raqamlardan foydalaning! 
             
             Iltimos, xarajat joyini qayta kiriting:
             """;
 
     public static final String askExpenseSourceAgainRu = """
-            ❌ Ошибка: Используйте только английские буквы!
+            ❌ Ошибка: Используйте только буквы и цифры!
             
             Пожалуйста, введите место расхода заново:
             """;
 
     public static final String askExpenseSourceAgainEn = """
-            ❌ Error: Use only English letters!
+            ❌ Error: Use only letters and numbers!
             
             Please re-enter the expense location:
             """;
 
     public static final String askIncomeSourceAgainUz = """
-            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            ❌ Xatolik: Faqat harflar va raqamlardan foydalaning!
             
             Iltimos, daromad manbasini qayta kiriting:
             """;
 
     public static final String askIncomeSourceAgainRu = """
-            ❌ Ошибка: Используйте только английские буквы!
+            ❌ Ошибка: Используйте только буквы и цифры!
             
             Пожалуйста, введите источник дохода заново:
             """;
 
     public static final String askIncomeSourceAgainEn = """
-            ❌ Error: Use only English letters!
+            ❌ Error: Use only letters and numbers!
             
             Please re-enter the income source:
             """;
 
     public static final String askIncomeDescriptionAgainUz = """
-            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            ❌ Xatolik: Faqat harflar va raqamlardan foydalaning!
             
             Iltimos, daromad izohini qayta kiriting:
             """;
 
     public static final String askIncomeDescriptionAgainRu = """
-            ❌ Ошибка: Используйте только английские буквы!
+            ❌ Ошибка: Используйте только буквы и цифры!
             
-            Пожалуйста, введите источник дохода заново:
+            Пожалуйста, введите примечание к доходу заново:
             """;
 
     public static final String askIncomeDescriptionAgainEn = """
-            ❌ Error: Use only English letters!
+            ❌ Error: Use only letters and numbers!
             
             Please re-enter the income description:
             """;
 
     public static final String askExpenseDescriptionAgainUz = """
-            ❌ Xatolik: Faqat ingliz harflaridan foydalaning!
+            ❌ Xatolik: Faqat harflar va raqamlardan foydalaning!
             
             Iltimos, xarajat izohini qayta kiriting:
             """;
 
     public static final String askExpenseDescriptionAgainRu = """
-            ❌ Ошибка: Используйте только английские буквы!
+            ❌ Ошибка: Используйте только буквы и цифры!
             
             Пожалуйста, введите примечание к расходу заново:
             """;
 
     public static final String askExpenseDescriptionAgainEn = """
-            ❌ Error: Use only English letters!
+            ❌ Error: Use only letters and numbers!
             
             Please re-enter the expense description:
             """;

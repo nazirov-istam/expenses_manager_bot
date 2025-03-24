@@ -27,7 +27,12 @@ public class MainService {
 
         if (update.hasMessage()) {
             long chatId = update.getMessage().getChatId();
-            String userText = update.getMessage().getText();
+            String userText;
+            if (update.getMessage().getText() != null) {
+                userText = update.getMessage().getText();
+            } else {
+                userText = ":";
+            }
             sendDocument.setChatId(chatId);
             sendMessage.setChatId(chatId);
             User user = userService.getCurrentUser(chatId);
@@ -47,8 +52,9 @@ public class MainService {
                     generalService.updateStep(chatId, Steps.ENTER_FIRSTNAME);
                     sendMessage.setText(userService.getFirstName(userText));
                 } else if (user.getStep() == Steps.HOME) {
-                    generalService.updateStep(chatId, Steps.LANGUAGE);
-                    sendMessage.setText(generalService.language(userText, chatId));
+                    sendMessage.setText(generalService.languageChangeSuccess(userText, chatId));
+                    userService.setLanguage(userText, chatId);
+                    sendMessage.setReplyMarkup(generalService.mainMenu(userService.getLanguage(chatId)));
                 }
             } else if (user.getStep() == Steps.ENTER_FIRSTNAME && userText != null) {
                 if (userService.setFirstName(chatId, userText)) {
@@ -62,11 +68,12 @@ public class MainService {
                 if (userService.setLastName(chatId, userText)) {
                     generalService.updateStep(chatId, Steps.ENTER_PHONE_NUMBER);
                     sendMessage.setText(userService.getPhoneNumber(user));
+                    sendMessage.setReplyMarkup(userService.sendRequestForPhoneNumber(chatId));
                 } else {
                     generalService.updateStep(chatId, Steps.ENTER_LASTNAME);
                     sendMessage.setText(userService.getLastNameAgain(user));
                 }
-            } else if (user.getStep() == Steps.ENTER_PHONE_NUMBER && userText != null) {
+            } else if (user.getStep() == Steps.ENTER_PHONE_NUMBER && !userText.equals(":")) {
                 if (userService.setPhoneNumber(chatId, userText)) {
                     generalService.updateStep(chatId, Steps.ENTER_BALANCE);
                     sendMessage.setText(userService.getBalance(user));
@@ -190,8 +197,7 @@ public class MainService {
                     sendMessage.setText(generalService.declineExpense(user.getLanguage()));
                     sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
                 }
-            }
-            else if (userText.equals(Messages.menuProfileEditUz) || userText.equals(Messages.menuProfileEditRu) || userText.equals(Messages.menuProfileEditEn)) {
+            } else if (userText.equals(Messages.menuProfileEditUz) || userText.equals(Messages.menuProfileEditRu) || userText.equals(Messages.menuProfileEditEn)) {
                 generalService.updateStep(chatId, Steps.PROFILE_EDIT);
                 sendMessage.setText(generalService.editProfile(user.getLanguage()));
                 sendMessage.setReplyMarkup(generalService.fourButtonProfileEdit(user.getLanguage()));
@@ -356,6 +362,17 @@ public class MainService {
                     generalService.updateStep(chatId, Steps.YEARLY_REPORT);
                     sendMessage.setText(generalService.mainReportIncomeOrExpense(user.getLanguage()));
                     sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
+                }
+            } else if (update.getMessage().hasContact() && userText.equals(":")) {
+                if (!update.getMessage().getContact().getPhoneNumber().startsWith("+")) {
+                    userText = "+" + update.getMessage().getContact().getPhoneNumber();
+                }
+                if (userService.setPhoneNumber(chatId, userText)) {
+                    generalService.updateStep(chatId, Steps.ENTER_BALANCE);
+                    sendMessage.setText(userService.getBalance(user));
+                } else {
+                    generalService.updateStep(chatId, Steps.ENTER_PHONE_NUMBER);
+                    sendMessage.setText(userService.getPhoneNumberAgain(user));
                 }
             }
         }

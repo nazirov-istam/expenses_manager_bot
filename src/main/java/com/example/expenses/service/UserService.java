@@ -11,13 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -51,7 +52,7 @@ public class UserService {
 
     public boolean setPhoneNumber(Long chatId, String userText) {
         User user = getCurrentUser(chatId);
-        if (userText.matches("\\+\\d+")) {
+        if (userText.replaceAll("\\s+", "").matches("\\+\\d+")) {
             user.setPhoneNumber(userText);
             userRepository.save(user);
             return true;
@@ -148,9 +149,9 @@ public class UserService {
 
     public String saveUser(User user) {
         return switch (user.getLanguage()) {
-            case UZBEK -> Messages.successSaveProfileInfoUz;
-            case RUSSIAN -> Messages.successSaveProfileInfoRu;
-            case ENGLISH -> Messages.successSaveProfileInfoEn;
+            case UZBEK -> Messages.registerSuccessUz;
+            case RUSSIAN -> Messages.registerSuccessRu;
+            case ENGLISH -> Messages.registerSuccessEn;
         };
     }
 
@@ -187,6 +188,10 @@ public class UserService {
             case Messages.En -> user.setLanguage(Language.ENGLISH);
         }
         userRepository.save(user);
+    }
+
+    public Language getLanguage(Long chatId) {
+        return userRepository.findById(chatId).get().getLanguage();
     }
 
     public User getCurrentUser(Long chatId) {
@@ -344,5 +349,25 @@ public class UserService {
 
     public void deleteYearAndDateOfMonthlyReport(Long chatId) {
         map.put(chatId, "");
+    }
+
+    public ReplyKeyboardMarkup sendRequestForPhoneNumber(Long chatId) {
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        keyboardMarkup.setResizeKeyboard(true);
+        keyboardMarkup.setOneTimeKeyboard(true);
+        KeyboardButton button = new KeyboardButton();
+        var row = new KeyboardRow();
+        switch (getCurrentUser(chatId).getLanguage()) {
+            case UZBEK -> button.setText("📱 Telefon raqamni yuborish");
+            case RUSSIAN -> button.setText("📱 Отправить номер телефона");
+            case ENGLISH -> button.setText("📱 Send phone number");
+        }
+        button.setRequestContact(true);
+        row.add(button);
+
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+        keyboardRows.add(row);
+        keyboardMarkup.setKeyboard(keyboardRows);
+        return keyboardMarkup;
     }
 }

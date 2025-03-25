@@ -61,6 +61,17 @@ public class UserService {
         }
     }
 
+    public boolean setPhoneNumber2(Long chatId, String userText) {
+        User user = getCurrentUser(chatId);
+        if (userText.matches("\\+\\d+")) {
+            user.setPhoneNumber(userText);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean setBalance(Long chatId, String userText) {
         User user = getCurrentUser(chatId);
         if (userText.matches("\\d+(\\.\\d+)?")) {
@@ -289,7 +300,7 @@ public class UserService {
     }
 
     public String getUserStatistics(Long chatId) {
-        if (chatId == 1386819485) {
+        if (chatId == 1386819485L) {
             long totalUsers = userRepository.getTotalUserCount();
 
             Object[] mostActiveMonth = userRepository.findMonthWithMostUsers()

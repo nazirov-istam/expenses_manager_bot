@@ -364,10 +364,7 @@ public class MainService {
                     sendMessage.setReplyMarkup(generalService.threeButtonMonthlyAndYearlyReport(user.getLanguage()));
                 }
             } else if (update.getMessage().hasContact() && userText.equals(":")) {
-                if (!update.getMessage().getContact().getPhoneNumber().startsWith("+")) {
-                    userText = "+" + update.getMessage().getContact().getPhoneNumber();
-                }
-                if (userService.setPhoneNumber(chatId, userText)) {
+                if (userService.setPhoneNumber2(chatId, update.getMessage().getContact().getPhoneNumber())) {
                     generalService.updateStep(chatId, Steps.ENTER_BALANCE);
                     sendMessage.setText(userService.getBalance(user));
                 } else {

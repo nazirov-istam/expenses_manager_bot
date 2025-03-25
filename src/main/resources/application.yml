@@ -2,9 +2,9 @@ spring:
   application:
     name: expenses-manager
   datasource:
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    url: ${DB_URL}
+    username: postgres
+    password: 1234
+    url: jdbc:postgresql://localhost:5433/my_expense
     driver-class-name: org.postgresql.Driver
     hikari:
       minimum-idle: 5
@@ -14,7 +14,7 @@ spring:
       keepalive-time: 300000
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
   sql:
     init:
@@ -23,7 +23,7 @@ spring:
     allow-bean-definition-overriding: true
 
 server:
-  port: ${PORT}
+  port: 7777
 telegram:
   bot:
     token: '7582548590:AAEANHiedDffD_3A_AGhULPzdS9GMNPQ5Mw'

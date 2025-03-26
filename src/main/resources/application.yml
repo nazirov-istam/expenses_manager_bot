@@ -2,9 +2,6 @@ spring:
   application:
     name: expenses-manager
   datasource:
-    username: postgres
-    password: 1234
-    url: jdbc:postgresql://localhost:5433/my_expense
     driver-class-name: org.postgresql.Driver
     hikari:
       minimum-idle: 5
@@ -12,9 +9,12 @@ spring:
       idle-timeout: 30000
       max-lifetime: 1800000
       keepalive-time: 300000
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
   sql:
     init:
@@ -23,10 +23,10 @@ spring:
     allow-bean-definition-overriding: true
 
 server:
-  port: 7777
+  port: ${PORT}
 telegram:
   bot:
-    token: '7582548590:AAEANHiedDffD_3A_AGhULPzdS9GMNPQ5Mw'
-    username: '@my_expenses_manager_bot'
+    token: '7581171494:AAEEnr_oHGWM5Whyvk8P4lytKRbx5Nuskuk'
+    username: '@test_my_expensesbot'
 
     ### spring.main.allow-circular-references

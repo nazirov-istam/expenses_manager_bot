@@ -25,22 +25,20 @@ public interface UserRepository extends CrudRepository<User, Long> {
     long getTotalUserCount();
 
     @Query(value = """
-            SELECT COALESCE(TO_CHAR(u.created_at, 'YYYY-MM'), 'Malumot yuq'),
-                   COALESCE(COUNT(u.id), 0)
+            SELECT COALESCE(TO_CHAR(u.created_at, 'YYYY-MM') || ' ' || COUNT(u.chat_id), 'Malumot yuq')
             FROM users u
             GROUP BY TO_CHAR(u.created_at, 'YYYY-MM')
-            ORDER BY COUNT(u.id) DESC
+            ORDER BY COUNT(u.chat_id) DESC
             LIMIT 1
             """, nativeQuery = true)
-    Optional<Object[]> findMonthWithMostUsers();
+    Optional<String> findMonthWithMostUsers();
 
     @Query(value = """
-            SELECT COALESCE(TO_CHAR(u.created_at, 'YYYY-MM'), 'Malumot yuq'),
-                   COALESCE(COUNT(u.id), 0)
+            SELECT COALESCE(TO_CHAR(u.created_at, 'YYYY-MM') || ' ' || COUNT(u.chat_id), 'Malumot yuq')
             FROM users u
             GROUP BY TO_CHAR(u.created_at, 'YYYY-MM')
-            ORDER BY COUNT(u.id) ASC
+            ORDER BY COUNT(u.chat_id) ASC
             LIMIT 1
             """, nativeQuery = true)
-    Optional<Object[]> findMonthWithLeastUsers();
+    Optional<String> findMonthWithLeastUsers();
 }

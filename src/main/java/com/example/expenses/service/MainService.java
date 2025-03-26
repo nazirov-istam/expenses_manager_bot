@@ -103,9 +103,14 @@ public class MainService {
             } else if (userText.equals(Commands.STATS)) {
                 generalService.updateStep(chatId, Steps.HOME);
                 sendMessage.setText(generalService.stats(chatId));
-            } else if (userText.equals(Commands.OWNER_STATS)) {
+            } else if (userText.equals(Commands.OWNER_USER_STATS)) {
                 generalService.updateStep(chatId, Steps.HOME);
                 sendMessage.setText(userService.getUserStatistics(chatId));
+            } else if (userText.equals(Commands.OWNER_USER_STATS_REPORT)) {
+                generalService.updateStep(chatId, Steps.HOME);
+                sendDocument.setDocument(reportService.sendAllUserInfo(chatId));
+                sendMessage.setReplyMarkup(generalService.mainMenu(user.getLanguage()));
+                return sendDocument;
             } else if (userText.equals(Commands.MAIN)) {
                 generalService.updateStep(chatId, Steps.HOME);
                 sendMessage.setText(generalService.mainMenuWelcome(user.getLanguage()));

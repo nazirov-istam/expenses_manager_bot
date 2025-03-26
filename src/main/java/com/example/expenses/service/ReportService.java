@@ -6,6 +6,7 @@ import com.example.expenses.model.Income;
 import com.example.expenses.model.User;
 import com.example.expenses.repository.ExpenseRepository;
 import com.example.expenses.repository.IncomeRepository;
+import com.example.expenses.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -27,6 +28,7 @@ public class ReportService {
     private final IncomeRepository incomeRepository;
     private final ExpenseRepository expenseRepository;
     private final UserService userService;
+    private final UserRepository userRepository;
 
     public byte[] generateMonthlyIncomeReport(Long chatId, String yearMonth) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -401,5 +403,73 @@ public class ReportService {
         String fileName = String.format("income_report_%s.xlsx", year);
 
         return new InputFile(inputStream, fileName);
+    }
+
+    public byte[] getAllUserInfoForOwner() {
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+             Workbook workbook = new XSSFWorkbook()) {
+
+            Sheet sheet;
+            Row header;
+            String totalLabel;
+
+            CellStyle boldStyle = workbook.createCellStyle();
+            Font boldFont = workbook.createFont();
+            boldFont.setBold(true);
+            boldStyle.setFont(boldFont);
+
+            sheet = workbook.createSheet("Foydalanuvchilar ma'lumotlari");
+            header = sheet.createRow(0);
+
+            createHeaderCell(header, 0, "Ismi", boldStyle);
+            createHeaderCell(header, 1, "Familiyasi", boldStyle);
+            createHeaderCell(header, 2, "Username", boldStyle);
+            createHeaderCell(header, 3, "Telefon raqami", boldStyle);
+            createHeaderCell(header, 4, "Ro'yxatdan o'tgan sana", boldStyle);
+            createHeaderCell(header, 5, "Hozirgi balans", boldStyle);
+
+            totalLabel = "Umumiy soni:";
+
+            List<User> users = userRepository.findAll();
+            int rowNum = 1;
+
+            for (User user : users) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(user.getFirstname());
+                row.createCell(1).setCellValue(user.getLastname());
+                row.createCell(2).setCellValue("@" + user.getUsername());
+                row.createCell(3).setCellValue(user.getPhoneNumber());
+                row.createCell(4).setCellValue(user.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                row.createCell(5).setCellValue(user.getTotalBalance());
+            }
+
+            Row emptyRow = sheet.createRow(rowNum++);
+
+            Row totalRow = sheet.createRow(rowNum);
+            createHeaderCell(totalRow, 0, totalLabel, boldStyle);
+            totalRow.createCell(1).setCellValue(userRepository.getTotalUserCount());
+
+            for (int i = 0; i < 6; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            workbook.write(outputStream);
+            return outputStream.toByteArray();
+
+        } catch (IOException e) {
+            throw new RuntimeException("Error generating All Users report", e);
+        }
+    }
+
+    public InputFile sendAllUserInfo(Long chatId) {
+        if (chatId == 1386819485L) {
+            byte[] excelData = getAllUserInfoForOwner();
+
+            InputStream inputStream = new ByteArrayInputStream(excelData);
+            String fileName = "all_users_info.xlsx";
+
+            return new InputFile(inputStream, fileName);
+        }
+        return null;
     }
 }

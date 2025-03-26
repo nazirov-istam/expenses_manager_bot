@@ -303,20 +303,20 @@ public class UserService {
         if (chatId == 1386819485L) {
             long totalUsers = userRepository.getTotalUserCount();
 
-            Object[] mostActiveMonth = userRepository.findMonthWithMostUsers()
-                    .orElse(new Object[]{"Ma'lumot yo'q", 0});
-            Object[] leastActiveMonth = userRepository.findMonthWithLeastUsers()
-                    .orElse(new Object[]{"Ma'lumot yo'q", 0});
+            Object[] mostActiveMonth = new String[]{userRepository.findMonthWithMostUsers()
+                    .orElse(Arrays.toString(new Object[]{"Ma'lumot yo'q", 0}))};
+            Object[] leastActiveMonth = new String[]{userRepository.findMonthWithLeastUsers()
+                    .orElse(Arrays.toString(new Object[]{"Ma'lumot yo'q", 0}))};
 
             String mostActiveMonthFormatted = formatMonthData(mostActiveMonth);
             String leastActiveMonthFormatted = formatMonthData(leastActiveMonth);
 
             return String.format("""
-                    📊 Bot foydalanuvchilari statistikasi:
+                    📊 Bot User Statistics:
                     
-                    👥 Umumiy foydalanuvchilar soni: %d
-                    📅 Eng ko‘p foydalanuvchi qo‘shilgan oy: %s
-                    📅 Eng kam foydalanuvchi qo‘shilgan oy: %s
+                    👥 Total number of users: %d
+                    📅 Month with the most new users: %s
+                    📅 Month with the fewest new users: %s
                     """, totalUsers, mostActiveMonthFormatted, leastActiveMonthFormatted);
         }
 

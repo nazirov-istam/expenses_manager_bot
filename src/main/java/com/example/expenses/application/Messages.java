@@ -38,17 +38,17 @@ public final class Messages {
     public static final String askIncomeOrExpenseEn = "Please select whether you want to view the income or expense reports.";
     public static final String askIncomeOrExpenseRu = "Пожалуйста, выберите, хотите ли вы просмотреть отчёты о доходах или расходах.";
 
-    public static final String getSuccessFirstNameEditUz = "Foydalanuvchi ismi yangilandi.";
-    public static final String getSuccessFirstNameEditRu = "Имя пользователя обновлено.";
-    public static final String getSuccessFirstNameEditEn = "User's first name has been updated.";
+    public static final String getSuccessFirstNameEditUz = "Foydalanuvchi ismi yangilandi.✅";
+    public static final String getSuccessFirstNameEditRu = "Имя пользователя обновлено.✅";
+    public static final String getSuccessFirstNameEditEn = "User's first name has been updated.✅";
 
-    public static final String getSuccessLastNameEditUz = "Foydalanuvchi familiyasi yangilandi.";
-    public static final String getSuccessLastNameEditRu = "Фамилия пользователя обновлена.";
-    public static final String getSuccessLastNameEditEn = "User's last name has been updated.";
+    public static final String getSuccessLastNameEditUz = "Foydalanuvchi familiyasi yangilandi.✅";
+    public static final String getSuccessLastNameEditRu = "Фамилия пользователя обновлена.✅";
+    public static final String getSuccessLastNameEditEn = "User's last name has been updated.✅";
 
-    public static final String getSuccessPhoneNumberEditUz = "Foydalanuvchi telefon raqami yangilandi.";
-    public static final String getSuccessPhoneNumberEditRu = "Номер телефона пользователя обновлен.";
-    public static final String getSuccessPhoneNumberEditEn = "User's phone number has been updated.";
+    public static final String getSuccessPhoneNumberEditUz = "Foydalanuvchi telefon raqami yangilandi.✅";
+    public static final String getSuccessPhoneNumberEditRu = "Номер телефона пользователя обновлен.✅";
+    public static final String getSuccessPhoneNumberEditEn = "User's phone number has been updated.✅";
 
     public static final String registerSuccessUz = """
             👋 My Expenses Manager Bot-ga xush kelibsiz!💰
@@ -219,7 +219,7 @@ public final class Messages {
 
 
     public static final String menuProfileViewUz = "Profil ma'lumotlari \uD83D\uDC64";
-    public static final String menuProfileViewRu = "Профиль \uD83D\uDC64";
+    public static final String menuProfileViewRu = "Профиль Инфо \uD83D\uDC64";
     public static final String menuProfileViewEn = "Profile Info \uD83D\uDC64";
 
     public static final String menuProfileEditUz = "Profilni tahrirlash ⚙️";
@@ -303,24 +303,6 @@ public final class Messages {
             Example: 10000000
             """;
 
-    public static final String successSaveProfileInfoUz = """
-            Shaxsiy ma'lumotlaringiz muvaffaqiyatli saqlandi.✅
-            
-            Ularni 'Profil' bo‘limidan ko‘rishingiz va o‘zgartirishingiz mumkin.📌
-            """;
-
-    public static final String successSaveProfileInfoRu = """
-            Ваши личные данные успешно сохранены.✅
-            
-            Вы можете просмотреть и изменить их в разделе 'Профиль'.📌
-            """;
-
-    public static final String successSaveProfileInfoEn = """
-            Your personal information has been successfully saved.✅
-            
-            You can view and edit it in the 'Profile' section.📌
-            """;
-
     public static final String askMonthlyReportUz = "Oylik hisobotlar 📊";
     public static final String askMonthlyReportRu = "Ежемесячные отчёты 📊";
     public static final String askMonthlyReportEn = "Monthly reports 📊";
@@ -395,7 +377,7 @@ public final class Messages {
 
 
     public static final String askExpenseSourceAgainUz = """
-            ❌ Xatolik: Faqat harflar va raqamlardan foydalaning! 
+            ❌ Xatolik: Faqat harflar va raqamlardan foydalaning!
             
             Iltimos, xarajat joyini qayta kiriting:
             """;

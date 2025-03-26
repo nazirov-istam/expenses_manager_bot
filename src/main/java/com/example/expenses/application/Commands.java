@@ -7,5 +7,6 @@ public final class Commands {
     public static final String MAIN = "/main";
     public static final String LANGUAGE = "/language";
     public static final String STATS = "/stats";
-    public static final String OWNER_STATS = "/owner_stats";
+    public static final String OWNER_USER_STATS = "/user_stats";
+    public static final String OWNER_USER_STATS_REPORT = "/user_report";
 }

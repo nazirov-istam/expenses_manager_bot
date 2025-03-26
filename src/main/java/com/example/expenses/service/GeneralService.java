@@ -1066,7 +1066,7 @@ public class GeneralService {
         if (user != null) {
             Expense expense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
             if (expense != null) {
-                if (expenseSource.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ ]+")) {
+                if (expenseSource.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\- ]+")) {
                     expense.setExpenseSource(expenseSource);
                     expenseRepository.save(expense);
                     log.info("Xarajat joyi yangilandi: {}", expenseSource);
@@ -1110,7 +1110,8 @@ public class GeneralService {
         if (user != null) {
             Expense expense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
             if (expense != null) {
-                if (description.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ \\d]+")) {
+                if (description.matches("(?=.*[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\-])" +
+                        "[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\- 0-9]+")) {
                     expense.setDescription(description);
                     expenseRepository.save(expense);
                     log.info("Xarajat tavsifi yangilandi: {}", description);
@@ -1132,7 +1133,7 @@ public class GeneralService {
         if (user != null) {
             Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
             if (income != null) {
-                if (incomeSource.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ ]+")) {
+                if (incomeSource.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\- ]+")) {
                     income.setIncomeSource(incomeSource);
                     incomeRepository.save(income);
                     log.info("Daromat joyi yangilandi: {}", incomeSource);
@@ -1176,7 +1177,8 @@ public class GeneralService {
         if (user != null) {
             Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
             if (income != null) {
-                if (description.matches("[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ \\d]+")) {
+                if (description.matches("(?=.*[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\-])" +
+                        "[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\- 0-9]+")) {
                     income.setDescription(description);
                     incomeRepository.save(income);
                     log.info("Daromat tavsifi yangilandi: {}", description);

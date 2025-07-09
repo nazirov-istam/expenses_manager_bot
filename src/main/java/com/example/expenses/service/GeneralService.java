@@ -231,6 +231,81 @@ public class GeneralService {
         return "";
     }
 
+    public String resetBalanceSuccess(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.getSuccessBalanceResetUz;
+            }
+            case RUSSIAN -> {
+                return Messages.getSuccessBalanceResetRu;
+            }
+            case ENGLISH -> {
+                return Messages.getSuccessBalanceResetEn;
+            }
+        }
+        return "";
+    }
+
+    public String resetBalanceFail(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.getFailBalanceResetUz;
+            }
+            case RUSSIAN -> {
+                return Messages.getFailBalanceResetRu;
+            }
+            case ENGLISH -> {
+                return Messages.getFailBalanceResetEn;
+            }
+        }
+        return "";
+    }
+
+    public String resetBalanceDecline(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.getDeclineBalanceResetUz;
+            }
+            case RUSSIAN -> {
+                return Messages.getDeclineBalanceResetRu;
+            }
+            case ENGLISH -> {
+                return Messages.getDeclineBalanceResetEn;
+            }
+        }
+        return "";
+    }
+
+    public String deleteAccount(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.confirmDeleteAccountUz;
+            }
+            case RUSSIAN -> {
+                return Messages.confirmDeleteAccountRu;
+            }
+            case ENGLISH -> {
+                return Messages.confirmDeleteAccountEn;
+            }
+        }
+        return "";
+    }
+
+    public String deleteAccountReject(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.rejectDeleteAccountUz;
+            }
+            case RUSSIAN -> {
+                return Messages.rejectDeleteAccountRu;
+            }
+            case ENGLISH -> {
+                return Messages.rejectDeleteAccountEn;
+            }
+        }
+        return "";
+    }
+
     public String askNewFirstName(Language language) {
         switch (language) {
             case UZBEK -> {
@@ -271,6 +346,36 @@ public class GeneralService {
             }
             case ENGLISH -> {
                 return Messages.askNewPhoneNumberEn;
+            }
+        }
+        return "";
+    }
+
+    public String askBalanceReset(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.askBalanceResetUz;
+            }
+            case RUSSIAN -> {
+                return Messages.askBalanceResetRu;
+            }
+            case ENGLISH -> {
+                return Messages.askBalanceResetEn;
+            }
+        }
+        return "";
+    }
+
+    public String askDeleteAccount(Language language) {
+        switch (language) {
+            case UZBEK -> {
+                return Messages.askDeleteAccountUz;
+            }
+            case RUSSIAN -> {
+                return Messages.askDeleteAccountRu;
+            }
+            case ENGLISH -> {
+                return Messages.askDeleteAccountEn;
             }
         }
         return "";
@@ -851,6 +956,7 @@ public class GeneralService {
         KeyboardButton firstNameEdit = new KeyboardButton();
         KeyboardButton lastNameEdit = new KeyboardButton();
         KeyboardButton phoneNumberEdit = new KeyboardButton();
+        KeyboardButton deleteAccount = new KeyboardButton();
         KeyboardButton back = new KeyboardButton();
 
 
@@ -859,18 +965,21 @@ public class GeneralService {
                 firstNameEdit.setText(Messages.editFirstNameButtonUz);
                 lastNameEdit.setText(Messages.editLastNameButtonUz);
                 phoneNumberEdit.setText(Messages.editPhoneNumberButtonUz);
+                deleteAccount.setText(Messages.deleteAccountButtonUz);
                 back.setText(Messages.backUz);
             }
             case RUSSIAN -> {
                 firstNameEdit.setText(Messages.editFirstNameButtonRu);
                 lastNameEdit.setText(Messages.editLastNameButtonRu);
                 phoneNumberEdit.setText(Messages.editPhoneNumberButtonRu);
+                deleteAccount.setText(Messages.deleteAccountButtonRu);
                 back.setText(Messages.backRu);
             }
             case ENGLISH -> {
                 firstNameEdit.setText(Messages.editFirstNameButtonEn);
                 lastNameEdit.setText(Messages.editLastNameButtonEn);
                 phoneNumberEdit.setText(Messages.editPhoneNumberButtonEn);
+                deleteAccount.setText(Messages.deleteAccountButtonEn);
                 back.setText(Messages.backEn);
 
             }
@@ -1111,7 +1220,7 @@ public class GeneralService {
             Expense expense = expenseRepository.findTopByUserOrderByCreatedAtDesc(user);
             if (expense != null) {
                 if (description.matches("(?=.*[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\-])" +
-                        "[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\- 0-9]+")) {
+                                        "[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\- 0-9]+")) {
                     expense.setDescription(description);
                     expenseRepository.save(expense);
                     log.info("Xarajat tavsifi yangilandi: {}", description);
@@ -1178,7 +1287,7 @@ public class GeneralService {
             Income income = incomeRepository.findTopByUserOrderByCreatedAtDesc(user);
             if (income != null) {
                 if (description.matches("(?=.*[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\-])" +
-                        "[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\- 0-9]+")) {
+                                        "[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳЧчШшЪъЬьІіЄєҐґ’ʼ'\\- 0-9]+")) {
                     income.setDescription(description);
                     incomeRepository.save(income);
                     log.info("Daromat tavsifi yangilandi: {}", description);

@@ -50,6 +50,39 @@ public final class Messages {
     public static final String getSuccessPhoneNumberEditRu = "Номер телефона пользователя обновлен.✅";
     public static final String getSuccessPhoneNumberEditEn = "User's phone number has been updated.✅";
 
+    public static final String getSuccessBalanceResetUz = "Foydalanuvchi umumiy balansi 0 ga qaytarildi.✅";
+    public static final String getSuccessBalanceResetRu = "Общий баланс пользователя сброшен на 0.✅";
+    public static final String getSuccessBalanceResetEn = "User's total balance has been reset to 0.✅";
+
+    public static final String getFailBalanceResetUz = "O'zgartirish uchun balans mavjud emas.⚠️";
+    public static final String getFailBalanceResetRu = "Нет баланса для изменения.⚠️";
+    public static final String getFailBalanceResetEn = "No balance available for modification.⚠️";
+
+    public static final String getDeclineBalanceResetUz = "Balansni o'zgartirish rad etildi.❌";
+    public static final String getDeclineBalanceResetRu = "Изменение баланса отклонено.❌";
+    public static final String getDeclineBalanceResetEn = "Balance modification declined.❌";
+
+    public static final String confirmDeleteAccountUz = """
+            Akkountingiz muvaffaqiyatli o'chirildi.✅
+            
+            Qayta ro'yxatdan o'tish uchun /start ni bosing 📌
+            """;
+
+    public static final String confirmDeleteAccountRu = """
+            Ваш аккаунт успешно удален.✅
+            
+            Нажмите /start для повторной регистрации 📌
+            """;
+
+    public static final String confirmDeleteAccountEn = """
+            Your account has been successfully deleted.✅
+            
+            Press /start to register again 📌
+            """;
+    public static final String rejectDeleteAccountUz = "Akkountni o'chirish rad etildi.✅";
+    public static final String rejectDeleteAccountRu = "Удаление аккаунта отклонено.✅";
+    public static final String rejectDeleteAccountEn = "Account deletion rejected.✅";
+
     public static final String registerSuccessUz = """
             👋 My Expenses Manager Bot-ga xush kelibsiz!💰
             
@@ -208,7 +241,6 @@ public final class Messages {
             📢 Take control of your finances and save more! 🚀
             """;
 
-    // Profil
     public static final String menuProfileUz = "Profil" + " \uD83D\uDC64";
     public static final String menuProfileRu = "Профиль" + " \uD83D\uDC64";
     public static final String menuProfileEn = "Profile" + " \uD83D\uDC64";
@@ -226,18 +258,14 @@ public final class Messages {
     public static final String menuProfileEditRu = "Редактировать профиль ⚙️";
     public static final String menuProfileEditEn = "Edit Profile ⚙️";
 
-
-    // Daromad
     public static final String menuIncomeUz = "Daromad" + " \uD83D\uDCB5";
     public static final String menuIncomeRu = "Доход" + " \uD83D\uDCB5";
     public static final String menuIncomeEn = "Income" + " \uD83D\uDCB5";
 
-    // Xarajat
     public static final String menuExpenseUz = "Xarajat" + " \uD83D\uDED2";
     public static final String menuExpenseRu = "Расход" + " \uD83D\uDED2";
     public static final String menuExpenseEn = "Expense" + " \uD83D\uDED2";
 
-    // Hisobot
     public static final String menuReportUz = "Hisobot" + " \uD83D\uDCC1";
     public static final String menuReportRu = "Отчёт" + " \uD83D\uDCC1";
     public static final String menuReportEn = "Report" + " \uD83D\uDCC1";
@@ -323,14 +351,10 @@ public final class Messages {
     public static final String askMonthOfMonthlyFormatRu = "Выберите месяц: ";
     public static final String askMonthOfMonthlyFormatEn = "Select the month: ";
 
-
     public static final String askYearlyFormatUz = "Qaysi yilga oid hisobotni olishni xohlaysiz?";
-
     public static final String askYearlyFormatRu = "За какой годовой отчет вы хотели бы получить информацию?";
-
     public static final String askYearlyFormatEn = "For which year would you like to receive the report?";
 
-    // Xarajat
     public static final String askExpenseUz = "Xarajat hisobotlari 📊";
     public static final String askExpenseRu = "Расход отчёты 📊";
     public static final String askExpenseEn = "Expense reports 📊";
@@ -348,6 +372,14 @@ public final class Messages {
     public static final String editPhoneNumberButtonRu = "Телефон ✏️";
     public static final String editPhoneNumberButtonEn = "Edit Phone ✏️";
 
+    public static final String deleteAccountButtonUz = "Akkountni o'chirish ✏️";
+    public static final String deleteAccountButtonRu = "Удалить аккаунт ✏️";
+    public static final String deleteAccountButtonEn = "Delete Account ✏️";
+
+    public static final String editBalanceButtonUz = "Umumiy balansni 0 ga qaytarish ✏️";
+    public static final String editBalanceButtonRu = "Сбросить общий баланс на 0 ✏️";
+    public static final String editBalanceButtonEn = "Reset total balance to 0 ✏️";
+
     public static final String askNewFirstNameUz = "Iltimos, yangi ismni yozing:\nNamuna: Jasur";
     public static final String askNewFirstNameRu = "Пожалуйста, введите новое имя:\nПример: Jasur";
     public static final String askNewFirstNameEn = "Please enter a new first name:\nExample: Jasur";
@@ -359,6 +391,14 @@ public final class Messages {
     public static final String askNewPhoneNumberUz = "Iltimos, yangi telefon raqamingizni yozing:\nNamuna: +998901234567";
     public static final String askNewPhoneNumberRu = "Пожалуйста, введите новый номер телефона:\nПример: +998901234567";
     public static final String askNewPhoneNumberEn = "Please enter a new phone number:\nExample: +998901234567";
+
+    public static final String askBalanceResetUz = "Umumiy balansingizni 0 ga tushirishni xohlaysizmi ?";
+    public static final String askBalanceResetRu = "Хотите ли вы обнулить ваш общий баланс?";
+    public static final String askBalanceResetEn = "Would you like to reset your total balance to 0?";
+
+    public static final String askDeleteAccountUz = "Akkountingizni butunlay o'chirishni xohlaysizmi ?";
+    public static final String askDeleteAccountEn = "Would you like to completely delete your account?";
+    public static final String askDeleteAccountRu = "Хотите ли вы полностью удалить свой аккаунт?";
 
     public static final String askExpenseSourceUz = """
             Iltimos, xarajat joyini kiriting:

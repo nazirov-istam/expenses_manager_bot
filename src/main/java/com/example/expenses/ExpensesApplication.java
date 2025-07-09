@@ -16,4 +16,16 @@ public class ExpensesApplication {
         SpringApplication.run(ExpensesApplication.class, args);
     }
 
+    // TODO
+    /*
+    1) Phone Number ishlaydigan qilish kerak ✅
+    2) Delete account ✅
+    3) Osonlashtirish (tugmalar uta kup.)
+    4) Reset Balance ✅
+
+    userni telefon raqamini faqat "Contact share" qilib olsa bo'ladi
+    o'shanda o'zini chat id simi yo'qmi tekshirib qo'yasiz
+    bunda yana bitta jihat bor: boshqa odamni kontaktini share qilishi ham mumkin
+    o'shanchun chat id lar mosligini tekshirish kerak
+     */
 }

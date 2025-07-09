@@ -38,8 +38,6 @@ public class BalanceResetService {
                 telegramService.sendTelegramMessage(user.getChatId(), message);
             }
         }
-
-        System.out.println("Barcha userlarning balanslari 0 ga tushirildi va xabar yuborildi.");
     }
 
     public String escapeMarkdownV2(String text) {

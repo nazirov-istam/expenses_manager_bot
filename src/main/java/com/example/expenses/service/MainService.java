@@ -209,7 +209,9 @@ public class MainService {
             } else if (userText.equals(Messages.editFirstNameButtonUz) || userText.equals(Messages.editFirstNameButtonRu) || userText.equals(Messages.editFirstNameButtonEn)) {
                 generalService.updateStep(chatId, Steps.EDIT_FIRSTNAME);
                 sendMessage.setText(generalService.askNewFirstName(user.getLanguage()));
-            } else if (generalService.getStep(chatId) == Steps.EDIT_FIRSTNAME && userText != null) {
+            }
+            // TODO
+            else if (generalService.getStep(chatId) == Steps.EDIT_FIRSTNAME && userText != null) {
                 if (generalService.updateFirstName(chatId, userText)) {
                     sendMessage.setText(generalService.editFirstNameSuccess(user.getLanguage()));
                     generalService.updateStep(chatId, Steps.PROFILE_EDIT);
@@ -242,7 +244,42 @@ public class MainService {
                     generalService.updateStep(chatId, Steps.EDIT_PHONE_NUMBER);
                     sendMessage.setText(userService.getPhoneNumberAgain(user));
                 }
-            } else if (userText.equals(Messages.menuReportUz) || userText.equals(Messages.menuReportRu) || userText.equals(Messages.menuReportEn)) {
+            }
+            // TODO: Reset balance. Done ✅
+            else if (userText.equals(Messages.editBalanceButtonUz) || userText.equals(Messages.editBalanceButtonEn) || userText.equals(Messages.editBalanceButtonRu)) {
+                generalService.updateStep(chatId, Steps.EDIT_BALANCE);
+                sendMessage.setText(generalService.askBalanceReset(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.twoButtons(user.getLanguage()));
+            } else if (generalService.getStep(chatId) == Steps.EDIT_BALANCE) {
+                if (userText.equals(Messages.confirmMessageUz) || userText.equals(Messages.confirmMessageRu) || userText.equals(Messages.confirmMessageEn)) {
+                    if (userService.resetBalance(chatId)) {
+                        sendMessage.setText(generalService.resetBalanceSuccess(user.getLanguage()));
+                    } else {
+                        sendMessage.setText(generalService.resetBalanceFail(user.getLanguage()));
+                    }
+                } else {
+                    sendMessage.setText(generalService.resetBalanceDecline(user.getLanguage()));
+                }
+                generalService.updateStep(chatId, Steps.PROFILE_EDIT);
+                sendMessage.setReplyMarkup(generalService.fourButtonProfileEdit(user.getLanguage()));
+            }
+            // TODO: Delete account. Done ✅
+            else if (userText.equals(Messages.deleteAccountButtonUz) || userText.equals(Messages.deleteAccountButtonEn) || userText.equals(Messages.deleteAccountButtonRu)) {
+                generalService.updateStep(chatId, Steps.DELETE_ACCOUNT);
+                sendMessage.setText(generalService.askDeleteAccount(user.getLanguage()));
+                sendMessage.setReplyMarkup(generalService.twoButtons(user.getLanguage()));
+            } else if (generalService.getStep(chatId) == Steps.DELETE_ACCOUNT) {
+                if (userText.equals(Messages.confirmMessageUz) || userText.equals(Messages.confirmMessageRu) || userText.equals(Messages.confirmMessageEn)) {
+                    userService.deleteAccount(chatId);
+                    sendMessage.setText(generalService.deleteAccount(user.getLanguage()));
+                } else {
+                    sendMessage.setText(generalService.deleteAccountReject(user.getLanguage()));
+                    generalService.updateStep(chatId, Steps.PROFILE_EDIT);
+                    sendMessage.setReplyMarkup(generalService.fourButtonProfileEdit(user.getLanguage()));
+                }
+            }
+            // TODO
+            else if (userText.equals(Messages.menuReportUz) || userText.equals(Messages.menuReportRu) || userText.equals(Messages.menuReportEn)) {
                 generalService.updateStep(chatId, Steps.REPORT);
                 sendMessage.setReplyMarkup(generalService.threeButtonReport(user.getLanguage()));
                 sendMessage.setText(generalService.mainReport(user.getLanguage()));
@@ -376,6 +413,8 @@ public class MainService {
                     generalService.updateStep(chatId, Steps.ENTER_PHONE_NUMBER);
                     sendMessage.setText(userService.getPhoneNumberAgain(user));
                 }
+            } else {
+
             }
         }
         return sendMessage;

@@ -6,6 +6,7 @@ import com.example.expenses.model.User;
 import com.example.expenses.repository.ExpenseRepository;
 import com.example.expenses.repository.IncomeRepository;
 import com.example.expenses.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -380,5 +381,20 @@ public class UserService {
         keyboardRows.add(row);
         keyboardMarkup.setKeyboard(keyboardRows);
         return keyboardMarkup;
+    }
+
+    public boolean resetBalance(Long chatId) {
+        User user = getCurrentUser(chatId);
+        if (user.getTotalBalance() == 0) {
+            return false;
+        } else {
+            user.setTotalBalance(0.0);
+            return true;
+        }
+    }
+
+    @Transactional
+    public void deleteAccount(Long chatId) {
+        userRepository.deleteById(chatId);
     }
 }

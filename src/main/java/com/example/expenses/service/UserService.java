@@ -389,6 +389,7 @@ public class UserService {
             return false;
         } else {
             user.setTotalBalance(0.0);
+            userRepository.save(user);
             return true;
         }
     }

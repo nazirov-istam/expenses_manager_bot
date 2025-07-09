@@ -26,7 +26,7 @@ server:
   port: ${PORT}
 telegram:
   bot:
-    token: '7581171494:AAEEnr_oHGWM5Whyvk8P4lytKRbx5Nuskuk'
-    username: '@test_my_expensesbot'
+    token: ${TOKEN}
+    username: ${USERNAME}
 
     ### spring.main.allow-circular-references

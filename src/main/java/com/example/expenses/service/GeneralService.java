@@ -956,6 +956,7 @@ public class GeneralService {
         KeyboardButton firstNameEdit = new KeyboardButton();
         KeyboardButton lastNameEdit = new KeyboardButton();
         KeyboardButton phoneNumberEdit = new KeyboardButton();
+        KeyboardButton balanceEdit = new KeyboardButton();
         KeyboardButton deleteAccount = new KeyboardButton();
         KeyboardButton back = new KeyboardButton();
 
@@ -966,6 +967,7 @@ public class GeneralService {
                 lastNameEdit.setText(Messages.editLastNameButtonUz);
                 phoneNumberEdit.setText(Messages.editPhoneNumberButtonUz);
                 deleteAccount.setText(Messages.deleteAccountButtonUz);
+                balanceEdit.setText(Messages.editBalanceButtonUz);
                 back.setText(Messages.backUz);
             }
             case RUSSIAN -> {
@@ -973,6 +975,7 @@ public class GeneralService {
                 lastNameEdit.setText(Messages.editLastNameButtonRu);
                 phoneNumberEdit.setText(Messages.editPhoneNumberButtonRu);
                 deleteAccount.setText(Messages.deleteAccountButtonRu);
+                balanceEdit.setText(Messages.editBalanceButtonRu);
                 back.setText(Messages.backRu);
             }
             case ENGLISH -> {
@@ -980,6 +983,7 @@ public class GeneralService {
                 lastNameEdit.setText(Messages.editLastNameButtonEn);
                 phoneNumberEdit.setText(Messages.editPhoneNumberButtonEn);
                 deleteAccount.setText(Messages.deleteAccountButtonEn);
+                balanceEdit.setText(Messages.editBalanceButtonEn);
                 back.setText(Messages.backEn);
 
             }
@@ -987,19 +991,25 @@ public class GeneralService {
 
         KeyboardRow row1 = new KeyboardRow();
         KeyboardRow row2 = new KeyboardRow();
+        KeyboardRow row3 = new KeyboardRow();
+
         row1.add(firstNameEdit);
         row1.add(lastNameEdit);
         row1.add(phoneNumberEdit);
-        row2.add(back);
+        row2.add(balanceEdit);
+        row2.add(deleteAccount);
+        row3.add(back);
 
         ArrayList<KeyboardRow> rows = new ArrayList<>();
         rows.add(row1);
         rows.add(row2);
+        rows.add(row3);
 
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         replyKeyboardMarkup.setKeyboard(rows);
         replyKeyboardMarkup.setResizeKeyboard(true);
         replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
         return replyKeyboardMarkup;
     }
 
